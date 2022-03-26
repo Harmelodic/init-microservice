@@ -1,4 +1,9 @@
 package com.harmelodic.init.microservice.account;
 
-public class Account {
+import java.util.UUID;
+
+public record Account(
+        UUID id,
+        String name,
+        UUID customerId) {
 }
