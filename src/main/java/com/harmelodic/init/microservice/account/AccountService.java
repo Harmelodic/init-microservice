@@ -10,7 +10,8 @@ public record AccountService(AccountRepository accountRepository,
                              AccountCreatedPublisher accountCreatedPublisher) {
 
     public Account openAccount(Account account) {
-        Account createdAccount = accountRepository.openAccount(account);
+        Account accountToOpen = new Account(UUID.randomUUID(), account.name(), account.customerId());
+        Account createdAccount = accountRepository.openAccount(accountToOpen);
         accountCreatedPublisher.publish(createdAccount);
         return createdAccount;
     }
