@@ -8,11 +8,11 @@ import java.util.UUID;
 @Component
 public class CustomerClient {
 
-    WebClient webClient;
+    final WebClient webClient;
 
     CustomerClient(WebClient.Builder builder) {
         this.webClient = builder
-                .baseUrl("http://customer-service")
+                .baseUrl("http://customer-api")
                 .build();
     }
 
