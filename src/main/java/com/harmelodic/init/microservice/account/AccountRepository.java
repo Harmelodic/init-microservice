@@ -11,12 +11,19 @@ import java.util.UUID;
 public class AccountRepository {
 
     /**
+     * <p>
      * Why JDBCTemplate? Why not use Jakarta Persistence?
-     * <p>
-     * It just makes the application more complicated, when you could just learn and used SQL.
-     * <p>
-     * It means we can keep all the Database logic in the Repository,
-     * as intended by the Repository pattern.
+     * </p
+     * <ol>
+     *     <li>
+     *     I find Jakarta Persistence just makes the application more complicated,
+     *     when you could just learn and used SQL with JDBC.
+     *     </li>
+     *     <li>
+     *     It means we can keep all the Database logic in the Repository,
+     *     as intended by the Repository pattern.
+     *     </li>
+     * </ol>
      */
     private final JdbcTemplate jdbcTemplate;
 
