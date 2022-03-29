@@ -2,6 +2,7 @@ package com.harmelodic.init.microservice.account.customer;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -11,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 
@@ -37,32 +39,17 @@ class CustomerServiceTest {
     @Test
     void fetchCustomerByIdFailureNotFound() {
         UUID uuid = UUID.randomUUID();
-        RuntimeException exception = new RuntimeException("Customer not found.");
-        when(customerClient.fetchCustomer(uuid)).thenThrow(exception);
+        when(customerClient.fetchCustomer(uuid)).thenThrow(new RuntimeException("Customer not found."));
 
-        RuntimeException actualException = null;
-        try {
-            customerService.fetchCustomerById(uuid);
-        } catch (RuntimeException runtimeException) {
-            actualException = runtimeException;
-        }
-
-        assertEquals(exception, actualException);
+        assertThrows(RuntimeException.class, () -> customerService.fetchCustomerById(uuid));
     }
 
     @Test
     void fetchCustomerByIdFailureHttpException() {
         UUID uuid = UUID.randomUUID();
-        WebClientException exception = new WebClientResponseException(500, "Internal Server Error", null, null, null);
-        when(customerClient.fetchCustomer(uuid)).thenThrow(exception);
+        when(customerClient.fetchCustomer(uuid))
+                .thenThrow(new WebClientResponseException(500, "Internal Server Error", null, null, null));
 
-        WebClientException actualException = null;
-        try {
-            customerService.fetchCustomerById(uuid);
-        } catch (WebClientException webClientException) {
-            actualException = webClientException;
-        }
-
-        assertEquals(exception, actualException);
+        assertThrows(WebClientException.class, () -> customerService.fetchCustomerById(uuid));
     }
 }
