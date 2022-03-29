@@ -14,7 +14,7 @@ Built in Java.
 - [ ] Event Publisher
 - [ ] Event Subscriber
 - [x] HTTP Client
-- [x] Unit Testing
+- [x] Unit Testing for Services
 - [ ] Contract Testing the Controller (PACT)
 - [x] Contract Testing the HTTP Client (PACT)
 - [x] Integration Testing the Repository (in-memory DB)
