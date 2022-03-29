@@ -22,7 +22,11 @@ Built in Java.
 - [ ] Integration Testing the Event Subscriber (Testcontainers)
 - [ ] Logback Config
 - [x] HTTP Client Config
-- [x] Kubernetes
-- [x] Terraform
+- [x] Kubernetes resources
+- [x] Terraform resources (Google)
 - [x] README
 - [x] .gitignore
+- [x] Test & Package Automation (Maven, GitHub Actions)
+- [ ] Packaging into a Container (Jib, Maven, GitHub Actions)
+- [ ] Deployment to Kubernetes (GitHub Actions)
+- [ ] Deployment of Terraform (GitHub Actions)
