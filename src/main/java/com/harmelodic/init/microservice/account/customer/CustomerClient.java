@@ -1,5 +1,6 @@
 package com.harmelodic.init.microservice.account.customer;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -10,16 +11,17 @@ public class CustomerClient {
 
     final WebClient webClient;
 
-    CustomerClient(WebClient.Builder builder) {
+    CustomerClient(WebClient.Builder builder,
+                   @Value("${app.customer.client.baseUrl") String baseUrl) {
         this.webClient = builder
-                .baseUrl("http://customer-api")
+                .baseUrl(baseUrl)
                 .build();
     }
 
     public Customer fetchCustomer(UUID id) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/customer/{id}")
+                        .path("/customers/{id}")
                         .build(id.toString()))
                 .retrieve()
                 .bodyToMono(Customer.class)
