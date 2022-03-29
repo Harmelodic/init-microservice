@@ -6,8 +6,8 @@ Built in Java.
 
 ## Showcases
 
-- [x] Dependency Management with Maven
-- [x] Dependency Injection and Application Mgmt with Spring (Boot & Starters)
+- [x] Dependency Management (Maven)
+- [x] Dependency Injection and Application Mgmt (Spring Boot & Starters)
 - [x] Front Controller pattern
 - [x] Service Layer pattern
 - [x] Repository pattern
@@ -15,11 +15,11 @@ Built in Java.
 - [ ] Event Subscriber
 - [x] HTTP Client
 - [x] Unit Testing
-- [ ] Contract Testing the Controller with PACT
-- [x] Contract Testing the HTTP Client with PACT
-- [ ] Integration Testing the Repository with Testcontainers
-- [ ] Integration Testing the Event Publisher with Testcontainers
-- [ ] Integration Testing the Event Subscriber with Testcontainers
+- [ ] Contract Testing the Controller (PACT)
+- [x] Contract Testing the HTTP Client (PACT)
+- [ ] Integration Testing the Repository (Testcontainers)
+- [ ] Integration Testing the Event Publisher (Testcontainers)
+- [ ] Integration Testing the Event Subscriber (Testcontainers)
 - [ ] Logback Config
 - [x] HTTP Client Config
 - [x] Kubernetes
