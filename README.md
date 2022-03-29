@@ -17,7 +17,7 @@ Built in Java.
 - [x] Unit Testing
 - [ ] Contract Testing the Controller (PACT)
 - [x] Contract Testing the HTTP Client (PACT)
-- [ ] Integration Testing the Repository (Testcontainers)
+- [x] Integration Testing the Repository (in-memory DB)
 - [ ] Integration Testing the Event Publisher (Testcontainers)
 - [ ] Integration Testing the Event Subscriber (Testcontainers)
 - [ ] Logback Config

@@ -50,7 +50,7 @@ public class AccountRepository {
     }
 
     public Account fetchAccountById(UUID id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM account WHERE id = ?", Account.class, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM account WHERE id = ?", rowMapper, id);
     }
 
     public Account updateAccount(Account account) {
