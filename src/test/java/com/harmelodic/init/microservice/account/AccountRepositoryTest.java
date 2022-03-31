@@ -1,5 +1,6 @@
 package com.harmelodic.init.microservice.account;
 
+import com.harmelodic.init.microservice.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,10 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = {
+        Application.class,
+        AccountRepository.class
+})
 @ActiveProfiles("test")
 class AccountRepositoryTest {
 
