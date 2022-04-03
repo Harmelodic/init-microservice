@@ -21,7 +21,11 @@ public class AccountRepository {
      *     </li>
      *     <li>
      *     It means we can keep all the Database logic in the Repository,
-     *     as intended by the Repository pattern.
+     *     as intended by the Repository pattern, rather than putting Database logic throughout the application.
+     *     </li>
+     *     <li>
+     *     If the Repository needs refactoring to a NoSQL database, or a different type of SQL database,
+     *     we have just one place to edit the Database logic. Which is, again, an intention of the Repository pattern.
      *     </li>
      * </ol>
      */
