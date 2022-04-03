@@ -43,7 +43,7 @@ class AccountRepositoryTest {
                     """);
     }
 
-    RowMapper<Account> accountMapper = ((rs, rowNum) -> new Account(
+    final RowMapper<Account> accountMapper = ((rs, rowNum) -> new Account(
             rs.getObject("id", UUID.class),
             rs.getString("name"),
             rs.getObject("customer_id", UUID.class)
