@@ -19,9 +19,16 @@ import java.util.regex.Pattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * You should NOT create this in your tests.
+ * This is only here to provide PACTs for the AccountControllerTest to consume.
+ * <p>
+ * In the real world, the PACTs will be created by your ACTUAL Consumers.
+ * Testing a Controller with your own Client not how Consumer-driven Contract Testing works.
+ */
 @ExtendWith(PactConsumerTestExt.class)
 @PactTestFor(providerName = "Account Service")
-class ExampleAccountConsumerClientFetchAccountTest {
+class ExampleAccountClientFetchAccountTest {
 
     private final Pattern UUID_PATTERN =
             Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
