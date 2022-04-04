@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.account;
+package com.harmelodic.init.microservice.delete;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
@@ -7,6 +7,7 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.core.model.V4Pact;
 import au.com.dius.pact.core.model.annotations.Pact;
+import com.harmelodic.init.microservice.account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -63,7 +64,7 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountWhenExists")
     void testFetchAccountWhenExists(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        com.harmelodic.init.microservice.delete.ExampleAccountClient accountClient = new com.harmelodic.init.microservice.delete.ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
         Account receivedAccount = accountClient.fetchAccount(ACCOUNT_EXAMPLE.id());
 
@@ -87,7 +88,7 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountWhenNoCustomerExistsForIt")
     void testFetchAccountWhenNoCustomerExistsForIt(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        com.harmelodic.init.microservice.delete.ExampleAccountClient accountClient = new com.harmelodic.init.microservice.delete.ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
         assertThrows(WebClientResponseException.InternalServerError.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
     }
@@ -109,7 +110,7 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountButServiceIsUnavailable")
     void testFetchAccountButServiceIsUnavailable(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        com.harmelodic.init.microservice.delete.ExampleAccountClient accountClient = new com.harmelodic.init.microservice.delete.ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
         assertThrows(WebClientResponseException.ServiceUnavailable.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
     }

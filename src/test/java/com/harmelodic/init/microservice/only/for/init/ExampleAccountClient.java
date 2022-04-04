@@ -1,5 +1,6 @@
-package com.harmelodic.init.microservice.account;
+package com.harmelodic.init.microservice.delete;
 
+import com.harmelodic.init.microservice.account.Account;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
