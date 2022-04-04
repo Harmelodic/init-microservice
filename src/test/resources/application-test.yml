@@ -3,4 +3,8 @@ spring:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
     username: sa
-    password: password
+pactbroker:
+  host: https://harmelodic.pactflow.io
+  auth:
+    username: ${PACT_BROKER_USERNAME:broker-user}
+    password: ${PACT_BROKER_PASSWORD:broker-pass}

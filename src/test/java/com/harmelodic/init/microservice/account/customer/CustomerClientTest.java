@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(PactConsumerTestExt.class)
-@PactTestFor(providerName = "Customer API")
+@PactTestFor(providerName = "Customer Service")
 class CustomerClientTest {
 
     private final Pattern UUID_PATTERN =
