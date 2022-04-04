@@ -1,7 +1,6 @@
 package com.harmelodic.init.microservice.account;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,11 +49,7 @@ public class AccountController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<MessageResponse> deleteAccountById(@PathVariable UUID id) {
+    public void deleteAccountById(@PathVariable UUID id) {
         accountService.deleteAccountById(id);
-        return ResponseEntity.ok().body(new MessageResponse("Account deleted."));
-    }
-
-    record MessageResponse(String message) {
     }
 }
