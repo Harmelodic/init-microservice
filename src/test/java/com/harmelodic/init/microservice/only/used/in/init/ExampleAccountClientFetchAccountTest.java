@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.delete;
+package com.harmelodic.init.microservice.only.used.in.init;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
@@ -64,7 +64,7 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountWhenExists")
     void testFetchAccountWhenExists(MockServer mockServer) {
-        com.harmelodic.init.microservice.delete.ExampleAccountClient accountClient = new com.harmelodic.init.microservice.delete.ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
         Account receivedAccount = accountClient.fetchAccount(ACCOUNT_EXAMPLE.id());
 
@@ -88,7 +88,7 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountWhenNoCustomerExistsForIt")
     void testFetchAccountWhenNoCustomerExistsForIt(MockServer mockServer) {
-        com.harmelodic.init.microservice.delete.ExampleAccountClient accountClient = new com.harmelodic.init.microservice.delete.ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
         assertThrows(WebClientResponseException.InternalServerError.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
     }
@@ -110,7 +110,7 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountButServiceIsUnavailable")
     void testFetchAccountButServiceIsUnavailable(MockServer mockServer) {
-        com.harmelodic.init.microservice.delete.ExampleAccountClient accountClient = new com.harmelodic.init.microservice.delete.ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
         assertThrows(WebClientResponseException.ServiceUnavailable.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
     }

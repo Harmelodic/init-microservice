@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.delete;
+package com.harmelodic.init.microservice.only.used.in.init;
 
 import com.harmelodic.init.microservice.account.Account;
 import org.springframework.web.reactive.function.client.WebClient;
