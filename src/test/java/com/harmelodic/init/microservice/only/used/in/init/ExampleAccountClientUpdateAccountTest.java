@@ -16,6 +16,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_DOES_NOT_EXIST;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXAMPLE;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.UUID_PATTERN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -30,18 +35,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @PactTestFor(providerName = "Account Service")
 class ExampleAccountClientUpdateAccountTest {
 
-    private final Pattern UUID_PATTERN =
-            Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
-
-    private final Account ACCOUNT_EXAMPLE = new Account(
-            UUID.fromString("35e30f1c-bbe3-4ee8-8d1d-d320615e554e"),
-            "Matt",
-            UUID.fromString("ecaa5fc1-4587-4734-adf1-40cbcbecad8a"));
-
     @Pact(consumer = "MyExampleService")
     public V4Pact updateAccountSuccess(PactDslWithProvider builder) {
         return builder
-                .given("an account exists with ID and name", Map.of(
+                .given(ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID, Map.of(
                         "id", ACCOUNT_EXAMPLE.id().toString(),
                         "name", "Some name before update",
                         "customerId", ACCOUNT_EXAMPLE.customerId().toString()
@@ -79,7 +76,7 @@ class ExampleAccountClientUpdateAccountTest {
     @Pact(consumer = "MyExampleService")
     public V4Pact updateAccountThatDoesNotExist(PactDslWithProvider builder) {
         return builder
-                .given("an account with ID does not exist", Map.of(
+                .given(ACCOUNT_DOES_NOT_EXIST, Map.of(
                         "id", ACCOUNT_EXAMPLE.id().toString()
                 ))
                 .uponReceiving("a request to update account")
@@ -110,7 +107,7 @@ class ExampleAccountClientUpdateAccountTest {
     @Pact(consumer = "MyExampleService")
     public V4Pact updateAccountServerError(PactDslWithProvider builder) {
         return builder
-                .given("A Server Error will occur")
+                .given(SERVER_ERROR_WILL_OCCUR)
                 .uponReceiving("a request to update account")
                 .method("PATCH")
                 .headers(Map.of(

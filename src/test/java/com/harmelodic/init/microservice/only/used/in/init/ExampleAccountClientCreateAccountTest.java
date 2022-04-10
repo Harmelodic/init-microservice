@@ -13,8 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Map;
-import java.util.UUID;
 
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_DOES_NOT_EXIST;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXAMPLE;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -30,15 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @PactTestFor(providerName = "Account Service")
 class ExampleAccountClientCreateAccountTest {
 
-    private final Account ACCOUNT_EXAMPLE = new Account(
-            UUID.fromString("35e30f1c-bbe3-4ee8-8d1d-d320615e554e"),
-            "Matt",
-            UUID.fromString("ecaa5fc1-4587-4734-adf1-40cbcbecad8a"));
-
     @Pact(consumer = "MyExampleService")
     public V4Pact createAccountSuccess(PactDslWithProvider builder) {
         return builder
-                .given("an account does not exist")
+                .given(ACCOUNT_DOES_NOT_EXIST)
                 .uponReceiving("a request to create an account")
                 .method("POST")
                 .path("/accounts")
@@ -74,7 +71,7 @@ class ExampleAccountClientCreateAccountTest {
     @Pact(consumer = "MyExampleService")
     public V4Pact createAccountServerFailure(PactDslWithProvider builder) {
         return builder
-                .given("A Server Error will occur")
+                .given(SERVER_ERROR_WILL_OCCUR)
                 .uponReceiving("a request to create an account")
                 .method("POST")
                 .path("/accounts")

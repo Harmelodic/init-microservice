@@ -19,6 +19,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.THREE_ACCOUNTS_EXIST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,18 +36,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @PactTestFor(providerName = "Account Service")
 class ExampleAccountClientFetchAllAccountsTest {
 
-    private final Pattern UUID_PATTERN =
-            Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
-
-    private final Account ACCOUNT_EXAMPLE = new Account(
-            UUID.fromString("35e30f1c-bbe3-4ee8-8d1d-d320615e554e"),
-            "Matt",
-            UUID.fromString("ecaa5fc1-4587-4734-adf1-40cbcbecad8a"));
-
     @Pact(consumer = "MyExampleService")
     public V4Pact fetchAllAccountsSuccess(PactDslWithProvider builder) {
         return builder
-                .given("3 Accounts exist")
+                .given(THREE_ACCOUNTS_EXIST)
                 .uponReceiving("a request for all accounts")
                 .method("GET")
                 .path("/accounts")
@@ -86,7 +80,7 @@ class ExampleAccountClientFetchAllAccountsTest {
     @Pact(consumer = "MyExampleService")
     public V4Pact fetchAllAccountsServerError(PactDslWithProvider builder) {
         return builder
-                .given("A Server Error will occur")
+                .given(SERVER_ERROR_WILL_OCCUR)
                 .uponReceiving("a request to fetch all accounts")
                 .method("GET")
                 .path("/accounts")

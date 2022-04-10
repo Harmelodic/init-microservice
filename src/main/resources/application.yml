@@ -1,6 +1,8 @@
 spring:
   application:
     name: init-microservice
+  flyway:
+    enabled: true
 app:
   customer:
     client:

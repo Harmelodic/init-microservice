@@ -30,3 +30,17 @@ Built in Java.
 - [ ] Packaging into a Container (Jib, Maven, GitHub Actions)
 - [ ] Deployment to Kubernetes (GitHub Actions)
 - [ ] Deployment of Terraform (GitHub Actions)
+
+## Pact
+
+Consumer run:
+
+```shell
+mvn clean test pact:publish -Dpact.broker.url=<broker>
+```
+
+Provider run:
+
+```shell
+mvn clean test -Dpact.verifier.publishResults=true -Dpactbroker.url=<broker>
+```

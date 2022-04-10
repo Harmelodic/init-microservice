@@ -14,9 +14,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.Map;
-import java.util.UUID;
-import java.util.regex.Pattern;
 
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_DOES_NOT_EXIST;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXAMPLE;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.UUID_PATTERN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -31,18 +34,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @PactTestFor(providerName = "Account Service")
 class ExampleAccountClientFetchAccountTest {
 
-    private final Pattern UUID_PATTERN =
-            Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
-
-    private final Account ACCOUNT_EXAMPLE = new Account(
-            UUID.fromString("35e30f1c-bbe3-4ee8-8d1d-d320615e554e"),
-            "Matt",
-            UUID.fromString("ecaa5fc1-4587-4734-adf1-40cbcbecad8a"));
-
     @Pact(consumer = "MyExampleService")
     public V4Pact fetchAccountWhenExists(PactDslWithProvider builder) {
         return builder
-                .given("Account Exists and is assigned to a Customer")
+                .given(ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID, Map.of(
+                        "id", ACCOUNT_EXAMPLE.id().toString(),
+                        "name", ACCOUNT_EXAMPLE.name(),
+                        "customerId", ACCOUNT_EXAMPLE.customerId().toString()
+                ))
                 .uponReceiving("A valid UUID for an existing account")
                 .method("GET")
                 .matchPath(
@@ -71,9 +70,31 @@ class ExampleAccountClientFetchAccountTest {
     }
 
     @Pact(consumer = "MyExampleService")
-    public V4Pact fetchAccountWhenNoCustomerExistsForIt(PactDslWithProvider builder) {
+    public V4Pact fetchAccountDoesNotExist(PactDslWithProvider builder) {
         return builder
-                .given("Account Exists but no Customer exists for it")
+                .given(ACCOUNT_DOES_NOT_EXIST)
+                .uponReceiving("A valid UUID for an existing account")
+                .method("GET")
+                .matchPath(
+                        String.format("/accounts/%s", UUID_PATTERN),
+                        String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
+                .willRespondWith()
+                .status(404)
+                .toPact(V4Pact.class);
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "fetchAccountDoesNotExist")
+    void fetchAccountDoesNotExistTest(MockServer mockServer) {
+        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+
+        assertThrows(WebClientResponseException.NotFound.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
+    }
+
+    @Pact(consumer = "MyExampleService")
+    public V4Pact fetchAccountButServiceIsUnavailable(PactDslWithProvider builder) {
+        return builder
+                .given(SERVER_ERROR_WILL_OCCUR)
                 .uponReceiving("A valid UUID for an existing account")
                 .method("GET")
                 .matchPath(
@@ -85,32 +106,10 @@ class ExampleAccountClientFetchAccountTest {
     }
 
     @Test
-    @PactTestFor(pactMethod = "fetchAccountWhenNoCustomerExistsForIt")
-    void fetchAccountWhenNoCustomerExistsForItTest(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
-
-        assertThrows(WebClientResponseException.InternalServerError.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
-    }
-
-    @Pact(consumer = "MyExampleService")
-    public V4Pact fetchAccountButServiceIsUnavailable(PactDslWithProvider builder) {
-        return builder
-                .given("A Server error will occur")
-                .uponReceiving("A valid UUID for an existing account")
-                .method("GET")
-                .matchPath(
-                        String.format("/accounts/%s", UUID_PATTERN),
-                        String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
-                .willRespondWith()
-                .status(503)
-                .toPact(V4Pact.class);
-    }
-
-    @Test
     @PactTestFor(pactMethod = "fetchAccountButServiceIsUnavailable")
     void fetchAccountButServiceIsUnavailableTest(MockServer mockServer) {
         ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
-        assertThrows(WebClientResponseException.ServiceUnavailable.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
+        assertThrows(WebClientResponseException.InternalServerError.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
     }
 }

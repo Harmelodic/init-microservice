@@ -33,12 +33,6 @@ class AccountRepositoryTest {
     @BeforeEach
     void setUp() {
         jdbcTemplate.execute("""
-                CREATE TABLE IF NOT EXISTS account (
-                        id          uuid not null,
-                        `name`      varchar(255) not null,
-                        customer_id uuid not null,
-                        primary key (id)
-                    );
                 TRUNCATE TABLE account;
                     """);
     }
@@ -73,9 +67,9 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
         inputAccounts.forEach(account -> jdbcTemplate.update("""
-                INSERT INTO account(id, `name`, customer_id)
-                VALUES (?, ?, ?)
-                """,
+                        INSERT INTO account(id, `name`, customer_id)
+                        VALUES (?, ?, ?)
+                        """,
                 account.id(), account.name(), account.customerId()));
 
 
@@ -92,9 +86,9 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
         inputAccounts.forEach(account -> jdbcTemplate.update("""
-                INSERT INTO account(id, `name`, customer_id)
-                VALUES (?, ?, ?)
-                """,
+                        INSERT INTO account(id, `name`, customer_id)
+                        VALUES (?, ?, ?)
+                        """,
                 account.id(), account.name(), account.customerId()));
 
 
@@ -111,9 +105,9 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
         inputAccounts.forEach(account -> jdbcTemplate.update("""
-                INSERT INTO account(id, `name`, customer_id)
-                VALUES (?, ?, ?)
-                """,
+                        INSERT INTO account(id, `name`, customer_id)
+                        VALUES (?, ?, ?)
+                        """,
                 account.id(), account.name(), account.customerId()));
 
         Account accountToChange = new Account(
@@ -135,9 +129,9 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
         inputAccounts.forEach(account -> jdbcTemplate.update("""
-                INSERT INTO account(id, `name`, customer_id)
-                VALUES (?, ?, ?)
-                """,
+                        INSERT INTO account(id, `name`, customer_id)
+                        VALUES (?, ?, ?)
+                        """,
                 account.id(), account.name(), account.customerId()));
 
 
