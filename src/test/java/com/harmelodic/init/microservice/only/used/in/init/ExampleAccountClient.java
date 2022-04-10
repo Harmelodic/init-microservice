@@ -2,6 +2,7 @@ package com.harmelodic.init.microservice.only.used.in.init;
 
 import com.harmelodic.init.microservice.account.Account;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,10 +25,8 @@ public class ExampleAccountClient {
 
     public Account createAccount(Account account) {
         return webClient.post()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/accounts")
-                        .build(account))
-                .body(account, Account.class)
+                .uri("/accounts")
+                .body(Mono.just(account), Account.class)
                 .retrieve()
                 .bodyToMono(Account.class)
                 .block();
@@ -57,7 +56,7 @@ public class ExampleAccountClient {
                 .uri(uriBuilder -> uriBuilder
                         .path("/accounts/{id}")
                         .build(account.id()))
-                .body(account, Account.class)
+                .body(Mono.just(account), Account.class)
                 .retrieve()
                 .bodyToMono(Account.class)
                 .block();
