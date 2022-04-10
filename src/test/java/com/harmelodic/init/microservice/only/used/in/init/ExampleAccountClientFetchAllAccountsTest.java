@@ -1,0 +1,105 @@
+package com.harmelodic.init.microservice.only.used.in.init;
+
+import au.com.dius.pact.consumer.MockServer;
+import au.com.dius.pact.consumer.dsl.PactDslJsonArray;
+import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
+import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
+import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
+import au.com.dius.pact.consumer.junit5.PactTestFor;
+import au.com.dius.pact.core.model.V4Pact;
+import au.com.dius.pact.core.model.annotations.Pact;
+import com.harmelodic.init.microservice.account.Account;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+/**
+ * You should NOT create this in your tests.
+ * This is only here to provide PACTs for the AccountControllerTest to consume.
+ * <p>
+ * In the real world, the PACTs will be created by your ACTUAL Consumers.
+ * Testing a Controller with your own Client not how Consumer-driven Contract Testing works.
+ */
+@ExtendWith(PactConsumerTestExt.class)
+@PactTestFor(providerName = "Account Service")
+class ExampleAccountClientFetchAllAccountsTest {
+
+    private final Pattern UUID_PATTERN =
+            Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
+
+    private final Account ACCOUNT_EXAMPLE = new Account(
+            UUID.fromString("35e30f1c-bbe3-4ee8-8d1d-d320615e554e"),
+            "Matt",
+            UUID.fromString("ecaa5fc1-4587-4734-adf1-40cbcbecad8a"));
+
+    @Pact(consumer = "MyExampleService")
+    public V4Pact fetchAllAccountsSuccess(PactDslWithProvider builder) {
+        return builder
+                .given("3 Accounts exist")
+                .uponReceiving("a request for all accounts")
+                .method("GET")
+                .path("/accounts")
+                .willRespondWith()
+                .status(200)
+                .body(Objects.requireNonNull(new PactDslJsonArray()
+                        .object()
+                        .uuid("id")
+                        .stringType("name")
+                        .closeObject()
+                        .object()
+                        .uuid("id")
+                        .stringType("name")
+                        .closeObject()
+                        .object()
+                        .uuid("id", UUID.randomUUID())
+                        .stringType("name")
+                        .closeObject())
+                )
+                .toPact(V4Pact.class);
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "fetchAllAccountsSuccess")
+    void fetchAllAccountsSuccessTest(MockServer mockServer) {
+        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+
+        List<Account> receivedAccounts = accountClient.fetchAllAccounts();
+
+        assertEquals(3, receivedAccounts.size());
+        receivedAccounts.forEach(account -> {
+            assertNotNull(account.id());
+            assertNotNull(account.name());
+            // Don't care about customerId, for example
+        });
+    }
+
+    @Pact(consumer = "MyExampleService")
+    public V4Pact fetchAllAccountsServerError(PactDslWithProvider builder) {
+        return builder
+                .given("A Server Error will occur")
+                .uponReceiving("a request to fetch all accounts")
+                .method("GET")
+                .path("/accounts")
+                .willRespondWith()
+                .status(500)
+                .toPact(V4Pact.class);
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "fetchAllAccountsServerError")
+    void fetchAllAccountsServerErrorTest(MockServer mockServer) {
+        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+
+        assertThrows(RuntimeException.class, accountClient::fetchAllAccounts);
+    }
+}

@@ -11,7 +11,6 @@ import com.harmelodic.init.microservice.account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.Map;
 import java.util.UUID;
@@ -29,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @ExtendWith(PactConsumerTestExt.class)
 @PactTestFor(providerName = "Account Service")
-class ExampleAccountClientFetchAccountTest {
+class ExampleAccountClientUpdateAccountTest {
 
     private final Pattern UUID_PATTERN =
             Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
@@ -40,19 +39,26 @@ class ExampleAccountClientFetchAccountTest {
             UUID.fromString("ecaa5fc1-4587-4734-adf1-40cbcbecad8a"));
 
     @Pact(consumer = "MyExampleService")
-    public V4Pact fetchAccountWhenExists(PactDslWithProvider builder) {
+    public V4Pact updateAccountSuccess(PactDslWithProvider builder) {
         return builder
-                .given("Account Exists and is assigned to a Customer")
-                .uponReceiving("A valid UUID for an existing account")
-                .method("GET")
+                .given("an account exists with ID and name", Map.of(
+                        "id", ACCOUNT_EXAMPLE.id().toString(),
+                        "name", "Some name before update",
+                        "customerId", ACCOUNT_EXAMPLE.customerId().toString()
+                ))
+                .uponReceiving("a request to update account")
+                .method("PATCH")
+                .headers(Map.of(
+                        "Content-Type", "application/json"))
                 .matchPath(
                         String.format("/accounts/%s", UUID_PATTERN),
                         String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
+                .body(new PactDslJsonBody()
+                        .uuid("id", ACCOUNT_EXAMPLE.id())
+                        .stringType("name", ACCOUNT_EXAMPLE.name())
+                        .uuid("customerId", ACCOUNT_EXAMPLE.customerId()))
                 .willRespondWith()
                 .status(200)
-                .headers(Map.of(
-                        "Content-Type", "application/json"
-                ))
                 .body(new PactDslJsonBody()
                         .uuid("id", ACCOUNT_EXAMPLE.id())
                         .stringType("name", ACCOUNT_EXAMPLE.name())
@@ -61,56 +67,72 @@ class ExampleAccountClientFetchAccountTest {
     }
 
     @Test
-    @PactTestFor(pactMethod = "fetchAccountWhenExists")
-    void fetchAccountWhenExistsTest(MockServer mockServer) {
+    @PactTestFor(pactMethod = "updateAccountSuccess")
+    void updateAccountSuccessTest(MockServer mockServer) {
         ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
-        Account receivedAccount = accountClient.fetchAccount(ACCOUNT_EXAMPLE.id());
+        Account receivedAccount = accountClient.updateAccount(ACCOUNT_EXAMPLE);
 
         assertEquals(ACCOUNT_EXAMPLE, receivedAccount);
     }
 
     @Pact(consumer = "MyExampleService")
-    public V4Pact fetchAccountWhenNoCustomerExistsForIt(PactDslWithProvider builder) {
+    public V4Pact updateAccountThatDoesNotExist(PactDslWithProvider builder) {
         return builder
-                .given("Account Exists but no Customer exists for it")
-                .uponReceiving("A valid UUID for an existing account")
-                .method("GET")
+                .given("an account with ID does not exist", Map.of(
+                        "id", ACCOUNT_EXAMPLE.id().toString()
+                ))
+                .uponReceiving("a request to update account")
+                .method("PATCH")
+                .headers(Map.of(
+                        "Content-Type", "application/json"
+                ))
                 .matchPath(
                         String.format("/accounts/%s", UUID_PATTERN),
                         String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
+                .body(new PactDslJsonBody()
+                        .uuid("id", ACCOUNT_EXAMPLE.id())
+                        .stringType("name", ACCOUNT_EXAMPLE.name())
+                        .uuid("customerId", ACCOUNT_EXAMPLE.customerId()))
+                .willRespondWith()
+                .status(404)
+                .toPact(V4Pact.class);
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "updateAccountThatDoesNotExist")
+    void updateAccountThatDoesNotExistTest(MockServer mockServer) {
+        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+
+        assertThrows(RuntimeException.class, () -> accountClient.updateAccount(ACCOUNT_EXAMPLE));
+    }
+
+    @Pact(consumer = "MyExampleService")
+    public V4Pact updateAccountServerError(PactDslWithProvider builder) {
+        return builder
+                .given("A Server Error will occur")
+                .uponReceiving("a request to update account")
+                .method("PATCH")
+                .headers(Map.of(
+                        "Content-Type", "application/json"
+                ))
+                .matchPath(
+                        String.format("/accounts/%s", UUID_PATTERN),
+                        String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
+                .body(new PactDslJsonBody()
+                        .uuid("id", ACCOUNT_EXAMPLE.id())
+                        .stringType("name", ACCOUNT_EXAMPLE.name())
+                        .uuid("customerId", ACCOUNT_EXAMPLE.customerId()))
                 .willRespondWith()
                 .status(500)
                 .toPact(V4Pact.class);
     }
 
     @Test
-    @PactTestFor(pactMethod = "fetchAccountWhenNoCustomerExistsForIt")
-    void fetchAccountWhenNoCustomerExistsForItTest(MockServer mockServer) {
+    @PactTestFor(pactMethod = "updateAccountServerError")
+    void updateAccountServerErrorTest(MockServer mockServer) {
         ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
-        assertThrows(WebClientResponseException.InternalServerError.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
-    }
-
-    @Pact(consumer = "MyExampleService")
-    public V4Pact fetchAccountButServiceIsUnavailable(PactDslWithProvider builder) {
-        return builder
-                .given("A Server error will occur")
-                .uponReceiving("A valid UUID for an existing account")
-                .method("GET")
-                .matchPath(
-                        String.format("/accounts/%s", UUID_PATTERN),
-                        String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
-                .willRespondWith()
-                .status(503)
-                .toPact(V4Pact.class);
-    }
-
-    @Test
-    @PactTestFor(pactMethod = "fetchAccountButServiceIsUnavailable")
-    void fetchAccountButServiceIsUnavailableTest(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
-
-        assertThrows(WebClientResponseException.ServiceUnavailable.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
+        assertThrows(RuntimeException.class, () -> accountClient.updateAccount(ACCOUNT_EXAMPLE));
     }
 }
