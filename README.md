@@ -15,12 +15,12 @@ Built in Java.
 - [ ] Event Subscriber
 - [x] HTTP Client
 - [x] Unit Testing for Services
-- [ ] Contract Testing the Controller (PACT)
-- [x] Contract Testing the HTTP Client (PACT)
+- [ ] Provider Contract Testing the Controller (PACT)
+- [x] Consumer Contract Testing the HTTP Client (PACT)
 - [x] Integration Testing the Repository (in-memory DB)
 - [ ] Integration Testing the Event Publisher (Testcontainers)
 - [ ] Integration Testing the Event Subscriber (Testcontainers)
-- [ ] Logback Config
+- [x] Logback Config
 - [x] HTTP Client Config
 - [x] Kubernetes resources
 - [x] Terraform resources (Google)
@@ -43,4 +43,10 @@ Provider run:
 
 ```shell
 mvn clean test -Dpact.verifier.publishResults=true -Dpactbroker.url=<broker>
+```
+
+Run all:
+
+```shell
+mvn clean test pact:publish -Dpact.broker.url=<broker> -Dpact.verifier.publishResults=true -Dpactbroker.url=<broker>
 ```
