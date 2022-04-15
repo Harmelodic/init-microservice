@@ -1,4 +1,4 @@
-name: CI branch
+name: pull-requests
 on:
   pull_request:
     branches:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  mvn:
+  maven:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
