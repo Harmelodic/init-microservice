@@ -13,9 +13,5 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: temurin
-          java-version: 18
-      - run: >-
-          mvn deploy
-          -Dmaven.deploy.skip=true
-          -Dpact.broker.url=https://harmelodic.pactflow.io
-          -Dpactbroker.url=https://harmelodic.pactflow.io
+          java-version: 17
+      - run: mvn install

@@ -9,8 +9,12 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>18</java.version>
+        <image.name>${project.artifactId}</image.name>
+        <image.registry/>
+        <image.tag>${maven.build.timestamp}</image.tag>
+        <java.version>17</java.version>
         <logback.contrib.version>0.1.5</logback.contrib.version>
+        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -158,6 +162,7 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <!-- Required for publishing PACTs -->
                     <groupId>au.com.dius.pact.provider</groupId>
                     <artifactId>maven</artifactId>
                     <version>4.3.6</version>
@@ -168,6 +173,7 @@
         <plugins>
 
             <plugin>
+                <!-- Required for running tests -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
@@ -179,16 +185,63 @@
             </plugin>
 
             <plugin>
+                <!-- Required for publishing PACTs -->
                 <groupId>au.com.dius.pact.provider</groupId>
                 <artifactId>maven</artifactId>
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>deploy</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>publish</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
+                <executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>publish</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <!-- Required for building into a Container -->
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <from>
+                        <image>
+                            eclipse-temurin@sha256:969b61cd870b616c2bb1b9000906e320cc7caf76293954f78b3cc1a57c66e326
+                        </image>
+                    </from>
+                    <to>
+                        <image>${image.registry}${image.name}</image>
+                        <tags>
+                            <tag>${image.tag}</tag>
+                        </tags>
+                    </to>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>dockerBuild</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <!-- Required to disable Maven artifact deployment since we'll instead build a container -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>
