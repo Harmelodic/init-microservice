@@ -6,6 +6,8 @@ Built in Java.
 
 ## Showcases
 
+- [x] README
+- [x] .gitignore
 - [x] Dependency Management (Maven)
 - [x] Dependency Injection and Application Mgmt (Spring Boot & Starters)
 - [x] Front Controller pattern
@@ -15,20 +17,19 @@ Built in Java.
 - [ ] Event Subscriber
 - [x] HTTP Client
 - [x] Unit Testing for Services
-- [ ] Provider Contract Testing the Controller (PACT)
+- [x] Provider Contract Testing the Controller (PACT)
 - [x] Consumer Contract Testing the HTTP Client (PACT)
 - [x] Integration Testing the Repository (in-memory DB)
 - [ ] Integration Testing the Event Publisher (Testcontainers)
 - [ ] Integration Testing the Event Subscriber (Testcontainers)
 - [x] Logback Config
 - [x] HTTP Client Config
-- [x] Kubernetes resources
-- [x] Terraform resources (Google)
-- [x] README
-- [x] .gitignore
 - [x] Test & Package Automation (Maven, GitHub Actions)
-- [ ] Packaging into a Container (Jib, Maven, GitHub Actions)
+- [x] Packaging into a Container (Jib, Maven)
+- [ ] Pushing Container to Registry (Jib, Maven, GitHub Actions)
+- [x] Kubernetes resources
 - [ ] Deployment to Kubernetes (GitHub Actions)
+- [x] Terraform resources (Google)
 - [ ] Deployment of Terraform (GitHub Actions)
 
 ## Pact
