@@ -1,8 +1,6 @@
 package com.harmelodic.init.microservice.only.used.in.init;
 
 import au.com.dius.pact.consumer.MockServer;
-import au.com.dius.pact.consumer.dsl.PactDslJsonArray;
-import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
@@ -14,11 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.regex.Pattern;
 
+import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonArray;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.THREE_ACCOUNTS_EXIST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,20 +40,20 @@ class ExampleAccountClientFetchAllAccountsTest {
                 .path("/accounts")
                 .willRespondWith()
                 .status(200)
-                .body(Objects.requireNonNull(new PactDslJsonArray()
-                        .object()
-                        .uuid("id")
-                        .stringType("name")
-                        .closeObject()
-                        .object()
-                        .uuid("id")
-                        .stringType("name")
-                        .closeObject()
-                        .object()
-                        .uuid("id", UUID.randomUUID())
-                        .stringType("name")
-                        .closeObject())
-                )
+                .body(newJsonArray(a -> {
+                    a.object(o -> {
+                        o.uuid("id");
+                        o.stringType("name");
+                    });
+                    a.object(o -> {
+                        o.uuid("id");
+                        o.stringType("name");
+                    });
+                    a.object(o -> {
+                        o.uuid("id");
+                        o.stringType("name");
+                    });
+                }).build())
                 .toPact(V4Pact.class);
     }
 

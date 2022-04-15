@@ -1,7 +1,6 @@
 package com.harmelodic.init.microservice.account.customer;
 
 import au.com.dius.pact.consumer.MockServer;
-import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
@@ -15,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(PactConsumerTestExt.class)
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CustomerClientTest {
 
     private final Pattern UUID_PATTERN =
-            Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
+            Pattern.compile("[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}");
 
     private final Customer CUSTOMER_EXAMPLE = new Customer(
             UUID.fromString("8abc1642-6e61-487d-ba45-bca35cf160c1"),
@@ -43,10 +43,11 @@ class CustomerClientTest {
                 .headers(Map.of(
                         "Content-Type", "application/json"
                 ))
-                .body(new PactDslJsonBody()
-                        .uuid("id", CUSTOMER_EXAMPLE.id())
-                        .stringType("forename", CUSTOMER_EXAMPLE.forename())
-                        .stringType("surname", CUSTOMER_EXAMPLE.surname()))
+                .body(newJsonBody(o -> {
+                    o.uuid("id", CUSTOMER_EXAMPLE.id());
+                    o.stringType("forename", CUSTOMER_EXAMPLE.forename());
+                    o.stringType("surname", CUSTOMER_EXAMPLE.surname());
+                }).build())
                 .toPact(V4Pact.class);
     }
 

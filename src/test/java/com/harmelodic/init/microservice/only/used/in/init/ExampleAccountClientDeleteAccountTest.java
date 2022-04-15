@@ -6,18 +6,14 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.core.model.V4Pact;
 import au.com.dius.pact.core.model.annotations.Pact;
-import com.harmelodic.init.microservice.account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Map;
-import java.util.UUID;
-import java.util.regex.Pattern;
 
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_DOES_NOT_EXIST;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXAMPLE;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXISTS_WITH_ID;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.UUID_PATTERN;

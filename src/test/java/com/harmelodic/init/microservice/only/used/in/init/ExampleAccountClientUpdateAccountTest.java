@@ -1,7 +1,6 @@
 package com.harmelodic.init.microservice.only.used.in.init;
 
 import au.com.dius.pact.consumer.MockServer;
-import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
@@ -13,9 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Map;
-import java.util.UUID;
-import java.util.regex.Pattern;
 
+import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonBody;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_DOES_NOT_EXIST;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXAMPLE;
 import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID;
@@ -50,16 +48,18 @@ class ExampleAccountClientUpdateAccountTest {
                 .matchPath(
                         String.format("/accounts/%s", UUID_PATTERN),
                         String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
-                .body(new PactDslJsonBody()
-                        .uuid("id", ACCOUNT_EXAMPLE.id())
-                        .stringType("name", ACCOUNT_EXAMPLE.name())
-                        .uuid("customerId", ACCOUNT_EXAMPLE.customerId()))
+                .body(newJsonBody(o -> {
+                    o.uuid("id", ACCOUNT_EXAMPLE.id());
+                    o.stringType("name", ACCOUNT_EXAMPLE.name());
+                    o.uuid("customerId", ACCOUNT_EXAMPLE.customerId());
+                }).build())
                 .willRespondWith()
                 .status(200)
-                .body(new PactDslJsonBody()
-                        .uuid("id", ACCOUNT_EXAMPLE.id())
-                        .stringType("name", ACCOUNT_EXAMPLE.name())
-                        .uuid("customerId", ACCOUNT_EXAMPLE.customerId()))
+                .body(newJsonBody(o -> {
+                    o.uuid("id", ACCOUNT_EXAMPLE.id());
+                    o.stringType("name", ACCOUNT_EXAMPLE.name());
+                    o.uuid("customerId", ACCOUNT_EXAMPLE.customerId());
+                }).build())
                 .toPact(V4Pact.class);
     }
 
@@ -87,10 +87,11 @@ class ExampleAccountClientUpdateAccountTest {
                 .matchPath(
                         String.format("/accounts/%s", UUID_PATTERN),
                         String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
-                .body(new PactDslJsonBody()
-                        .uuid("id", ACCOUNT_EXAMPLE.id())
-                        .stringType("name", ACCOUNT_EXAMPLE.name())
-                        .uuid("customerId", ACCOUNT_EXAMPLE.customerId()))
+                .body(newJsonBody(o -> {
+                    o.uuid("id", ACCOUNT_EXAMPLE.id());
+                    o.stringType("name", ACCOUNT_EXAMPLE.name());
+                    o.uuid("customerId", ACCOUNT_EXAMPLE.customerId());
+                }).build())
                 .willRespondWith()
                 .status(404)
                 .toPact(V4Pact.class);
@@ -116,10 +117,11 @@ class ExampleAccountClientUpdateAccountTest {
                 .matchPath(
                         String.format("/accounts/%s", UUID_PATTERN),
                         String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
-                .body(new PactDslJsonBody()
-                        .uuid("id", ACCOUNT_EXAMPLE.id())
-                        .stringType("name", ACCOUNT_EXAMPLE.name())
-                        .uuid("customerId", ACCOUNT_EXAMPLE.customerId()))
+                .body(newJsonBody(o -> {
+                    o.uuid("id", ACCOUNT_EXAMPLE.id());
+                    o.stringType("name", ACCOUNT_EXAMPLE.name());
+                    o.uuid("customerId", ACCOUNT_EXAMPLE.customerId());
+                }).build())
                 .willRespondWith()
                 .status(500)
                 .toPact(V4Pact.class);
