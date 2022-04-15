@@ -34,9 +34,9 @@ Built in Java.
 
 ## Pact
 
-Hooking Pact into the mvn lifecycles:
+Pact is bound to Maven's `test` and `deploy` phases:
 
-Run Tests (`pactbroker.url` needed for Pact Provider tests):
+Running the Pact tests. The `pactbroker.url` property is needed for Pact Provider tests:
 
 ```shell
 mvn test -Dpactbroker.url=<broker>
