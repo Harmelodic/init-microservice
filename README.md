@@ -34,20 +34,19 @@ Built in Java.
 
 ## Pact
 
-Consumer run:
+Hooking Pact into the mvn lifecycles:
+
+Run Tests (`pactbroker.url` needed for Pact Provider tests):
 
 ```shell
-mvn clean test pact:publish -Dpact.broker.url=<broker>
+mvn test -Dpactbroker.url=<broker>
 ```
 
-Provider run:
+Publish Consumer Pacts and Provider results:
 
 ```shell
-mvn clean test -Dpact.verifier.publishResults=true -Dpactbroker.url=<broker>
-```
-
-Run all:
-
-```shell
-mvn clean test pact:publish -Dpact.broker.url=<broker> -Dpact.verifier.publishResults=true -Dpactbroker.url=<broker>
+mvn deploy \
+  -Dpactbroker.url=<broker> \
+  -Dpact.broker.url=<broker> \
+  -Dpact.verifier.publishResults=true
 ```
