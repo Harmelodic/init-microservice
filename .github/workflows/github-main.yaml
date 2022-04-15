@@ -1,15 +1,12 @@
-name: CI
+name: CI main
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
   workflow_dispatch: {}
 
 jobs:
-  mvn-package:
+  mvn:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,4 +14,8 @@ jobs:
         with:
           distribution: temurin
           java-version: 18
-      - run: mvn clean package
+      - run: |-
+          mvn deploy \
+          -Dmaven.deploy.skip=true \
+          -Dpact.broker.url=https://harmelodic.pactflow.io \
+          -Dpactbroker.url=https://harmelodic.pactflow.io
