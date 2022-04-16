@@ -14,4 +14,12 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - run: mvn install
+      - run: |-
+          mvn install \
+          -Dimage.repository=eu.gcr.io/personal-prod-apps-123456/init-microservice \
+          -Dimage.tag=$GITHUB_SHA:abc \
+          -Dpactbroker.url=https://harmelodic.pactflow.io \
+          -Dpact.verifier.publishResults=true \
+          -Dpact.broker.url=https://harmelodic.pactflow.io \
+          -Dpact.broker.token=$PACT_BROKER_TOKEN:xyz \
+          -Dpact.broker.authentication.scheme=BEARER

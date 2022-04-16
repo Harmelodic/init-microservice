@@ -19,6 +19,7 @@ Built in Java.
 - [x] Unit Testing for Services
 - [x] Provider Contract Testing the Controller (PACT)
 - [x] Consumer Contract Testing the HTTP Client (PACT)
+- [ ] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
 - [x] Integration Testing the Repository (in-memory DB)
 - [ ] Integration Testing the Event Publisher (Testcontainers)
 - [ ] Integration Testing the Event Subscriber (Testcontainers)
