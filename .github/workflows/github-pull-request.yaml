@@ -14,4 +14,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - run: mvn verify
+      - run: |-
+          mvn verify \
+          -Dpactbroker.auth.token=$PACT_BROKER_TOKEN

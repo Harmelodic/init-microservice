@@ -67,7 +67,7 @@ class ExampleAccountClientDeleteAccountTest {
                         String.format("/accounts/%s", UUID_PATTERN),
                         String.format("/accounts/%s", ACCOUNT_EXAMPLE.id()))
                 .willRespondWith()
-                .status(404)
+                .status(200)
                 .toPact(V4Pact.class);
     }
 

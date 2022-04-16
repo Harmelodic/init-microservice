@@ -1,8 +1,11 @@
 package com.harmelodic.init.microservice.account;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping(path = "/account")
+@RequestMapping(path = "/accounts")
 public class AccountController {
 
     final AccountService accountService;
@@ -51,5 +54,10 @@ public class AccountController {
     @DeleteMapping(path = "/{id}")
     public void deleteAccountById(@PathVariable UUID id) {
         accountService.deleteAccountById(id);
+    }
+
+    @ExceptionHandler({ EmptyResultDataAccessException.class })
+    public ResponseEntity<Object> handleException() {
+        return ResponseEntity.notFound().build();
     }
 }
