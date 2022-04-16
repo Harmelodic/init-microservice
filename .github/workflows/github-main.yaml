@@ -19,8 +19,8 @@ jobs:
           -Dimage.repository=init-microservice \
           -Dimage.tag=${GITHUB_SHA:-abc} \
           -Dpactbroker.url=https://harmelodic.pactflow.io \
-          -Dpactbroker.auth.token=$PACT_BROKER_TOKEN \
+          -Dpactbroker.auth.token=${{ secrets.PACT_BROKER_TOKEN }} \
           -Dpact.verifier.publishResults=true \
           -Dpact.broker.url=https://harmelodic.pactflow.io \
-          -Dpact.broker.token=$PACT_BROKER_TOKEN \
+          -Dpact.broker.token=${{ secrets.PACT_BROKER_TOKEN }} \
           -Dpact.broker.authentication.scheme=BEARER

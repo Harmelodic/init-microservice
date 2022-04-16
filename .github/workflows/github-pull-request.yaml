@@ -16,4 +16,4 @@ jobs:
           java-version: 17
       - run: |-
           mvn verify \
-          -Dpactbroker.auth.token=$PACT_BROKER_TOKEN
+          -Dpactbroker.auth.token=${{ secrets.PACT_BROKER_TOKEN }}
