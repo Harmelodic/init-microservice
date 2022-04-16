@@ -17,7 +17,7 @@ jobs:
       - run: |-
           mvn deploy \
           -Dimage.repository=init-microservice \
-          -Dimage.tag=$GITHUB_SHA \
+          -Dimage.tag=${GITHUB_SHA:-abc} \
           -Dpactbroker.url=https://harmelodic.pactflow.io \
           -Dpactbroker.auth.token=$PACT_BROKER_TOKEN \
           -Dpact.verifier.publishResults=true \

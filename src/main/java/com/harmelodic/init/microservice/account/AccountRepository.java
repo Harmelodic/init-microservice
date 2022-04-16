@@ -1,5 +1,6 @@
 package com.harmelodic.init.microservice.account;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -58,12 +59,16 @@ public class AccountRepository {
     }
 
     public Account updateAccount(Account account) {
+        Account accountExists = jdbcTemplate.queryForObject("SELECT * FROM account WHERE id = ?", rowMapper, account.id());
+        if (accountExists == null) {
+            throw new EmptyResultDataAccessException(1);
+        }
         jdbcTemplate.update("""
                         UPDATE account
                         SET `name` = ?, customer_id = ?
                         WHERE id = ?;
                         """,
-                account.name(), account.customerId(), account.id());
+                account.name(), account.customerId(), accountExists.id());
         return account;
     }
 
