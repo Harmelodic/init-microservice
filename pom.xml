@@ -195,6 +195,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <projectVersion>${image.tag}</projectVersion>
+                </configuration>
             </plugin>
 
             <plugin>
