@@ -76,7 +76,7 @@ class ExampleAccountClientDeleteAccountTest {
     void deleteAccountThatDoesNotExistTest(MockServer mockServer) {
         ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
 
-        assertThrows(RuntimeException.class, () -> accountClient.deleteAccount(ACCOUNT_EXAMPLE.id()));
+        assertDoesNotThrow(() -> accountClient.deleteAccount(ACCOUNT_EXAMPLE.id()));
     }
 
     @Pact(consumer = "MyExampleService")
