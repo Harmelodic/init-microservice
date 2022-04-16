@@ -226,13 +226,13 @@
                             <goal>dockerBuild</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
+<!--                    <execution>-->
+<!--                        <id>deploy</id>-->
+<!--                        <phase>deploy</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
                 </executions>
             </plugin>
 
