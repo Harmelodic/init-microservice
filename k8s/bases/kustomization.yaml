@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app: init-microservice
+  app.kubernetes.io/component: server
+  app.kubernetes.io/created-by: harmelodic
+  app.kubernetes.io/managed-by: kustomize
+  app.kubernetes.io/name: init-microservice
+  app.kubernetes.io/part-of: init-microservice
+  app.kubernetes.io/version: 1.0.0
+resources:
+  - deployment.yaml
+  - service.yaml
