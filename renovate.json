@@ -1,5 +1,5 @@
 {
-  "extends": [
-    "github>Harmelodic/renovate-config"
-  ]
+	"extends": [
+		"github>Harmelodic/renovate-config"
+	]
 }
