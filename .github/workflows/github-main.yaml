@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 18
       - run: |-
           mvn deploy \
           -Dimage.repository=init-microservice \
