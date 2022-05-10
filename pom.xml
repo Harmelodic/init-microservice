@@ -13,7 +13,7 @@
         <image.tag>${maven.build.timestamp}</image.tag>
         <java.version>17</java.version>
         <logback.contrib.version>0.1.5</logback.contrib.version>
-        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
+        <maven.build.timestamp.format>yyyy-MM-dd_HH.mm.ss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -208,7 +208,7 @@
                 <configuration>
                     <from>
                         <image>
-                            eclipse-temurin@sha256:969b61cd870b616c2bb1b9000906e320cc7caf76293954f78b3cc1a57c66e326
+                            eclipse-temurin:17@sha256:969b61cd870b616c2bb1b9000906e320cc7caf76293954f78b3cc1a57c66e326
                         </image>
                     </from>
                     <to>
