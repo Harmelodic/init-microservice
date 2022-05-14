@@ -164,7 +164,7 @@
                     <!-- Required for publishing PACTs -->
                     <groupId>au.com.dius.pact.provider</groupId>
                     <artifactId>maven</artifactId>
-                    <version>4.3.6</version>
+                    <version>4.3.7</version>
                 </plugin>
             </plugins>
         </pluginManagement>
