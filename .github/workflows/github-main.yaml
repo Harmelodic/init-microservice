@@ -24,3 +24,11 @@ jobs:
           -Dpact.broker.url=https://harmelodic.pactflow.io \
           -Dpact.broker.token=${{ secrets.PACT_BROKER_TOKEN }} \
           -Dpact.broker.authentication.scheme=BEARER
+
+  terraform-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - run: terraform -chdir=infrastructure init -upgrade
+      - run: terraform -chdir=infrastructure validate
