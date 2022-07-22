@@ -34,6 +34,7 @@ Built in Java.
 - [ ] Deployment of Terraform (GitHub Actions)
 - [ ] Create Spans for Tracing (OpenTelemetry)
 - [ ] Create Domain-logic Metrics (Micrometer)
+- [x] Auto-updates (Renovate)
 
 ## Pact
 
