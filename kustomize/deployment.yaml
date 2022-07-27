@@ -20,6 +20,8 @@ spec:
           ports:
             - name: http
               containerPort: 8080
+            - name: management-http
+              containerPort: 8081
           resources:
             requests:
               cpu: "1"
@@ -27,20 +29,25 @@ spec:
             limits:
               cpu: "2"
               memory: 1Gi
+          startupProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 10
+            httpGet:
+              path: /actuator/health/liveness
+              port: management-http
           readinessProbe:
-            initialDelaySeconds: 10
             periodSeconds: 10
-            failureThreshold: 60
+            failureThreshold: 10
             httpGet:
-              port: 80
-              path: /actuator/health
+              path: /actuator/health/readiness
+              port: management-http
           livenessProbe:
-            initialDelaySeconds: 10
             periodSeconds: 10
-            failureThreshold: 60
+            failureThreshold: 10
             httpGet:
-              port: 80
-              path: /actuator/health
+              path: /actuator/health/liveness
+              port: management-http
   strategy:
     type: RollingUpdate
     rollingUpdate:

@@ -7,3 +7,11 @@ app:
   customer:
     client:
       baseUrl: http://customer-api
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  server:
+    port: 8081
