@@ -7,6 +7,9 @@ on:
 
 jobs:
   maven:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,9 +17,15 @@ jobs:
         with:
           distribution: temurin
           java-version: 18
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v0.8.0
+        with:
+          workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
+          service_account: automation@automation-220928.iam.gserviceaccount.com
+      - run: gcloud auth configure-docker europe-north1-docker.pkg.dev
       - run: |-
           mvn deploy \
-          -Dimage.repository=init-microservice \
+          -Dimage.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice \
           -Dimage.tag=${GITHUB_SHA:-latest} \
           -Dpactbroker.url=https://harmelodic.pactflow.io \
           -Dpactbroker.auth.token=${{ secrets.PACT_BROKER_TOKEN }} \

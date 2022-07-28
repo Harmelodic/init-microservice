@@ -27,9 +27,8 @@ Built in Java.
 - [x] HTTP Client Config
 - [x] Test & Package Automation (Maven, GitHub Actions)
 - [x] Packaging into a Container (Jib, Maven)
-- [ ] Pushing Container to Registry (Jib, Maven, GitHub Actions)
-- [x] Kubernetes resources
-- [ ] Deployment to Kubernetes (GitHub Actions)
+- [x] Pushing Container to Registry (Jib, Maven, GitHub Actions)
+- [x] Kubernetes resources (Kustomize)
 - [x] Terraform resources (Google)
 - [ ] Deployment of Terraform (GitHub Actions)
 - [ ] Create Spans for Tracing (OpenTelemetry)
