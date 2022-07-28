@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: init-microservice
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: init-microservice
@@ -24,11 +24,11 @@ spec:
               containerPort: 8081
           resources:
             requests:
+              cpu: 500m
+              memory: 0.25Gi
+            limits:
               cpu: "1"
               memory: 0.5Gi
-            limits:
-              cpu: "2"
-              memory: 1Gi
           startupProbe:
             initialDelaySeconds: 20
             periodSeconds: 10
