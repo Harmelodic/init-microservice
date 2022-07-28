@@ -34,10 +34,19 @@ jobs:
           -Dpact.broker.token=${{ secrets.PACT_BROKER_TOKEN }} \
           -Dpact.broker.authentication.scheme=BEARER
 
-  terraform-validate:
+  terraform:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v0.8.0
+        with:
+          workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
+          service_account: automation@automation-220928.iam.gserviceaccount.com
       - run: terraform -chdir=infrastructure init -upgrade
       - run: terraform -chdir=infrastructure validate
+      - run: terraform -chdir=infrastructure plan -var-file="prod.tfvars"
