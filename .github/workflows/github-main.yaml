@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 18
+          java-version: 19
       - name: 'Authenticate to Google Cloud'
         uses: google-github-actions/auth@v0.8.1
         with:
