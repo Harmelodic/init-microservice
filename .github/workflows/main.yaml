@@ -1,4 +1,5 @@
 name: main
+
 on:
   push:
     branches:
@@ -23,15 +24,15 @@ jobs:
           workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
           service_account: automation@automation-220928.iam.gserviceaccount.com
       - run: gcloud auth configure-docker europe-north1-docker.pkg.dev
-      - run: |-
-          mvn deploy \
-          -Dimage.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice \
-          -Dimage.tag=${GITHUB_SHA:-latest} \
-          -Dpactbroker.url=https://harmelodic.pactflow.io \
-          -Dpactbroker.auth.token=${{ secrets.PACT_BROKER_TOKEN }} \
-          -Dpact.verifier.publishResults=true \
-          -Dpact.broker.url=https://harmelodic.pactflow.io \
-          -Dpact.broker.token=${{ secrets.PACT_BROKER_TOKEN }} \
+      - run: >
+          mvn deploy
+          -Dimage.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
+          -Dimage.tag=${GITHUB_SHA:-latest}
+          -Dpactbroker.url=https://harmelodic.pactflow.io
+          -Dpactbroker.auth.token=${{ secrets.PACT_BROKER_TOKEN }}
+          -Dpact.verifier.publishResults=true
+          -Dpact.broker.url=https://harmelodic.pactflow.io
+          -Dpact.broker.token=${{ secrets.PACT_BROKER_TOKEN }}
           -Dpact.broker.authentication.scheme=BEARER
 
   terraform:
