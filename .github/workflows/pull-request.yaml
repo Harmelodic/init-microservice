@@ -14,9 +14,9 @@ jobs:
         with:
           distribution: temurin
           java-version: 19
-      - run: |-
-          mvn verify \
-          -Dpactbroker.url=https://harmelodic.pactflow.io \
+      - run: >
+          mvn verify
+          -Dpactbroker.url=https://harmelodic.pactflow.io
           -Dpactbroker.auth.token=${{ secrets.PACT_BROKER_TOKEN }}
 
   terraform-validate:
