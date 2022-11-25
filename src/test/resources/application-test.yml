@@ -3,3 +3,7 @@ spring:
     url: jdbc:h2:mem:default
     driverClassName: org.h2.Driver
     username: sa
+pactbroker:
+  url: https://harmelodic.pactflow.io
+  auth:
+    token: ${PACTBROKER_AUTH_TOKEN}

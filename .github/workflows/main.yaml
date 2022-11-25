@@ -28,12 +28,12 @@ jobs:
           mvn deploy
           -Dimage.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
           -Dimage.tag=${GITHUB_SHA:-latest}
-          -Dpactbroker.url=https://harmelodic.pactflow.io
-          -Dpactbroker.auth.token=${{ secrets.PACT_BROKER_TOKEN }}
           -Dpact.verifier.publishResults=true
           -Dpact.broker.url=https://harmelodic.pactflow.io
           -Dpact.broker.token=${{ secrets.PACT_BROKER_TOKEN }}
           -Dpact.broker.authentication.scheme=BEARER
+        env:
+          PACTBROKER_AUTH_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
 
   terraform:
     permissions:
