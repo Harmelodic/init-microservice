@@ -26,9 +26,6 @@ spec:
             requests:
               cpu: 500m
               memory: 0.25Gi
-            limits:
-              cpu: "1"
-              memory: 0.5Gi
           startupProbe:
             initialDelaySeconds: 20
             periodSeconds: 10
