@@ -51,15 +51,15 @@ public class AccountRepository {
     }
 
     public List<Account> fetchAllAccounts() {
-        return jdbcTemplate.query("SELECT * FROM account;", rowMapper);
+        return jdbcTemplate.query("SELECT id, name, customer_id FROM account;", rowMapper);
     }
 
     public Account fetchAccountById(UUID id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM account WHERE id = ?", rowMapper, id);
+        return jdbcTemplate.queryForObject("SELECT id, name, customer_id FROM account WHERE id = ?", rowMapper, id);
     }
 
     public Account updateAccount(Account account) {
-        Account accountExists = jdbcTemplate.queryForObject("SELECT * FROM account WHERE id = ?", rowMapper, account.id());
+        Account accountExists = jdbcTemplate.queryForObject("SELECT id, name, customer_id FROM account WHERE id = ?", rowMapper, account.id());
         if (accountExists == null) {
             throw new EmptyResultDataAccessException(1);
         }
