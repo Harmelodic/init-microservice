@@ -29,11 +29,11 @@ import java.util.UUID;
 @PactBroker
 class AccountControllerTest {
 
-    public static final String ACCOUNT_EXISTS_WITH_ID = "ACCOUNT_EXISTS_WITH_ID";
-    public static final String ACCOUNT_DOES_NOT_EXIST = "ACCOUNT_DOES_NOT_EXIST";
-    public static final String SERVER_ERROR_WILL_OCCUR = "SERVER_ERROR_WILL_OCCUR";
-    public static final String ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID = "ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID";
-    public static final String THREE_ACCOUNTS_EXIST = "THREE_ACCOUNTS_EXIST";
+    public static final String ACCOUNT_EXISTS_WITH_ID = "account_exists_with_id";
+    public static final String ACCOUNT_DOES_NOT_EXIST = "account_does_not_exist";
+    public static final String SERVER_ERROR_WILL_OCCUR = "server_error_will_occur";
+    public static final String ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID = "account_exists_with_id_name_and_customer_id";
+    public static final String THREE_ACCOUNTS_EXIST = "three_accounts_exist";
 
     @LocalServerPort
     int port;
