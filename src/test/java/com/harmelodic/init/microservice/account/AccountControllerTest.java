@@ -53,6 +53,8 @@ class AccountControllerTest {
     @BeforeEach
     void before(PactVerificationContext context) {
         context.setTarget(new HttpTestTarget("localhost", port));
+        flyway.clean();
+        flyway.migrate();
     }
 
     void wipeAccountTable() {

@@ -1,7 +1,9 @@
+pactbroker:
+  url: https://pact.harmelodic.com
 spring:
   datasource:
     url: jdbc:h2:mem:default
     driverClassName: org.h2.Driver
     username: sa
-pactbroker:
-  url: https://pact.harmelodic.com
+  flyway:
+    clean-disabled: false
