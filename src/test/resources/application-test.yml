@@ -4,6 +4,6 @@ spring:
   datasource:
     url: jdbc:h2:mem:default
     driverClassName: org.h2.Driver
-    username: sa
+    username: dummy-service-account
   flyway:
     clean-disabled: false
