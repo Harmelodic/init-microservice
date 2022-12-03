@@ -29,11 +29,13 @@ jobs:
           -Dimage.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
           -Dimage.tag=${GITHUB_SHA:-latest}
           -Dpact.verifier.publishResults=true
-          -Dpact.broker.url=https://harmelodic.pactflow.io
-          -Dpact.broker.token=${{ secrets.PACT_BROKER_TOKEN }}
-          -Dpact.broker.authentication.scheme=BEARER
+          -Dpact.broker.url=https://pact.harmelodic.com
+          -Dpact.broker.username=pact-broker-user
+          -Dpact.broker.password=${{ secrets.PACT_BROKER_PASSWORD }}
+        # ^ For publishing Consumer PACTs
         env:
-          PACTBROKER_AUTH_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
+          PACTBROKER_USERNAME: pact-broker-user # For publishing Provider results
+          PACTBROKER_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results
 
   terraform:
     permissions:

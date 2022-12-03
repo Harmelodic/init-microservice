@@ -16,8 +16,6 @@ jobs:
           distribution: temurin
           java-version: 19
       - run: mvn verify
-        env:
-          PACTBROKER_AUTH_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
 
   terraform-validate:
     runs-on: ubuntu-latest

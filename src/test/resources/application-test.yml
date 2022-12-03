@@ -4,6 +4,4 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
 pactbroker:
-  url: https://harmelodic.pactflow.io
-  auth:
-    token: ${PACTBROKER_AUTH_TOKEN}
+  url: https://pact.harmelodic.com
