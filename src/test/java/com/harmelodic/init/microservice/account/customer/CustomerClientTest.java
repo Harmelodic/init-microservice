@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @PactTestFor(providerName = "Customer Service")
 class CustomerClientTest {
 
+    private final static String CUSTOMER_EXISTS = "customer_exists";
+
     private final Pattern UUID_PATTERN =
             Pattern.compile("[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}");
 
@@ -32,7 +34,7 @@ class CustomerClientTest {
     @Pact(consumer = "Account Service")
     public V4Pact fetchCustomerWhenExists(PactDslWithProvider builder) {
         return builder
-                .given("Customer Exists")
+                .given(CUSTOMER_EXISTS)
                 .uponReceiving("A valid UUID for an existing customer")
                 .method("GET")
                 .matchPath(

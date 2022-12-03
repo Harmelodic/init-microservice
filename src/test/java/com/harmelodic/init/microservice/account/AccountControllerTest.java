@@ -29,7 +29,6 @@ import java.util.UUID;
 @PactBroker
 class AccountControllerTest {
 
-    public static final String ACCOUNT_EXISTS_WITH_ID = "account_exists_with_id";
     public static final String ACCOUNT_DOES_NOT_EXIST = "account_does_not_exist";
     public static final String SERVER_ERROR_WILL_OCCUR = "server_error_will_occur";
     public static final String ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID = "account_exists_with_id_name_and_customer_id";
@@ -61,21 +60,6 @@ class AccountControllerTest {
         jdbcTemplate.execute("""
                 TRUNCATE TABLE account;
                 """);
-    }
-
-    @State(value = ACCOUNT_EXISTS_WITH_ID, action = StateChangeAction.SETUP)
-    void accountExistsWithIdSetup(Map<String, Object> params) {
-        UUID id = UUID.fromString(params.get("id").toString());
-        jdbcTemplate.update("""
-                        INSERT INTO account (id, `name`, customer_id)
-                        VALUES (?, ?, ?);
-                        """,
-                id, "Some name", UUID.randomUUID());
-    }
-
-    @State(value = ACCOUNT_EXISTS_WITH_ID, action = StateChangeAction.TEARDOWN)
-    void accountExistsWithIdTeardown() {
-        wipeAccountTable();
     }
 
     @State(value = ACCOUNT_DOES_NOT_EXIST, action = StateChangeAction.SETUP)
