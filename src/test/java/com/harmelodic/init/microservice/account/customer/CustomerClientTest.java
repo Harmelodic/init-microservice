@@ -35,7 +35,7 @@ class CustomerClientTest {
     public V4Pact fetchCustomerWhenExists(PactDslWithProvider builder) {
         return builder
                 .given(CUSTOMER_EXISTS)
-                .uponReceiving("A valid UUID for an existing customer")
+                .uponReceiving("a request with a valid UUID for an existing customer")
                 .method("GET")
                 .matchPath(
                         String.format("/customers/%s", UUID_PATTERN),
