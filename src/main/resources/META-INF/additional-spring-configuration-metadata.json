@@ -4,5 +4,6 @@
       "name": "app.customer.client.baseUrl",
       "type": "java.lang.String",
       "description": "Base URL for Customer Client to use."
-  }
-] }
+    }
+  ]
+}
