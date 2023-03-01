@@ -1,16 +1,5 @@
 {
 	"extends": [
 		"github>Harmelodic/renovate-config"
-	],
-	"packageRules": [
-		{
-			"description": "Temporarily block PACT whilst 4.5.0 is broken",
-			"enabled": false,
-			"matchPackageNames": [
-				"au.com.dius.pact.consumer:junit5",
-				"au.com.dius.pact.provider:junit5spring",
-				"au.com.dius.pact.provider:maven"
-			]
-    	}
 	]
 }
