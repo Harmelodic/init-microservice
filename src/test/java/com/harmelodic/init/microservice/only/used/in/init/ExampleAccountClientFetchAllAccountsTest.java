@@ -14,8 +14,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 
 import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonArray;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.THREE_ACCOUNTS_EXIST;
+import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,10 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Testing a Controller with your own Client not how Consumer-driven Contract Testing works.
  */
 @ExtendWith(PactConsumerTestExt.class)
-@PactTestFor(providerName = "Account Service")
+@PactTestFor(providerName = EXAMPLE_ACCOUNT_SERVICE)
 class ExampleAccountClientFetchAllAccountsTest {
 
-    @Pact(consumer = "MyExampleService")
+    @Pact(consumer = EXAMPLE_ACCOUNT_CLIENT)
     public V4Pact fetchAllAccountsSuccess(PactDslWithProvider builder) {
         return builder
                 .given(THREE_ACCOUNTS_EXIST)
@@ -72,7 +72,7 @@ class ExampleAccountClientFetchAllAccountsTest {
         });
     }
 
-    @Pact(consumer = "MyExampleService")
+    @Pact(consumer = EXAMPLE_ACCOUNT_CLIENT)
     public V4Pact fetchAllAccountsServerError(PactDslWithProvider builder) {
         return builder
                 .given(SERVER_ERROR_WILL_OCCUR)

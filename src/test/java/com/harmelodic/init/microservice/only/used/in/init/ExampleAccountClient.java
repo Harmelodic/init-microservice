@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * An example client for this Account Service.
- *
+ * <p>
  * In the real world, you should not create this in your tests.
  * This is only here to provide a client to the ExampleAccountClient... tests.
  */

@@ -14,9 +14,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Map;
 
 import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonBody;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_DOES_NOT_EXIST;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.ACCOUNT_EXAMPLE;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
+import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
+import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,10 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Testing a Controller with your own Client not how Consumer-driven Contract Testing works.
  */
 @ExtendWith(PactConsumerTestExt.class)
-@PactTestFor(providerName = "Account Service")
+@PactTestFor(providerName = EXAMPLE_ACCOUNT_SERVICE)
 class ExampleAccountClientCreateAccountTest {
 
-    @Pact(consumer = "MyExampleService")
+    @Pact(consumer = EXAMPLE_ACCOUNT_CLIENT)
     public V4Pact createAccountSuccess(PactDslWithProvider builder) {
         return builder
                 .given(ACCOUNT_DOES_NOT_EXIST)
@@ -70,7 +69,7 @@ class ExampleAccountClientCreateAccountTest {
         assertEquals(ACCOUNT_EXAMPLE.customerId(), receivedAccount.customerId());
     }
 
-    @Pact(consumer = "MyExampleService")
+    @Pact(consumer = EXAMPLE_ACCOUNT_CLIENT)
     public V4Pact createAccountServerFailure(PactDslWithProvider builder) {
         return builder
                 .given(SERVER_ERROR_WILL_OCCUR)
@@ -98,5 +97,4 @@ class ExampleAccountClientCreateAccountTest {
 
         assertThrows(RuntimeException.class, () -> accountClient.createAccount(newAccount));
     }
-
 }

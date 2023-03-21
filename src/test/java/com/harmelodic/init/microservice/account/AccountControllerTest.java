@@ -22,10 +22,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles(value = "test")
-@Provider("Account Service")
+@Provider(EXAMPLE_ACCOUNT_SERVICE)
 @PactBroker
 class AccountControllerTest {
 

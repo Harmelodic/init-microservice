@@ -15,10 +15,12 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonBody;
+import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
+import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_CUSTOMER_SERVICE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(PactConsumerTestExt.class)
-@PactTestFor(providerName = "Customer Service")
+@PactTestFor(providerName = EXAMPLE_CUSTOMER_SERVICE)
 class CustomerClientTest {
 
     private final static String CUSTOMER_EXISTS = "customer_exists";
@@ -31,7 +33,7 @@ class CustomerClientTest {
             "Matt",
             "Smith");
 
-    @Pact(consumer = "Account Service")
+    @Pact(consumer = EXAMPLE_ACCOUNT_SERVICE)
     public V4Pact fetchCustomerWhenExists(PactDslWithProvider builder) {
         return builder
                 .given(CUSTOMER_EXISTS)
