@@ -32,9 +32,7 @@ class AccountRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        jdbcTemplate.execute("""
-                TRUNCATE TABLE account;
-                    """);
+        jdbcTemplate.execute("TRUNCATE TABLE account;");
     }
 
     final RowMapper<Account> accountMapper = ((rs, rowNum) -> new Account(
@@ -49,7 +47,7 @@ class AccountRepositoryTest {
 
         repository.openAccount(inputAccount);
 
-        List<Account> accountList = jdbcTemplate.query("SELECT * FROM account;", accountMapper);
+        List<Account> accountList = jdbcTemplate.query("SELECT id, name, customer_id FROM account;", accountMapper);
 
         assertEquals(1, accountList.size());
 
@@ -67,7 +65,7 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
         inputAccounts.forEach(account -> jdbcTemplate.update("""
-                        INSERT INTO account(id, `name`, customer_id)
+                        INSERT INTO account(id, name, customer_id)
                         VALUES (?, ?, ?)
                         """,
                 account.id(), account.name(), account.customerId()));
@@ -86,7 +84,7 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
         inputAccounts.forEach(account -> jdbcTemplate.update("""
-                        INSERT INTO account(id, `name`, customer_id)
+                        INSERT INTO account(id, name, customer_id)
                         VALUES (?, ?, ?)
                         """,
                 account.id(), account.name(), account.customerId()));
@@ -105,7 +103,7 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
         inputAccounts.forEach(account -> jdbcTemplate.update("""
-                        INSERT INTO account(id, `name`, customer_id)
+                        INSERT INTO account(id, name, customer_id)
                         VALUES (?, ?, ?)
                         """,
                 account.id(), account.name(), account.customerId()));
@@ -129,7 +127,7 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
         inputAccounts.forEach(account -> jdbcTemplate.update("""
-                        INSERT INTO account(id, `name`, customer_id)
+                        INSERT INTO account(id, name, customer_id)
                         VALUES (?, ?, ?)
                         """,
                 account.id(), account.name(), account.customerId()));
@@ -142,7 +140,7 @@ class AccountRepositoryTest {
                 inputAccounts.get(2)
         );
 
-        List<Account> accountList = jdbcTemplate.query("SELECT * FROM account;", accountMapper);
+        List<Account> accountList = jdbcTemplate.query("SELECT id, name, customer_id FROM account;", accountMapper);
 
         assertEquals(onlyOnesLeft, accountList);
     }

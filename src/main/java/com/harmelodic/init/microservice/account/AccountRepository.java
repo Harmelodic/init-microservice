@@ -43,7 +43,7 @@ public class AccountRepository {
 
     public Account openAccount(Account account) {
         jdbcTemplate.update("""
-                        INSERT INTO account(id, `name`, customer_id)
+                        INSERT INTO account(id, name, customer_id)
                         VALUES (?, ?, ?);
                         """,
                 account.id(), account.name(), account.customerId());
@@ -65,7 +65,7 @@ public class AccountRepository {
         }
         jdbcTemplate.update("""
                         UPDATE account
-                        SET `name` = ?, customer_id = ?
+                        SET name = ?, customer_id = ?
                         WHERE id = ?;
                         """,
                 account.name(), account.customerId(), accountExists.id());
