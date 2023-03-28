@@ -26,12 +26,12 @@ jobs:
       - run: gcloud auth configure-docker europe-north1-docker.pkg.dev
       - run: >
           mvn deploy
-          -Dimage.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
-          -Dimage.tag=${GITHUB_SHA:-latest}
-          -Dpact.verifier.publishResults=true
-          -Dpact.broker.url=https://pact.harmelodic.com
-          -Dpact.broker.username=pact-broker-user
-          -Dpact.broker.password=${{ secrets.PACT_BROKER_PASSWORD }}
+          --define image.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
+          --define image.tag=${GITHUB_SHA:-latest}
+          --define pact.verifier.publishResults=true
+          --define pact.broker.url=https://pact.harmelodic.com
+          --define pact.broker.username=pact-broker-user
+          --define pact.broker.password=${{ secrets.PACT_BROKER_PASSWORD }}
         # ^ For publishing Consumer PACTs
         env:
           PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
