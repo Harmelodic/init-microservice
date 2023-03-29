@@ -26,6 +26,7 @@ jobs:
       - run: gcloud auth configure-docker europe-north1-docker.pkg.dev
       - run: >
           mvn deploy
+          --batch-mode
           --define image.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
           --define image.tag=${GITHUB_SHA:-latest}
           --define pact.verifier.publishResults=true
