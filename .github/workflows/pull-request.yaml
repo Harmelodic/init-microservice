@@ -15,7 +15,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 20
-      - run: mvn verify --batch-mode
+      - run: mvn verify --no-transfer-progress
 
   terraform-validate:
     runs-on: ubuntu-latest
