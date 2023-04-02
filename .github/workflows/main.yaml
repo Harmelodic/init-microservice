@@ -11,7 +11,7 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
-    uses: Harmelodic/github-workflows/.github/workflows/build-java-container-gcp.yml@main
+    uses: Harmelodic/github-workflows/.github/workflows/build-java-container-gcp.yaml@main
     with:
       maven_options: >
         --define image.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
@@ -32,7 +32,7 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
-    uses: Harmelodic/github-workflows/.github/workflows/validate-terraform-gcp.yml@main
+    uses: Harmelodic/github-workflows/.github/workflows/validate-terraform-gcp.yaml@main
     with:
       workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
       service_account: automation@automation-220928.iam.gserviceaccount.com
