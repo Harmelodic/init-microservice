@@ -23,10 +23,6 @@ jobs:
       google_docker_registry: europe-north1-docker.pkg.dev
       service_account: automation@automation-220928.iam.gserviceaccount.com
       workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
-    # ^ For publishing Consumer PACTs
-    env:
-      PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
-      PACTBROKER_AUTH_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results
 
   terraform:
     permissions:
