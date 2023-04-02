@@ -8,19 +8,14 @@ on:
 
 jobs:
   maven:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 20
-      - run: mvn verify --no-transfer-progress
+    uses: Harmelodic/github-workflows/.github/workflows/verify-java-project.yaml@main
 
-  terraform-validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
-      - run: terraform -chdir=infrastructure init -backend=false
-      - run: terraform -chdir=infrastructure validate
+  terraform:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    uses: Harmelodic/github-workflows/.github/workflows/validate-terraform-gcp.yaml@main
+    with:
+      terraform_directory: infrastructure
+      workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
+      service_account: automation@automation-220928.iam.gserviceaccount.com
