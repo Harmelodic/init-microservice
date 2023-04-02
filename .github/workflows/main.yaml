@@ -34,5 +34,6 @@ jobs:
       id-token: 'write'
     uses: Harmelodic/github-workflows/.github/workflows/validate-terraform-gcp.yaml@main
     with:
+      terraform_directory: infrastructure
       workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
       service_account: automation@automation-220928.iam.gserviceaccount.com
