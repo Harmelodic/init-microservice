@@ -11,46 +11,28 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 20
-      - name: 'Authenticate to Google Cloud'
-        uses: google-github-actions/auth@v1.0.0
-        with:
-          workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
-          service_account: automation@automation-220928.iam.gserviceaccount.com
-      - run: gcloud auth configure-docker europe-north1-docker.pkg.dev
-      - run: >
-          mvn deploy
-          --no-transfer-progress
-          --define image.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
-          --define image.tag=${GITHUB_SHA:-latest}
-          --define pact.verifier.publishResults=true
-          --define pact.broker.url=https://pact.harmelodic.com
-          --define pact.broker.username=pact-broker-user
-          --define pact.broker.password=${{ secrets.PACT_BROKER_PASSWORD }}
-        # ^ For publishing Consumer PACTs
-        env:
-          PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
-          PACTBROKER_AUTH_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results
+    uses: Harmelodic/github-workflows/.github/workflows/build-java-container-gcp.yml@main
+    with:
+      maven_options: >
+        --define image.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
+        --define image.tag=${GITHUB_SHA:-latest}
+        --define pact.verifier.publishResults=true
+        --define pact.broker.url=https://pact.harmelodic.com
+        --define pact.broker.username=pact-broker-user
+        --define pact.broker.password=${{ secrets.PACT_BROKER_PASSWORD }}
+      google_docker_registry: europe-north1-docker.pkg.dev
+      service_account: automation@automation-220928.iam.gserviceaccount.com
+      workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
+    # ^ For publishing Consumer PACTs
+    env:
+      PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
+      PACTBROKER_AUTH_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results
 
   terraform:
     permissions:
       contents: 'read'
       id-token: 'write'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
-      - name: 'Authenticate to Google Cloud'
-        uses: google-github-actions/auth@v1.0.0
-        with:
-          workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
-          service_account: automation@automation-220928.iam.gserviceaccount.com
-      - run: terraform -chdir=infrastructure init -upgrade
-      - run: terraform -chdir=infrastructure validate
-      - run: terraform -chdir=infrastructure plan -var-file="prod.tfvars"
+    uses: Harmelodic/github-workflows/.github/workflows/validate-terraform-gcp.yml@main
+    with:
+      workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
+      service_account: automation@automation-220928.iam.gserviceaccount.com
