@@ -12,6 +12,7 @@ jobs:
       contents: 'read'
       id-token: 'write'
     uses: Harmelodic/github-workflows/.github/workflows/build-java-container-gcp.yaml@main
+    secrets: inherit
     with:
       maven_options: >
         --define image.repository=europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
