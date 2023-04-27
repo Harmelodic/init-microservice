@@ -25,7 +25,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.0.4</version>
+                <version>3.0.6</version>
                 <type>pom</type>
                 <scope>import</scope>
                 <!-- Bill of Materials for managing Spring Boot Dependencies -->
@@ -33,7 +33,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.9.2</version>
+                <version>5.9.3</version>
                 <type>pom</type>
                 <scope>import</scope>
                 <!-- Bill of Materials for managing JUnit dependencies -->
@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>au.com.dius.pact.consumer</groupId>
                 <artifactId>junit5</artifactId>
-                <version>4.5.1</version>
+                <version>4.5.6</version>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
@@ -54,7 +54,7 @@
             <dependency>
                 <groupId>au.com.dius.pact.provider</groupId>
                 <artifactId>junit5spring</artifactId>
-                <version>4.5.1</version>
+                <version>4.5.6</version>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
@@ -164,7 +164,7 @@
                     <!-- Required for publishing PACTs -->
                     <groupId>au.com.dius.pact.provider</groupId>
                     <artifactId>maven</artifactId>
-                    <version>4.5.1</version>
+                    <version>4.5.6</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -175,7 +175,7 @@
                 <!-- Required for running tests -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0</version>
                 <configuration>
                     <systemPropertyVariables>
                         <pact_do_not_track>true</pact_do_not_track>
@@ -207,7 +207,7 @@
                 <version>3.3.1</version>
                 <configuration>
                     <from>
-                        <image>eclipse-temurin:20-jre-alpine@sha256:e6b8e5664454db5c07d0a0c884d7f37a256587afec652c7782619b9a1fed337b</image>
+                        <image>eclipse-temurin:20-jre-alpine@sha256:9e0e03b2d3222f54a7a222cd2bd16301d1653be508b84d62487383bb7e420be2</image>
                     </from>
                     <to>
                         <image>${image.repository}</image>
@@ -238,7 +238,7 @@
                 <!-- Required to disable Maven artifact deployment since we'll instead build a container -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.1</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
