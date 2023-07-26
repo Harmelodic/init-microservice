@@ -207,7 +207,7 @@
                 <version>3.3.2</version>
                 <configuration>
                     <from>
-                        <image>eclipse-temurin:20-jre-alpine@sha256:bef1975884912fe09ca47a8942fec8216f28a0420d464d371b9d9763fc6f4233</image>
+                        <image>eclipse-temurin:20-jre-alpine@sha256:ecfed6661a94d0280d8ce9515f8edd5f4e1bab6fd3cb7ef32487383abb1525ea</image>
                     </from>
                     <to>
                         <image>${image.repository}</image>
