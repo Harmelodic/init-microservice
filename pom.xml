@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>au.com.dius.pact.consumer</groupId>
                 <artifactId>junit5</artifactId>
-                <version>4.6.2</version>
+                <version>4.6.3</version>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
@@ -54,7 +54,7 @@
             <dependency>
                 <groupId>au.com.dius.pact.provider</groupId>
                 <artifactId>junit5spring</artifactId>
-                <version>4.6.2</version>
+                <version>4.6.3</version>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
@@ -164,7 +164,7 @@
                     <!-- Required for publishing PACTs -->
                     <groupId>au.com.dius.pact.provider</groupId>
                     <artifactId>maven</artifactId>
-                    <version>4.6.2</version>
+                    <version>4.6.3</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -204,7 +204,7 @@
                 <!-- Required for building into a Container -->
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.4.0</version>
                 <configuration>
                     <from>
                         <image>eclipse-temurin:20-jre-alpine@sha256:29928dae72de0d8b6351b77726357f0e44d1f97908c23192cdcf501147d42601</image>
