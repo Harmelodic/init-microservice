@@ -33,6 +33,6 @@ jobs:
         with:
           workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
           service_account: automation@automation-220928.iam.gserviceaccount.com
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
       - run: terraform -chdir=infrastructure init -upgrade
       - run: terraform -chdir=infrastructure validate
