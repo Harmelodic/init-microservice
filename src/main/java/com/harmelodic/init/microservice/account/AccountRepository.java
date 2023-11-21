@@ -36,10 +36,10 @@ public class AccountRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private final RowMapper<Account> rowMapper = ((rs, rowNum) -> new Account(
+    private final RowMapper<Account> rowMapper = (rs, rowNum) -> new Account(
             rs.getObject("id", UUID.class),
             rs.getString("name"),
-            rs.getObject("customer_id", UUID.class)));
+            rs.getObject("customer_id", UUID.class));
 
     public Account openAccount(Account account) {
         jdbcTemplate.update("""
