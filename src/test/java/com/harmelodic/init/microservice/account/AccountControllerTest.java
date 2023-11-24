@@ -14,9 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Map;
@@ -39,7 +38,7 @@ class AccountControllerTest {
     int port;
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    JdbcClient jdbcClient;
 
     @Autowired
     Flyway flyway;
@@ -58,9 +57,7 @@ class AccountControllerTest {
     }
 
     void wipeAccountTable() {
-        jdbcTemplate.execute("""
-                TRUNCATE TABLE account;
-                """);
+        jdbcClient.sql("TRUNCATE TABLE account;").update();
     }
 
     @State(value = ACCOUNT_DOES_NOT_EXIST, action = StateChangeAction.SETUP)
@@ -75,7 +72,7 @@ class AccountControllerTest {
 
     @State(value = SERVER_ERROR_WILL_OCCUR, action = StateChangeAction.SETUP)
     void serverErrorWillOccurSetup() {
-        jdbcTemplate.execute("DROP TABLE account;");
+        jdbcClient.sql("DROP TABLE account;").update();
     }
 
     @State(value = SERVER_ERROR_WILL_OCCUR, action = StateChangeAction.TEARDOWN)
@@ -90,11 +87,11 @@ class AccountControllerTest {
         String name = params.get("name").toString();
         UUID customerId = UUID.fromString(params.get("customerId").toString());
 
-        jdbcTemplate.update("""
-                        INSERT INTO account (id, `name`, customer_id)
-                        VALUES (?, ?, ?);
-                        """,
-                id, name, customerId);
+        jdbcClient.sql("INSERT INTO account (id, name, customer_id) VALUES (:id, :name, :customer_id);")
+                .param("id", id)
+                .param("name", name)
+                .param("customer_id", customerId)
+                .update();
     }
 
     @State(value = ACCOUNT_EXISTS_WITH_ID_NAME_AND_CUSTOMER_ID, action = StateChangeAction.TEARDOWN)
@@ -105,11 +102,11 @@ class AccountControllerTest {
     @State(value = THREE_ACCOUNTS_EXIST, action = StateChangeAction.SETUP)
     void threeAccountsExistSetup() {
         List<Integer> things = List.of(0, 1, 2);
-        things.forEach(thing -> jdbcTemplate.update("""
-                        INSERT INTO account (id, `name`, customer_id)
-                        VALUES (?, ?, ?);
-                        """,
-                UUID.randomUUID(), "Some Name" + thing, UUID.randomUUID()));
+        things.forEach(thing -> jdbcClient.sql("INSERT INTO account (id, name, customer_id) VALUES (:id, :name, :customer_id);")
+                .param("id", UUID.randomUUID())
+                .param("name", "Some Name" + thing)
+                .param("customer_id", UUID.randomUUID())
+                .update());
     }
 
     @State(value = THREE_ACCOUNTS_EXIST, action = StateChangeAction.TEARDOWN)

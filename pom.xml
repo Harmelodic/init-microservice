@@ -104,7 +104,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
-            <!-- Required for JDBC Template -->
+            <!-- Required for JdbcClient -->
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
