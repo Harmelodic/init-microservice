@@ -1,11 +1,11 @@
 package com.harmelodic.init.microservice.account;
 
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -13,7 +13,7 @@ public class AccountRepository {
 
     /**
      * <p>
-     * Why JDBCTemplate? Why not use Jakarta Persistence?
+     * Why JDBC? Why not use Jakarta Persistence?
      * </p
      * <ol>
      *     <li>
@@ -30,49 +30,50 @@ public class AccountRepository {
      *     </li>
      * </ol>
      */
-    private final JdbcTemplate jdbcTemplate;
+    private final JdbcClient jdbcClient;
 
-    public AccountRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public AccountRepository(JdbcClient jdbcClient) {
+        this.jdbcClient = jdbcClient;
     }
 
-    private final RowMapper<Account> rowMapper = (rs, rowNum) -> new Account(
-            rs.getObject("id", UUID.class),
-            rs.getString("name"),
-            rs.getObject("customer_id", UUID.class));
-
     public Account openAccount(Account account) {
-        jdbcTemplate.update("""
-                        INSERT INTO account(id, name, customer_id)
-                        VALUES (?, ?, ?);
-                        """,
-                account.id(), account.name(), account.customerId());
+        jdbcClient.sql("INSERT INTO account(id, name, customer_id) VALUES (:id, :name, :customer_id)")
+                .param("id", account.id())
+                .param("name", account.name())
+                .param("customer_id", account.customerId())
+                .update();
         return account;
     }
 
     public List<Account> fetchAllAccounts() {
-        return jdbcTemplate.query("SELECT id, name, customer_id FROM account;", rowMapper);
+        return jdbcClient.sql("SELECT id, name, customer_id FROM account;").query(Account.class).list();
     }
 
     public Account fetchAccountById(UUID id) {
-        return jdbcTemplate.queryForObject("SELECT id, name, customer_id FROM account WHERE id = ?", rowMapper, id);
+        return jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
+                .param("id", id)
+                .query(Account.class)
+                .single();
     }
 
     public Account updateAccount(Account account) {
-        Account accountExists = jdbcTemplate.queryForObject("SELECT id, name, customer_id FROM account WHERE id = ?", rowMapper, account.id());
-        if (accountExists == null) {
+        Optional<Account> optionalAccount = jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
+                .param("id", account.id())
+                .query(Account.class)
+                .optional();
+        if (optionalAccount.isEmpty()) {
             throw new EmptyResultDataAccessException(1);
         }
-        jdbcTemplate.update("""
-                        UPDATE account
-                        SET name = ?, customer_id = ?
-                        WHERE id = ?;
-                        """,
-                account.name(), account.customerId(), accountExists.id());
+        jdbcClient.sql("UPDATE account SET name = :name, customer_id = :customer_id WHERE id = :id;")
+                .param("name", account.name())
+                .param("customer_id", account.customerId())
+                .param("id", account.id());
         return account;
     }
 
     public void deleteAccountById(UUID id) {
-        jdbcTemplate.update("DELETE FROM account WHERE id = ?", id);
+        jdbcClient.sql("DELETE FROM account WHERE id = :id")
+                .param("id", id)
+                .update();
     }
 }

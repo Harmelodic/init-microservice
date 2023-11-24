@@ -38,12 +38,12 @@ public class AccountController {
     }
 
     @GetMapping(path = "/{id}")
-    public Account getAccountById(@PathVariable UUID id) {
+    public Account getAccountById(@PathVariable("id") UUID id) {
         return accountService.fetchAccountById(id);
     }
 
     @PatchMapping(path = "/{id}")
-    public Account updateAccount(@PathVariable UUID id, @RequestBody Account account) {
+    public Account updateAccount(@PathVariable("id") UUID id, @RequestBody Account account) {
         if (id.equals(account.id())) {
             return accountService.updateAccount(account);
         } else {
@@ -52,7 +52,7 @@ public class AccountController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteAccountById(@PathVariable UUID id) {
+    public void deleteAccountById(@PathVariable("id") UUID id) {
         accountService.deleteAccountById(id);
     }
 

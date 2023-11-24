@@ -8,7 +8,7 @@ import au.com.dius.pact.core.model.V4Pact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestClient;
 
 import java.util.Map;
 import java.util.UUID;
@@ -58,7 +58,7 @@ class CustomerClientTest {
     @Test
     @PactTestFor(pactMethod = "fetchCustomerWhenExists")
     void testFetchCustomerWhenExists(MockServer mockServer) {
-        CustomerClient customerClient = new CustomerClient(WebClient.builder(), mockServer.getUrl());
+        CustomerClient customerClient = new CustomerClient(RestClient.builder(), mockServer.getUrl());
 
         Customer receivedCustomer = customerClient.fetchCustomer(CUSTOMER_EXAMPLE.id());
 

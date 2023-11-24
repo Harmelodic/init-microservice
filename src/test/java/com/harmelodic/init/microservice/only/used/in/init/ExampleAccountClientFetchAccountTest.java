@@ -9,8 +9,8 @@ import au.com.dius.pact.core.model.annotations.Pact;
 import com.harmelodic.init.microservice.account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.util.Map;
 
@@ -60,7 +60,7 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountWhenExists")
     void fetchAccountWhenExistsTest(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
         Account receivedAccount = accountClient.fetchAccount(ACCOUNT_EXAMPLE.id());
 
@@ -84,9 +84,9 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountDoesNotExist")
     void fetchAccountDoesNotExistTest(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
-        assertThrows(WebClientResponseException.NotFound.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
+        assertThrows(RestClientResponseException.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
     }
 
     @Pact(consumer = EXAMPLE_ACCOUNT_CLIENT)
@@ -106,8 +106,8 @@ class ExampleAccountClientFetchAccountTest {
     @Test
     @PactTestFor(pactMethod = "fetchAccountButServiceIsUnavailable")
     void fetchAccountButServiceIsUnavailableTest(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
-        assertThrows(WebClientResponseException.InternalServerError.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
+        assertThrows(RestClientResponseException.class, () -> accountClient.fetchAccount(ACCOUNT_EXAMPLE.id()));
     }
 }

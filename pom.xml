@@ -25,7 +25,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.1.5</version>
+                <version>3.2.0</version>
                 <type>pom</type>
                 <scope>import</scope>
                 <!-- Bill of Materials for managing Spring Boot Dependencies -->
@@ -98,13 +98,13 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-            <!-- Required for Controllers and WebClient -->
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- Required for Controllers and RestClient -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
-            <!-- Required for JDBC Template -->
+            <!-- Required for JdbcClient -->
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -127,7 +127,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <!-- Required for Spring Boot Testing -->
         </dependency>

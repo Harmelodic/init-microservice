@@ -2,29 +2,28 @@ package com.harmelodic.init.microservice.account.customer;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestClient;
 
 import java.util.UUID;
 
 @Component
 public class CustomerClient {
 
-    final WebClient webClient;
+    final RestClient restClient;
 
-    CustomerClient(WebClient.Builder builder,
+    CustomerClient(RestClient.Builder builder,
                    @Value("${app.customer.client.baseUrl") String baseUrl) {
-        this.webClient = builder
+        this.restClient = builder
                 .baseUrl(baseUrl)
                 .build();
     }
 
     public Customer fetchCustomer(UUID id) {
-        return webClient.get()
+        return restClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/customers/{id}")
                         .build(id.toString()))
                 .retrieve()
-                .bodyToMono(Customer.class)
-                .block();
+                .body(Customer.class);
     }
 }

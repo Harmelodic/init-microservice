@@ -1,45 +1,34 @@
 package com.harmelodic.init.microservice.account;
 
-import com.harmelodic.init.microservice.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = {
-        Application.class,
-        AccountRepository.class
-})
+@JdbcTest
+@Import({AccountRepository.class})
 @ActiveProfiles("test")
 class AccountRepositoryTest {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    JdbcClient jdbcClient;
 
     @Autowired
     AccountRepository repository;
 
     @BeforeEach
     void setUp() {
-        jdbcTemplate.execute("TRUNCATE TABLE account;");
+        jdbcClient.sql("TRUNCATE TABLE account;").update();
     }
-
-    final RowMapper<Account> accountMapper = ((rs, rowNum) -> new Account(
-            rs.getObject("id", UUID.class),
-            rs.getString("name"),
-            rs.getObject("customer_id", UUID.class)
-    ));
 
     @Test
     void openAccount() {
@@ -47,7 +36,7 @@ class AccountRepositoryTest {
 
         repository.openAccount(inputAccount);
 
-        List<Account> accountList = jdbcTemplate.query("SELECT id, name, customer_id FROM account;", accountMapper);
+        List<Account> accountList = jdbcClient.sql("SELECT id, name, customer_id FROM account;").query(Account.class).list();
 
         assertEquals(1, accountList.size());
 
@@ -64,11 +53,12 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 2", UUID.randomUUID()),
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
-        inputAccounts.forEach(account -> jdbcTemplate.update("""
-                        INSERT INTO account(id, name, customer_id)
-                        VALUES (?, ?, ?)
-                        """,
-                account.id(), account.name(), account.customerId()));
+        inputAccounts.forEach(account ->
+                jdbcClient.sql("INSERT INTO account(id, name, customer_id) VALUES (:id, :name, :customer_id)")
+                        .param("id", account.id())
+                        .param("name", account.name())
+                        .param("customer_id", account.customerId())
+                        .update());
 
 
         List<Account> retrievedAccounts = repository.fetchAllAccounts();
@@ -83,11 +73,13 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 2", UUID.randomUUID()),
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
-        inputAccounts.forEach(account -> jdbcTemplate.update("""
-                        INSERT INTO account(id, name, customer_id)
-                        VALUES (?, ?, ?)
-                        """,
-                account.id(), account.name(), account.customerId()));
+        inputAccounts.forEach(account ->
+                jdbcClient.sql("INSERT INTO account(id, name, customer_id) VALUES (:id, :name, :customer_id)")
+                        .param("id", account.id())
+                        .param("name", account.name())
+                        .param("customer_id", account.customerId())
+                        .update()
+        );
 
 
         Account retrievedAccount = repository.fetchAccountById(inputAccounts.get(1).id());
@@ -102,11 +94,13 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 2", UUID.randomUUID()),
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
-        inputAccounts.forEach(account -> jdbcTemplate.update("""
-                        INSERT INTO account(id, name, customer_id)
-                        VALUES (?, ?, ?)
-                        """,
-                account.id(), account.name(), account.customerId()));
+        inputAccounts.forEach(account ->
+                jdbcClient.sql("INSERT INTO account(id, name, customer_id) VALUES (:id, :name, :customer_id)")
+                        .param("id", account.id())
+                        .param("name", account.name())
+                        .param("customer_id", account.customerId())
+                        .update()
+        );
 
         Account accountToChange = new Account(
                 inputAccounts.get(1).id(),
@@ -126,11 +120,13 @@ class AccountRepositoryTest {
                 new Account(UUID.randomUUID(), "An Account 2", UUID.randomUUID()),
                 new Account(UUID.randomUUID(), "An Account 3", UUID.randomUUID())
         );
-        inputAccounts.forEach(account -> jdbcTemplate.update("""
-                        INSERT INTO account(id, name, customer_id)
-                        VALUES (?, ?, ?)
-                        """,
-                account.id(), account.name(), account.customerId()));
+        inputAccounts.forEach(account ->
+                jdbcClient.sql("INSERT INTO account(id, name, customer_id) VALUES (:id, :name, :customer_id)")
+                        .param("id", account.id())
+                        .param("name", account.name())
+                        .param("customer_id", account.customerId())
+                        .update()
+        );
 
 
         repository.deleteAccountById(inputAccounts.get(1).id());
@@ -140,7 +136,7 @@ class AccountRepositoryTest {
                 inputAccounts.get(2)
         );
 
-        List<Account> accountList = jdbcTemplate.query("SELECT id, name, customer_id FROM account;", accountMapper);
+        List<Account> accountList = jdbcClient.sql("SELECT id, name, customer_id FROM account;").query(Account.class).list();
 
         assertEquals(onlyOnesLeft, accountList);
     }
