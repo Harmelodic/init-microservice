@@ -24,7 +24,6 @@ import java.util.UUID;
 
 import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles(value = "test")
 @Provider(EXAMPLE_ACCOUNT_SERVICE)
@@ -76,9 +75,7 @@ class AccountControllerTest {
 
     @State(value = SERVER_ERROR_WILL_OCCUR, action = StateChangeAction.SETUP)
     void serverErrorWillOccurSetup() {
-        jdbcTemplate.execute("""
-                DROP TABLE account;
-                """);
+        jdbcTemplate.execute("DROP TABLE account;");
     }
 
     @State(value = SERVER_ERROR_WILL_OCCUR, action = StateChangeAction.TEARDOWN)

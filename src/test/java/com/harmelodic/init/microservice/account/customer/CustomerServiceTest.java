@@ -5,8 +5,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.reactive.function.client.WebClientException;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.util.UUID;
 
@@ -47,8 +48,8 @@ class CustomerServiceTest {
     void fetchCustomerByIdFailureHttpException() {
         UUID uuid = UUID.randomUUID();
         when(customerClient.fetchCustomer(uuid))
-                .thenThrow(new WebClientResponseException(500, "Internal Server Error", null, null, null));
+                .thenThrow(new RestClientResponseException("Internal server error", 500, "Internal server error", null, null, null));
 
-        assertThrows(WebClientException.class, () -> customerService.fetchCustomerById(uuid));
+        assertThrows(RestClientException.class, () -> customerService.fetchCustomerById(uuid));
     }
 }

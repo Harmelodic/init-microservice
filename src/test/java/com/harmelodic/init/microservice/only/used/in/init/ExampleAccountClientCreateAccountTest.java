@@ -9,7 +9,7 @@ import au.com.dius.pact.core.model.annotations.Pact;
 import com.harmelodic.init.microservice.account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestClient;
 
 import java.util.Map;
 
@@ -60,7 +60,7 @@ class ExampleAccountClientCreateAccountTest {
     @PactTestFor(pactMethod = "createAccountSuccess")
     void createAccountSuccessTest(MockServer mockServer) {
         Account newAccount = new Account(null, ACCOUNT_EXAMPLE.name(), ACCOUNT_EXAMPLE.customerId());
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
         Account receivedAccount = accountClient.createAccount(newAccount);
 
@@ -93,7 +93,7 @@ class ExampleAccountClientCreateAccountTest {
     @PactTestFor(pactMethod = "createAccountServerFailure")
     void createAccountServerFailureTest(MockServer mockServer) {
         Account newAccount = new Account(null, ACCOUNT_EXAMPLE.name(), ACCOUNT_EXAMPLE.customerId());
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
         assertThrows(RuntimeException.class, () -> accountClient.createAccount(newAccount));
     }

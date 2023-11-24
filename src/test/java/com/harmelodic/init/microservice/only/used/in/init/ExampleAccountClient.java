@@ -1,8 +1,8 @@
 package com.harmelodic.init.microservice.only.used.in.init;
 
 import com.harmelodic.init.microservice.account.Account;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,60 +15,55 @@ import java.util.UUID;
  */
 public class ExampleAccountClient {
 
-    final WebClient webClient;
+    final RestClient restClient;
 
-    ExampleAccountClient(WebClient.Builder builder, String baseUrl) {
-        this.webClient = builder
+    ExampleAccountClient(RestClient.Builder builder, String baseUrl) {
+        this.restClient = builder
                 .baseUrl(baseUrl)
                 .build();
     }
 
     public Account createAccount(Account account) {
-        return webClient.post()
+        return restClient.post()
                 .uri("/accounts")
-                .body(Mono.just(account), Account.class)
+                .body(account)
                 .retrieve()
-                .bodyToMono(Account.class)
-                .block();
+                .body(Account.class);
     }
 
     public List<Account> fetchAllAccounts() {
-        return webClient.get()
+        return restClient.get()
                 .uri("/accounts")
                 .retrieve()
-                .bodyToFlux(Account.class)
-                .collectList()
-                .block();
+                .body(new ParameterizedTypeReference<>() {
+                });
     }
 
     public Account fetchAccount(UUID id) {
-        return webClient.get()
+        return restClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/accounts/{id}")
                         .build(id.toString()))
                 .retrieve()
-                .bodyToMono(Account.class)
-                .block();
+                .body(Account.class);
     }
 
     public Account updateAccount(Account account) {
-        return webClient.patch()
+        return restClient.patch()
                 .uri(uriBuilder -> uriBuilder
                         .path("/accounts/{id}")
                         .build(account.id()))
-                .body(Mono.just(account), Account.class)
+                .body(account)
                 .retrieve()
-                .bodyToMono(Account.class)
-                .block();
+                .body(Account.class);
     }
 
     public void deleteAccount(UUID accountId) {
-        webClient.delete()
+        restClient.delete()
                 .uri(uriBuilder -> uriBuilder
                         .path("/accounts/{id}")
                         .build(accountId))
                 .retrieve()
-                .toBodilessEntity()
-                .block();
+                .toBodilessEntity();
     }
 }

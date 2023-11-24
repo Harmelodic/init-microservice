@@ -8,7 +8,7 @@ import au.com.dius.pact.core.model.V4Pact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestClient;
 
 import java.util.Map;
 
@@ -49,7 +49,7 @@ class ExampleAccountClientDeleteAccountTest {
     @Test
     @PactTestFor(pactMethod = "deleteAccountThatExists")
     void deleteAccountThatExistsTest(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
         assertDoesNotThrow(() -> accountClient.deleteAccount(ACCOUNT_EXAMPLE.id()));
     }
@@ -71,7 +71,7 @@ class ExampleAccountClientDeleteAccountTest {
     @Test
     @PactTestFor(pactMethod = "deleteAccountThatDoesNotExist")
     void deleteAccountThatDoesNotExistTest(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
         assertDoesNotThrow(() -> accountClient.deleteAccount(ACCOUNT_EXAMPLE.id()));
     }
@@ -93,7 +93,7 @@ class ExampleAccountClientDeleteAccountTest {
     @Test
     @PactTestFor(pactMethod = "deleteAccountServerError")
     void deleteAccountServerErrorTest(MockServer mockServer) {
-        ExampleAccountClient accountClient = new ExampleAccountClient(WebClient.builder(), mockServer.getUrl());
+        ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
         assertThrows(RuntimeException.class, () -> accountClient.deleteAccount(ACCOUNT_EXAMPLE.id()));
     }

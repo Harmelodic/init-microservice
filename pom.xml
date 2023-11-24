@@ -98,8 +98,8 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-            <!-- Required for Controllers and WebClient -->
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- Required for Controllers and RestClient -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -127,7 +127,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <!-- Required for Spring Boot Testing -->
         </dependency>
