@@ -18,7 +18,7 @@ public class AccountRepository {
      * <ol>
      *     <li>
      *     I find Jakarta Persistence just makes the application more complicated,
-     *     when you could just learn and used SQL with JDBC.
+     *     when you could just learn and use SQL, with JDBC.
      *     </li>
      *     <li>
      *     It means we can keep all the Database logic in the Repository,
