@@ -191,7 +191,7 @@
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-compat6</artifactId>
-                        <version>7.0.0-rc4</version>
+                        <version>7.0.0-rc4+with-pr4749</version>
                     </dependency>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
