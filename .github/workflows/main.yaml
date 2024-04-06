@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 22
       - uses: google-github-actions/auth@v2.1.2
         with:
           workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/automation/providers/github
