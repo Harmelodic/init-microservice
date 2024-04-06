@@ -11,7 +11,7 @@
     <properties>
         <image.repository>${project.artifactId}</image.repository>
         <image.tag>${maven.build.timestamp}</image.tag>
-        <java.version>21</java.version>
+        <java.version>22</java.version>
         <logback.contrib.version>0.1.5</logback.contrib.version>
         <maven.build.timestamp.format>yyyy-MM-dd_HH.mm.ss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -252,7 +252,7 @@
                 <version>3.4.2</version>
                 <configuration>
                     <from>
-                        <image>eclipse-temurin:21.0.2_13-jre-alpine@sha256:6f78a61a2aa1e6907dda2da3eb791d44ef3d18e36aee1d1bdaa3543bd44cff4b</image>
+                        <image>eclipse-temurin:22-jre-alpine@sha256:cff33794a241b7381015bcb2fd3c21de05bb573754b1a95165d476edb148cb00</image>
                     </from>
                     <to>
                         <image>${image.repository}</image>
