@@ -174,7 +174,7 @@
                 <!-- Runs PMD -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.21.2</version>
+                <version>3.22.0</version>
                 <configuration>
                     <linkXRef>false</linkXRef>
                     <printFailingErrors>true</printFailingErrors>
@@ -191,27 +191,27 @@
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-compat6</artifactId>
-                        <version>7.0.0</version>
+                        <version>7.1.0</version>
                     </dependency>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-core</artifactId>
-                        <version>7.0.0</version>
+                        <version>7.1.0</version>
                     </dependency>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-java</artifactId>
-                        <version>7.0.0</version>
+                        <version>7.1.0</version>
                     </dependency>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-javascript</artifactId>
-                        <version>7.0.0</version>
+                        <version>7.1.0</version>
                     </dependency>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-jsp</artifactId>
-                        <version>7.0.0</version>
+                        <version>7.1.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
