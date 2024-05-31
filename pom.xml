@@ -277,6 +277,15 @@
                         </goals>
                     </execution>
                 </executions>
+
+                <!-- TEMPORARY: Override ASM to support Java 22 -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>9.7</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
