@@ -61,7 +61,7 @@ class AccountRepositoryTest {
                         .update());
 
 
-        List<Account> retrievedAccounts = assertDoesNotThrow(() -> repository.fetchAllAccounts());
+        List<Account> retrievedAccounts = assertDoesNotThrow(repository::fetchAllAccounts);
 
         assertEquals(inputAccounts, retrievedAccounts);
     }

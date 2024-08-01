@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -66,7 +65,7 @@ class AccountServiceTest {
         );
         when(accountRepository.fetchAllAccounts()).thenReturn(accountList);
 
-        List<Account> retrievedAccounts = assertDoesNotThrow(() -> accountService.fetchAllAccounts());
+        List<Account> retrievedAccounts = assertDoesNotThrow(accountService::fetchAllAccounts);
 
         assertEquals(accountList, retrievedAccounts);
     }
@@ -75,7 +74,7 @@ class AccountServiceTest {
     void fetchAllAccountsFail() throws AccountRepository.AccountRepositoryException {
         when(accountRepository.fetchAllAccounts()).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(AccountService.FailedToFetchAllAccountsException.class, () -> accountService.fetchAllAccounts());
+        assertThrows(AccountService.FailedToFetchAllAccountsException.class, accountService::fetchAllAccounts);
     }
 
     @Test
