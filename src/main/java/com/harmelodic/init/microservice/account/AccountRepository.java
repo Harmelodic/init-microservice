@@ -1,13 +1,10 @@
 package com.harmelodic.init.microservice.account;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-import java.nio.channels.AcceptPendingException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
