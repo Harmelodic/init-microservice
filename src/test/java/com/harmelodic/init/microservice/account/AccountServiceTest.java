@@ -10,10 +10,13 @@ import org.mockito.stubbing.Answer;
 import java.util.List;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
@@ -33,11 +36,12 @@ class AccountServiceTest {
     AccountService accountService;
 
     @Test
-    void openAccountSuccess() {
+    void openAccountSuccess() throws AccountRepository.AccountRepositoryException {
         Account account = new Account(null, "Some name", UUID.randomUUID());
-        when(accountRepository.openAccount(any(Account.class))).thenAnswer((Answer<Account>) invocationOnMock -> (Account) invocationOnMock.getArguments()[0]);
+        when(accountRepository.openAccount(any(Account.class)))
+                .thenAnswer((Answer<Account>) invocationOnMock -> (Account) invocationOnMock.getArguments()[0]);
 
-        Account receivedAccount = accountService.openAccount(account);
+        Account receivedAccount = assertDoesNotThrow(() -> accountService.openAccount(account));
 
         assertNotNull(receivedAccount.id());
         assertEquals(account.name(), receivedAccount.name());
@@ -46,85 +50,83 @@ class AccountServiceTest {
     }
 
     @Test
-    void openAccountFail() {
-        Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
-        when(accountRepository.openAccount(account)).thenThrow(new RuntimeException("Failed to open account"));
+    void openAccountFail() throws AccountRepository.AccountRepositoryException {
+        when(accountRepository.openAccount(isA(Account.class))).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(RuntimeException.class, () -> accountService.openAccount(account));
+        Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
+        assertThrows(AccountService.FailedToOpenAccountException.class, () -> accountService.openAccount(account));
         verify(accountCreatedPublisher, times(0)).publish(account);
     }
 
     @Test
-    void fetchAllAccountsSuccess() {
+    void fetchAllAccountsSuccess() throws AccountRepository.AccountRepositoryException {
         List<Account> accountList = List.of(
                 new Account(UUID.randomUUID(), "Some name", UUID.randomUUID()),
                 new Account(UUID.randomUUID(), "Some other name", UUID.randomUUID())
         );
         when(accountRepository.fetchAllAccounts()).thenReturn(accountList);
 
-        List<Account> retrievedAccounts = accountService.fetchAllAccounts();
+        List<Account> retrievedAccounts = assertDoesNotThrow(() -> accountService.fetchAllAccounts());
 
         assertEquals(accountList, retrievedAccounts);
     }
 
     @Test
-    void fetchAllAccountsFail() {
-        when(accountRepository.fetchAllAccounts()).thenThrow(new RuntimeException("Failed to fetch Accounts"));
+    void fetchAllAccountsFail() throws AccountRepository.AccountRepositoryException {
+        when(accountRepository.fetchAllAccounts()).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(RuntimeException.class, () -> accountService.fetchAllAccounts());
+        assertThrows(AccountService.FailedToFetchAllAccountsException.class, () -> accountService.fetchAllAccounts());
     }
 
     @Test
-    void fetchAccountByIdSuccess() {
+    void fetchAccountByIdSuccess() throws AccountRepository.AccountRepositoryException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         when(accountRepository.fetchAccountById(account.id())).thenReturn(account);
 
-        Account receivedAccount = accountService.fetchAccountById(account.id());
+        Account receivedAccount = assertDoesNotThrow(() -> accountService.fetchAccountById(account.id()));
 
         assertEquals(account, receivedAccount);
     }
 
     @Test
-    void fetchAccountByIdFail() {
+    void fetchAccountByIdFail() throws AccountRepository.AccountRepositoryException {
         UUID uuid = UUID.randomUUID();
-        when(accountRepository.fetchAccountById(uuid)).thenThrow(new RuntimeException("Failed to open account"));
+        when(accountRepository.fetchAccountById(uuid)).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(RuntimeException.class, () -> accountService.fetchAccountById(uuid));
+        assertThrows(AccountService.FailedToFetchAccountException.class, () -> accountService.fetchAccountById(uuid));
     }
 
     @Test
-    void updateAccountSuccess() {
+    void updateAccountSuccess() throws AccountRepository.AccountRepositoryException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
-        when(accountRepository.updateAccount(account)).thenReturn(account);
+        doNothing().when(accountRepository).updateAccount(account);
 
-        Account receivedAccount = accountService.updateAccount(account);
-
-        assertEquals(account, receivedAccount);
+        assertDoesNotThrow(() -> accountService.updateAccount(account));
     }
 
     @Test
-    void updateAccountFail() {
+    void updateAccountFail() throws AccountRepository.AccountRepositoryException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
-        when(accountRepository.updateAccount(account)).thenThrow(new RuntimeException("Failed to open account"));
+        doThrow(AccountRepository.AccountRepositoryException.class).when(accountRepository).updateAccount(account);
 
-        assertThrows(RuntimeException.class, () -> accountService.updateAccount(account));
+        assertThrows(AccountService.FailedToUpdateAccountException.class, () -> accountService.updateAccount(account));
     }
 
     @Test
-    void deleteAccountByIdSuccess() {
+    void deleteAccountByIdSuccess() throws AccountRepository.AccountRepositoryException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         doNothing().when(accountRepository).deleteAccountById(account.id());
 
-        accountService.deleteAccountById(account.id());
+        assertDoesNotThrow(() -> accountService.deleteAccountById(account.id()));
 
         verify(accountRepository, times(1)).deleteAccountById(account.id());
     }
 
     @Test
-    void deleteAccountByIdFail() {
+    void deleteAccountByIdFail() throws AccountRepository.AccountRepositoryException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
-        doThrow(new RuntimeException("Failed to delete")).when(accountRepository).deleteAccountById(account.id());
+        doThrow(AccountRepository.AccountRepositoryException.class).when(accountRepository).deleteAccountById(account.id());
 
-        assertThrows(RuntimeException.class, () -> accountService.deleteAccountById(account.id()));
+        assertThrows(AccountService.FailedToDeleteAccountException.class, () -> accountService.deleteAccountById(account.id()));
     }
 }

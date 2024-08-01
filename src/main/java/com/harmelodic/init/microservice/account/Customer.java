@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.account.customer;
+package com.harmelodic.init.microservice.account;
 
 import java.util.UUID;
 

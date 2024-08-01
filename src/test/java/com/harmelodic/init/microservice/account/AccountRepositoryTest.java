@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @JdbcTest
@@ -27,20 +27,20 @@ class AccountRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        jdbcClient.sql("TRUNCATE TABLE account;").update();
+        jdbcClient.sql("TRUNCATE TABLE account").update();
     }
 
     @Test
     void openAccount() {
         Account inputAccount = new Account(UUID.randomUUID(), "An Account", UUID.randomUUID());
 
-        repository.openAccount(inputAccount);
+        assertDoesNotThrow(() -> repository.openAccount(inputAccount));
 
-        List<Account> accountList = jdbcClient.sql("SELECT id, name, customer_id FROM account;").query(Account.class).list();
+        List<Account> accountList = jdbcClient.sql("SELECT id, name, customer_id FROM account").query(Account.class).list();
 
         assertEquals(1, accountList.size());
 
-        Account account = accountList.get(0);
+        Account account = accountList.getFirst();
         assertEquals(inputAccount.id(), account.id());
         assertEquals(inputAccount.name(), account.name());
         assertEquals(inputAccount.customerId(), account.customerId());
@@ -61,7 +61,7 @@ class AccountRepositoryTest {
                         .update());
 
 
-        List<Account> retrievedAccounts = repository.fetchAllAccounts();
+        List<Account> retrievedAccounts = assertDoesNotThrow(() -> repository.fetchAllAccounts());
 
         assertEquals(inputAccounts, retrievedAccounts);
     }
@@ -82,7 +82,7 @@ class AccountRepositoryTest {
         );
 
 
-        Account retrievedAccount = repository.fetchAccountById(inputAccounts.get(1).id());
+        Account retrievedAccount = assertDoesNotThrow(() -> repository.fetchAccountById(inputAccounts.get(1).id()));
 
         assertEquals(inputAccounts.get(1), retrievedAccount);
     }
@@ -108,9 +108,7 @@ class AccountRepositoryTest {
                 UUID.randomUUID()
         );
 
-        Account retrievedAccount = repository.updateAccount(accountToChange);
-
-        assertEquals(accountToChange, retrievedAccount);
+        assertDoesNotThrow(() -> repository.updateAccount(accountToChange));
     }
 
     @Test
@@ -129,14 +127,14 @@ class AccountRepositoryTest {
         );
 
 
-        repository.deleteAccountById(inputAccounts.get(1).id());
+        assertDoesNotThrow(() -> repository.deleteAccountById(inputAccounts.get(1).id()));
 
         List<Account> onlyOnesLeft = List.of(
                 inputAccounts.get(0),
                 inputAccounts.get(2)
         );
 
-        List<Account> accountList = jdbcClient.sql("SELECT id, name, customer_id FROM account;").query(Account.class).list();
+        List<Account> accountList = jdbcClient.sql("SELECT id, name, customer_id FROM account").query(Account.class).list();
 
         assertEquals(onlyOnesLeft, accountList);
     }

@@ -29,23 +29,40 @@ public class AccountController {
 
     @PostMapping()
     public Account postAccount(@RequestBody Account account) {
-        return accountService.openAccount(account);
+        try {
+            return accountService.openAccount(account);
+        } catch (AccountService.FailedToOpenAccountException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to open Account", e);
+        }
     }
 
     @GetMapping
     public List<Account> getAllAccounts() {
-        return accountService.fetchAllAccounts();
+        try {
+            return accountService.fetchAllAccounts();
+        } catch (AccountService.FailedToFetchAllAccountsException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to fetch Accounts", e);
+        }
     }
 
     @GetMapping(path = "/{id}")
     public Account getAccountById(@PathVariable("id") UUID id) {
-        return accountService.fetchAccountById(id);
+        try {
+            return accountService.fetchAccountById(id);
+        } catch (AccountService.FailedToFetchAccountException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to get Account", e);
+        }
     }
 
     @PatchMapping(path = "/{id}")
-    public Account updateAccount(@PathVariable("id") UUID id, @RequestBody Account account) {
+    public ResponseEntity<Void> updateAccount(@PathVariable("id") UUID id, @RequestBody Account account) {
         if (id.equals(account.id())) {
-            return accountService.updateAccount(account);
+            try {
+                accountService.updateAccount(account);
+            } catch (AccountService.FailedToUpdateAccountException e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to update Account", e);
+            }
+            return ResponseEntity.ok().build();
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID submitted and ID in account is not matching.");
         }
@@ -53,7 +70,11 @@ public class AccountController {
 
     @DeleteMapping(path = "/{id}")
     public void deleteAccountById(@PathVariable("id") UUID id) {
-        accountService.deleteAccountById(id);
+        try {
+            accountService.deleteAccountById(id);
+        } catch (AccountService.FailedToDeleteAccountException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete account", e);
+        }
     }
 
     @ExceptionHandler({EmptyResultDataAccessException.class})

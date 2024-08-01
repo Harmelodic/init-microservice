@@ -57,7 +57,7 @@ class AccountControllerTest {
     }
 
     void wipeAccountTable() {
-        jdbcClient.sql("TRUNCATE TABLE account;").update();
+        jdbcClient.sql("TRUNCATE TABLE account").update();
     }
 
     @State(value = ACCOUNT_DOES_NOT_EXIST, action = StateChangeAction.SETUP)
@@ -72,7 +72,7 @@ class AccountControllerTest {
 
     @State(value = SERVER_ERROR_WILL_OCCUR, action = StateChangeAction.SETUP)
     void serverErrorWillOccurSetup() {
-        jdbcClient.sql("DROP TABLE account;").update();
+        jdbcClient.sql("DROP TABLE account").update();
     }
 
     @State(value = SERVER_ERROR_WILL_OCCUR, action = StateChangeAction.TEARDOWN)
@@ -87,7 +87,7 @@ class AccountControllerTest {
         String name = params.get("name").toString();
         UUID customerId = UUID.fromString(params.get("customerId").toString());
 
-        jdbcClient.sql("INSERT INTO account (id, name, customer_id) VALUES (:id, :name, :customer_id);")
+        jdbcClient.sql("INSERT INTO account (id, name, customer_id) VALUES (:id, :name, :customer_id)")
                 .param("id", id)
                 .param("name", name)
                 .param("customer_id", customerId)
@@ -102,7 +102,7 @@ class AccountControllerTest {
     @State(value = THREE_ACCOUNTS_EXIST, action = StateChangeAction.SETUP)
     void threeAccountsExistSetup() {
         List<Integer> things = List.of(0, 1, 2);
-        things.forEach(thing -> jdbcClient.sql("INSERT INTO account (id, name, customer_id) VALUES (:id, :name, :customer_id);")
+        things.forEach(thing -> jdbcClient.sql("INSERT INTO account (id, name, customer_id) VALUES (:id, :name, :customer_id)")
                 .param("id", UUID.randomUUID())
                 .param("name", "Some Name" + thing)
                 .param("customer_id", UUID.randomUUID())

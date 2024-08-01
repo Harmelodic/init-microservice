@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.account.customer;
+package com.harmelodic.init.microservice.account;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonBody;
 import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
 import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_CUSTOMER_SERVICE;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(PactConsumerTestExt.class)
@@ -60,7 +61,7 @@ class CustomerClientTest {
     void testFetchCustomerWhenExists(MockServer mockServer) {
         CustomerClient customerClient = new CustomerClient(RestClient.builder(), mockServer.getUrl());
 
-        Customer receivedCustomer = customerClient.fetchCustomer(CUSTOMER_EXAMPLE.id());
+        Customer receivedCustomer = assertDoesNotThrow(() -> customerClient.fetchCustomer(CUSTOMER_EXAMPLE.id()));
 
         assertEquals(CUSTOMER_EXAMPLE, receivedCustomer);
     }

@@ -9,6 +9,8 @@ import au.com.dius.pact.core.model.annotations.Pact;
 import com.harmelodic.init.microservice.account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.RestClient;
 
 import java.util.Map;
@@ -52,11 +54,6 @@ class ExampleAccountClientUpdateAccountTest {
                 }).build())
                 .willRespondWith()
                 .status(200)
-                .body(newJsonBody(o -> {
-                    o.uuid("id", ACCOUNT_EXAMPLE.id());
-                    o.stringType("name", ACCOUNT_EXAMPLE.name());
-                    o.uuid("customerId", ACCOUNT_EXAMPLE.customerId());
-                }).build())
                 .toPact(V4Pact.class);
     }
 
@@ -65,9 +62,9 @@ class ExampleAccountClientUpdateAccountTest {
     void updateAccountSuccessTest(MockServer mockServer) {
         ExampleAccountClient accountClient = new ExampleAccountClient(RestClient.builder(), mockServer.getUrl());
 
-        Account receivedAccount = accountClient.updateAccount(ACCOUNT_EXAMPLE);
+        HttpStatusCode httpStatusCode = accountClient.updateAccount(ACCOUNT_EXAMPLE);
 
-        assertEquals(ACCOUNT_EXAMPLE, receivedAccount);
+        assertEquals(HttpStatus.OK, httpStatusCode);
     }
 
     @Pact(consumer = EXAMPLE_ACCOUNT_CLIENT)

@@ -2,6 +2,8 @@ package com.harmelodic.init.microservice.only.used.in.init;
 
 import com.harmelodic.init.microservice.account.Account;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
@@ -48,14 +50,15 @@ public class ExampleAccountClient {
                 .body(Account.class);
     }
 
-    public Account updateAccount(Account account) {
+    public HttpStatusCode updateAccount(Account account) {
         return restClient.patch()
                 .uri(uriBuilder -> uriBuilder
                         .path("/accounts/{id}")
                         .build(account.id()))
                 .body(account)
                 .retrieve()
-                .body(Account.class);
+                .toEntity(Void.class)
+                .getStatusCode();
     }
 
     public void deleteAccount(UUID accountId) {

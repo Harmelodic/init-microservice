@@ -1,9 +1,11 @@
 package com.harmelodic.init.microservice.account;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
+import java.nio.channels.AcceptPendingException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,44 +38,69 @@ public class AccountRepository {
         this.jdbcClient = jdbcClient;
     }
 
-    public Account openAccount(Account account) {
-        jdbcClient.sql("INSERT INTO account(id, name, customer_id) VALUES (:id, :name, :customer_id)")
-                .param("id", account.id())
-                .param("name", account.name())
-                .param("customer_id", account.customerId())
-                .update();
-        return account;
-    }
-
-    public List<Account> fetchAllAccounts() {
-        return jdbcClient.sql("SELECT id, name, customer_id FROM account;").query(Account.class).list();
-    }
-
-    public Account fetchAccountById(UUID id) {
-        return jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
-                .param("id", id)
-                .query(Account.class)
-                .single();
-    }
-
-    public Account updateAccount(Account account) {
-        Optional<Account> optionalAccount = jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
-                .param("id", account.id())
-                .query(Account.class)
-                .optional();
-        if (optionalAccount.isEmpty()) {
-            throw new EmptyResultDataAccessException(1);
+    public Account openAccount(Account account) throws AccountRepositoryException {
+        try {
+            jdbcClient.sql("INSERT INTO account(id, name, customer_id) VALUES (:id, :name, :customer_id)")
+                    .param("id", account.id())
+                    .param("name", account.name())
+                    .param("customer_id", account.customerId())
+                    .update();
+            return account;
+        } catch (DataAccessException e) {
+            throw new AccountRepositoryException("Failed to open account in Database", e);
         }
-        jdbcClient.sql("UPDATE account SET name = :name, customer_id = :customer_id WHERE id = :id;")
-                .param("name", account.name())
-                .param("customer_id", account.customerId())
-                .param("id", account.id());
-        return account;
     }
 
-    public void deleteAccountById(UUID id) {
-        jdbcClient.sql("DELETE FROM account WHERE id = :id")
-                .param("id", id)
-                .update();
+    public List<Account> fetchAllAccounts() throws AccountRepositoryException {
+        try {
+            return jdbcClient.sql("SELECT id, name, customer_id FROM account")
+                    .query(Account.class)
+                    .list();
+        } catch (DataAccessException e) {
+            throw new AccountRepositoryException("Failed to fetch all accounts", e);
+        }
+    }
+
+    public Account fetchAccountById(UUID id) throws AccountRepositoryException {
+        try {
+            return jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
+                    .param("id", id)
+                    .query(Account.class)
+                    .single();
+        } catch (DataAccessException e) {
+            throw new AccountRepositoryException("Failed to fetch account", e);
+        }
+    }
+
+    public void updateAccount(Account account) throws AccountRepositoryException {
+        try {
+            jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
+                    .param("id", account.id())
+                    .query(Account.class)
+                    .single(); // Throws EmptyResultDataAccessException if Account it doesn't exist.
+            jdbcClient.sql("UPDATE account SET name = :name, customer_id = :customer_id WHERE id = :id")
+                    .param("name", account.name())
+                    .param("customer_id", account.customerId())
+                    .param("id", account.id())
+                    .update();
+        } catch (DataAccessException e) {
+            throw new AccountRepositoryException("Failed to update account", e);
+        }
+    }
+
+    public void deleteAccountById(UUID id) throws AccountRepositoryException {
+        try {
+            jdbcClient.sql("DELETE FROM account WHERE id = :id")
+                    .param("id", id)
+                    .update();
+        } catch (DataAccessException e) {
+            throw new AccountRepositoryException("Failed to delete account", e);
+        }
+    }
+
+    public static class AccountRepositoryException extends Exception {
+        private AccountRepositoryException(String message, Throwable e) {
+            super(message, e);
+        }
     }
 }

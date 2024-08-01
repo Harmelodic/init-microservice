@@ -16,26 +16,76 @@ public class AccountService {
         this.accountCreatedPublisher = accountCreatedPublisher;
     }
 
-    public Account openAccount(Account account) {
-        Account accountToOpen = new Account(UUID.randomUUID(), account.name(), account.customerId());
-        Account createdAccount = accountRepository.openAccount(accountToOpen);
-        accountCreatedPublisher.publish(createdAccount);
-        return createdAccount;
+    public Account openAccount(Account account) throws FailedToOpenAccountException {
+        try {
+            Account accountToOpen = new Account(UUID.randomUUID(), account.name(), account.customerId());
+            Account createdAccount = accountRepository.openAccount(accountToOpen);
+            accountCreatedPublisher.publish(createdAccount);
+            return createdAccount;
+        } catch (AccountRepository.AccountRepositoryException e) {
+            throw new FailedToOpenAccountException(e);
+        }
     }
 
-    public List<Account> fetchAllAccounts() {
-        return accountRepository.fetchAllAccounts();
+    public List<Account> fetchAllAccounts() throws FailedToFetchAllAccountsException {
+        try {
+            return accountRepository.fetchAllAccounts();
+        } catch (AccountRepository.AccountRepositoryException e) {
+            throw new FailedToFetchAllAccountsException(e);
+        }
     }
 
-    public Account fetchAccountById(UUID id) {
-        return accountRepository.fetchAccountById(id);
+    public Account fetchAccountById(UUID id) throws FailedToFetchAccountException {
+        try {
+            return accountRepository.fetchAccountById(id);
+        } catch (AccountRepository.AccountRepositoryException e) {
+            throw new FailedToFetchAccountException(e);
+        }
     }
 
-    public Account updateAccount(Account account) {
-        return accountRepository.updateAccount(account);
+    public void updateAccount(Account account) throws FailedToUpdateAccountException {
+        try {
+            accountRepository.updateAccount(account);
+        } catch (AccountRepository.AccountRepositoryException e) {
+            throw new FailedToUpdateAccountException(e);
+        }
     }
 
-    public void deleteAccountById(UUID id) {
-        accountRepository.deleteAccountById(id);
+    public void deleteAccountById(UUID id) throws FailedToDeleteAccountException {
+        try {
+            accountRepository.deleteAccountById(id);
+        } catch (AccountRepository.AccountRepositoryException e) {
+            throw new FailedToDeleteAccountException(e);
+        }
+    }
+
+    public static class FailedToOpenAccountException extends Exception {
+        private FailedToOpenAccountException(Throwable throwable) {
+            super("Failed to open Account", throwable);
+        }
+    }
+
+    public static class FailedToFetchAllAccountsException extends Exception {
+        private FailedToFetchAllAccountsException(Throwable throwable) {
+            super("Failed to fetch all Accounts", throwable);
+        }
+    }
+
+    public static class FailedToFetchAccountException extends Exception {
+        private FailedToFetchAccountException(Throwable throwable) {
+            super("Failed to fetch single Account", throwable);
+        }
+    }
+
+    public static class FailedToUpdateAccountException extends Exception {
+        private FailedToUpdateAccountException(Throwable throwable) {
+            super("Failed to update Account", throwable);
+        }
+    }
+
+    public static class FailedToDeleteAccountException extends Exception {
+        public FailedToDeleteAccountException(Throwable e) {
+            super("Failed to delete Account", e);
+        }
     }
 }

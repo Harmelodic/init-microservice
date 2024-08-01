@@ -14,10 +14,14 @@ public class AccountCreatorSubscriber {
         // Subscribe to an event bus
     }
 
-    public void onMessage(SomeMessage message) {
+    public void onReceiveMessage(SomeMessage message) {
         // Process received messages
         Account account = message.account();
-        accountService.openAccount(account);
+        try {
+            accountService.openAccount(account);
+        } catch (AccountService.FailedToOpenAccountException e) {
+            // Nack message or save it somewhere to deal with
+        }
     }
 
     record SomeMessage(Account account) {
