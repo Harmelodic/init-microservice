@@ -2,7 +2,6 @@ package com.harmelodic.init.microservice.only.used.in.init;
 
 import com.harmelodic.init.microservice.account.Account;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.RestClient;
 
