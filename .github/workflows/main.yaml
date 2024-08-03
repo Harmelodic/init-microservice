@@ -32,7 +32,7 @@ jobs:
           --define pact.broker.url=https://pact.harmelodic.com
           --define pact.broker.username=pact-broker-user
           --define pact.broker.password=${{ secrets.PACT_BROKER_PASSWORD }}
-        # ^ For publishing Consumer PACTs
+        # pact.broker.* used for publishing Consumer PACTs
         env:
           PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
           PACTBROKER_AUTH_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results

@@ -1,5 +1,5 @@
 pactbroker:
-  url: https://pact.harmelodic.com
+  url: https://pact.harmelodic.com # Used for PACT Provider tests
 spring:
   datasource:
     url: jdbc:h2:mem:default
