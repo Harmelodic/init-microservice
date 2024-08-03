@@ -38,32 +38,6 @@
                 <scope>import</scope>
                 <!-- Bill of Materials for managing JUnit dependencies -->
             </dependency>
-            <dependency>
-                <groupId>au.com.dius.pact.consumer</groupId>
-                <artifactId>junit5</artifactId>
-                <version>4.6.11</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-                <!-- Required for PACT Contract testing -->
-            </dependency>
-            <dependency>
-                <groupId>au.com.dius.pact.provider</groupId>
-                <artifactId>junit5spring</artifactId>
-                <version>4.6.11</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-                <!-- Required for PACT Provider testing -->
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -140,14 +114,16 @@
         <dependency>
             <groupId>au.com.dius.pact.consumer</groupId>
             <artifactId>junit5</artifactId>
+            <version>4.6.11</version>
             <scope>test</scope>
-            <!-- Required for PACT Contract testing -->
+            <!-- Required for PACT testing as a Consumer -->
         </dependency>
         <dependency>
             <groupId>au.com.dius.pact.provider</groupId>
             <artifactId>junit5spring</artifactId>
+            <version>4.6.11</version>
             <scope>test</scope>
-            <!-- Required for PACT Provider testing -->
+            <!-- Required for PACT testing as a Provider with Spring -->
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -158,17 +134,6 @@
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <!-- Required for publishing PACTs -->
-                    <groupId>au.com.dius.pact.provider</groupId>
-                    <artifactId>maven</artifactId>
-                    <version>4.6.11</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <!-- Runs PMD -->
@@ -232,6 +197,7 @@
                 <!-- Required for publishing PACTs -->
                 <groupId>au.com.dius.pact.provider</groupId>
                 <artifactId>maven</artifactId>
+                <version>4.6.11</version>
                 <executions>
                     <execution>
                         <phase>deploy</phase>
