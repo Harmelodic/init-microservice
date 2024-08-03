@@ -33,6 +33,7 @@ jobs:
           --define pact.broker.username=pact-broker-user
           --define pact.broker.password=${{ secrets.PACT_BROKER_PASSWORD }}
         # pact.broker.* used for publishing Consumer PACTs
+        # pact.verifier.publishResults is for publishing Provider test results
         env:
           PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
           PACTBROKER_AUTH_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results
