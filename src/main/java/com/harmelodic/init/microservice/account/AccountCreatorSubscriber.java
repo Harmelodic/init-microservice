@@ -24,6 +24,6 @@ public class AccountCreatorSubscriber {
         }
     }
 
-    record SomeMessage(Account account) {
+    public record SomeMessage(Account account) {
     }
 }
