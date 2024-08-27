@@ -114,14 +114,14 @@
         <dependency>
             <groupId>au.com.dius.pact.consumer</groupId>
             <artifactId>junit5</artifactId>
-            <version>4.6.13</version>
+            <version>4.6.14</version>
             <scope>test</scope>
             <!-- Required for PACT testing as a Consumer -->
         </dependency>
         <dependency>
             <groupId>au.com.dius.pact.provider</groupId>
             <artifactId>junit5spring</artifactId>
-            <version>4.6.13</version>
+            <version>4.6.14</version>
             <scope>test</scope>
             <!-- Required for PACT testing as a Provider with Spring -->
         </dependency>
@@ -139,7 +139,7 @@
                 <!-- Runs PMD -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.24.0</version>
+                <version>3.25.0</version>
                 <configuration>
                     <linkXRef>false</linkXRef>
                     <printFailingErrors>true</printFailingErrors>
@@ -185,7 +185,7 @@
                 <!-- Required for running tests -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.5.0</version>
                 <configuration>
                     <systemPropertyVariables>
                         <pact_do_not_track>true</pact_do_not_track>
@@ -197,7 +197,7 @@
                 <!-- Required for publishing PACTs -->
                 <groupId>au.com.dius.pact.provider</groupId>
                 <artifactId>maven</artifactId>
-                <version>4.6.13</version>
+                <version>4.6.14</version>
                 <executions>
                     <execution>
                         <phase>deploy</phase>
