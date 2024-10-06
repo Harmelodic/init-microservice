@@ -185,7 +185,7 @@
                 <!-- Required for running tests -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.5.1</version>
                 <configuration>
                     <systemPropertyVariables>
                         <pact_do_not_track>true</pact_do_not_track>
@@ -249,7 +249,7 @@
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
-                        <version>9.7</version>
+                        <version>9.7.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
