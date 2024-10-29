@@ -114,14 +114,14 @@
         <dependency>
             <groupId>au.com.dius.pact.consumer</groupId>
             <artifactId>junit5</artifactId>
-            <version>4.6.14</version>
+            <version>4.6.15</version>
             <scope>test</scope>
             <!-- Required for PACT testing as a Consumer -->
         </dependency>
         <dependency>
             <groupId>au.com.dius.pact.provider</groupId>
             <artifactId>junit5spring</artifactId>
-            <version>4.6.14</version>
+            <version>4.6.15</version>
             <scope>test</scope>
             <!-- Required for PACT testing as a Provider with Spring -->
         </dependency>
@@ -197,7 +197,7 @@
                 <!-- Required for publishing PACTs -->
                 <groupId>au.com.dius.pact.provider</groupId>
                 <artifactId>maven</artifactId>
-                <version>4.6.14</version>
+                <version>4.6.15</version>
                 <executions>
                     <execution>
                         <phase>deploy</phase>
