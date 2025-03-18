@@ -215,7 +215,7 @@
                 <!-- Required for building into a Container -->
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.4</version>
+                <version>3.4.5</version>
                 <configuration>
                     <from>
                         <image>eclipse-temurin:22-jre-alpine@sha256:d8ac5f15b7dc0a91bdfb89422f900383469e5de12dcce3949f145d713f455b34</image>
