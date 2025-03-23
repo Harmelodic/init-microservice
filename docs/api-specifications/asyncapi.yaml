@@ -1,0 +1,11 @@
+# AsyncAPI specification for topics / subscriptions exposed by this service
+asyncapi: 3.0.0
+info:
+  title: init-microservice Async / Event / PubSub API
+  version: 1.0.0
+
+channels: {}
+
+components: {}
+
+operations: {}

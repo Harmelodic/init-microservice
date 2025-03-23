@@ -1,0 +1,23 @@
+# OpenAPI Specification for endpoints exposed by this service
+openapi: 3.1.0
+info:
+  title: init-microservice HTTP API
+  version: 1.0.0
+  description: This is the HTTP API for the init-microservice system.
+  contact:
+    name: Harmelodic
+  license:
+    name: Apache 2.0
+    url: https://github.com/Harmelodic/init-microservice/blob/main/LICENSE
+externalDocs:
+  url: https://github.com/Harmelodic/init-microservice/blob/main/docs
+  description: Documentation for the init-microservice system
+
+components:
+  securitySchemes: {}
+  requestBodies: {}
+  schemas: {}
+
+paths: {}
+
+webhooks: {}

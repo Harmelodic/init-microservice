@@ -1,6 +1,6 @@
 # ADR 0001 Example
 
-When documenting important decisions, write them as ADRs.
+When documenting important decisions, write them as Architectural Decision Records (ADRs).
 
 ## TL;DR Decision
 
