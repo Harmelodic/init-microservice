@@ -46,7 +46,7 @@ Uses `mkdocs` to handle documentation, which requires Python (hence the `require
 Run docs locally by doing:
 
 ```bash
-python -m venv vevn
+python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 mkdocs serve
