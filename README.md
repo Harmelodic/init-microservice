@@ -35,3 +35,30 @@ Built in Java.
 - [ ] Create Spans for Tracing (OpenTelemetry)
 - [ ] Create Domain-logic Metrics (Micrometer)
 - [x] Auto-updates (Renovate)
+- [x] Docs with MkDocs
+- [x] ADRs
+- [ ] API Specifications
+
+## Documentation
+
+Uses `mkdocs` to handle documentation, which requires Python (hence the `requirements.txt`).
+
+Run docs locally by doing:
+
+```bash
+python -m venv vevn
+source venv/bin/activate
+pip install -r requirements.txt
+mkdocs serve
+```
+
+Then open at http://localhost:8000
+
+## Running the app locally
+
+```bash
+mvn spring-boot:run
+```
+
+- Endpoints accessible on http://localhost:8080
+- Management endpoints on: https://localhost:8081
