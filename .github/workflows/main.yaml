@@ -52,3 +52,17 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
       - run: terraform -chdir=infrastructure init -upgrade
       - run: terraform -chdir=infrastructure validate
+
+  mkdocs:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5
+      - run: pip install -r requirements.txt
+      - run: mkdocs build
+      # TODO: Publish docs
+
+  # TODO: Publish OpenAPI
+  # TODO: Publish AsyncAPI

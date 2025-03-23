@@ -1,4 +1,12 @@
+# IDE config
 .idea/
+
+# Java
 target/
+
+# Terraform
 .terraform/
+
+# Python / MkDocs
 venv/
+site/
