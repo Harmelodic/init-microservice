@@ -3,11 +3,11 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
+
+# "app.kubernetes.io/component" label is set per resource to ensure network routing separation between workloads.
 labels:
   - includeSelectors: true
     pairs:
-      app: init-microservice
-      app.kubernetes.io/component: server
       app.kubernetes.io/created-by: harmelodic
       app.kubernetes.io/managed-by: kustomize
       app.kubernetes.io/name: init-microservice

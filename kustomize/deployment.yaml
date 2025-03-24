@@ -6,7 +6,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: init-microservice
+      app.kubernetes.io/component: deployment
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: init-microservice
+        app.kubernetes.io/component: deployment
     spec:
       serviceAccountName: init-microservice
       securityContext:
