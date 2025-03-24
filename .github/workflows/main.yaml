@@ -7,7 +7,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  maven:
+  maven-deploy:
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -38,7 +38,7 @@ jobs:
           PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
           PACTBROKER_AUTH_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results
 
-  terraform:
+  terraform-apply-prod:
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -52,8 +52,10 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
       - run: terraform -chdir=infrastructure init -upgrade
       - run: terraform -chdir=infrastructure validate
+      - run: terraform -chdir=infrastructure workspace select -or-create prod
+      - run: terraform -chdir=infrastructure apply # Ideally a CD system, like Atlantis, would handle execution.
 
-  mkdocs:
+  mkdocs-deploy:
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -62,7 +64,7 @@ jobs:
       - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5
       - run: pip install -r requirements.txt
       - run: mkdocs build
-      # TODO: Publish docs
+      - run: mkdocs gh-deploy
 
-  # TODO: Publish OpenAPI
-  # TODO: Publish AsyncAPI
+  # TODO: Validate & Publish OpenAPI
+  # TODO: Validate & Publish AsyncAPI

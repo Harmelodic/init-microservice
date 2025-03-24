@@ -7,7 +7,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  maven:
+  maven-verify:
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -22,7 +22,7 @@ jobs:
           mvn verify
           --no-transfer-progress
 
-  terraform:
+  terraform-validate:
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -37,7 +37,7 @@ jobs:
       - run: terraform -chdir=infrastructure init -upgrade
       - run: terraform -chdir=infrastructure validate
 
-  mkdocs:
+  mkdocs-build:
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5
       - run: pip install -r requirements.txt
-      - run: mkdocs build
+      - run: mkdocs build # Build in strict mode will validate docs.
 
   # TODO: Validate OpenAPI
   # TODO: Validate AsyncAPI
