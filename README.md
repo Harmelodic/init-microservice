@@ -1,6 +1,6 @@
 # init-microservice
 
-A basic template repo that contains starter code for developing a microservice.
+A repo that contains bootstrapping code and reference implementations for developing a microservice.
 
 Built in Java.
 
