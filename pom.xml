@@ -12,7 +12,6 @@
         <image.repository>${project.artifactId}</image.repository>
         <image.tag>${maven.build.timestamp}</image.tag>
         <java.version>24</java.version>
-        <logback.contrib.version>0.1.5</logback.contrib.version>
         <maven.build.timestamp.format>yyyy-MM-dd_HH.mm.ss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -56,13 +55,13 @@
         <dependency>
             <groupId>ch.qos.logback.contrib</groupId>
             <artifactId>logback-json-classic</artifactId>
-            <version>${logback.contrib.version}</version>
+            <version>0.1.5</version>
             <!-- Required for defining Logback JSON Layout -->
         </dependency>
         <dependency>
             <groupId>ch.qos.logback.contrib</groupId>
             <artifactId>logback-jackson</artifactId>
-            <version>${logback.contrib.version}</version>
+            <version>0.1.5</version>
             <!-- Required for formatting Logback JSON logs with Jackson -->
         </dependency>
         <dependency>
