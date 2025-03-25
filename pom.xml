@@ -68,7 +68,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <!-- Required for Spring Actuator -->
+            <!-- Required for Health checks and Telemetry -->
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <!-- Required for exposing Prometheus-compatible metrics -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,7 +91,7 @@
             <!-- Required for DB initialisation & migrations -->
         </dependency>
 
-        <!-- Test Dependencies -->
+        <!-- Test / Mock Dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -128,8 +133,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
-            <!-- Required for testing with an in-memory DB -->
+            <!-- Required for testing with an in-memory DB (test and dev-local) -->
         </dependency>
     </dependencies>
 
@@ -208,6 +212,18 @@
                 </executions>
                 <configuration>
                     <projectVersion>${image.tag}</projectVersion>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- Required for running Spring Boot app locally -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.4.4</version>
+                <configuration>
+                    <profiles>
+                        <profile>dev-local</profile>
+                    </profiles>
                 </configuration>
             </plugin>
 

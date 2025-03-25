@@ -6,38 +6,60 @@ Built in Java.
 
 ## Showcases
 
+Project configuration:
+
 - [x] README
 - [x] .gitignore
+- [x] Docs + ADRs (MkDocs + Markdown)
+- [x] Auto-updates (Renovate)
+- [ ] HTTP API Specification (OpenAPI)
+- [ ] Async API Specification (AsyncAPI) 
 - [x] Dependency Management (Maven)
+
+Application configuration:
+
 - [x] Dependency Injection and Application Mgmt (Spring Boot & Starters)
+- [x] Unit Testing (JUnit)
+- [x] Logging Config (Slf4j & Logback)
+- [ ] Tracing configuration (Micrometer + OpenTelemetry)
+- [ ] Metrics configuration (Micrometer + Prometheus Registry/Endpoint)
+
+Build / CI:
+
+- [x] Test & Build automation (Maven, GitHub Actions)
+- [x] Packaging and pushing a container image (Jib, Maven, GitHub Actions)
+- [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
+
+Deployment / CD:
+
+- [x] Kubernetes resources (Kustomize)
+- Expected that an external CD system would deploy to Kubernetes (e.g. Argo CD)
+
+Infrastructure as Code:
+
+- [ ] Terraform Database (Google CloudSQL / Redis / BigTable / Firestore)
+- [ ] Terraform Message Bus Topics/Subscriptions (Google Pub/Sub)
+- [x] Rudimentary applying of Terraform (GitHub Actions)
+- Expected that an external CD system would apply Terraform (e.g. Atlantis) 
+
+Reference implementations (production):
+
 - [x] Front Controller pattern
 - [x] Service Layer pattern
 - [x] Repository pattern
 - [ ] Event Publisher
 - [ ] Event Subscriber
 - [x] HTTP Client
-- [x] Unit Testing for Services (JUnit)
+- [ ] Tracing instrumentation (Micrometer)
+- [ ] Metrics instrumentation (Micrometer)
+
+Reference implementations (testing):
+
 - [x] Provider Contract Testing the Controller (PACT)
 - [x] Consumer Contract Testing the HTTP Client (PACT)
-- [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
 - [x] Integration Testing the Repository (in-memory DB)
 - [ ] Integration Testing the Event Publisher (Testcontainers)
 - [ ] Integration Testing the Event Subscriber (Testcontainers)
-- [x] Logging Config (Slf4j & Logback)
-- [x] HTTP Client Config
-- [x] Test & Package Automation (Maven, GitHub Actions)
-- [x] Packaging into a Container (Jib, Maven)
-- [x] Pushing Container to Registry (Jib, Maven, GitHub Actions)
-- [x] Kubernetes resources (Kustomize)
-- [ ] Terraform Database (Google)
-- [ ] Terraform Pub/Sub (Google)
-- [x] Deployment of Terraform (GitHub Actions)
-- [ ] Create Spans for Tracing (OpenTelemetry)
-- [ ] Create Domain-logic Metrics (Micrometer)
-- [x] Auto-updates (Renovate)
-- [x] Docs with MkDocs
-- [x] ADRs
-- [ ] API Specifications
 
 ## Documentation
 

@@ -2,8 +2,8 @@ pactbroker:
   url: https://pact.harmelodic.com # Used for PACT Provider tests
 spring:
   datasource:
-    url: jdbc:h2:mem:default
+    url: jdbc:h2:mem:init-microservice
     driverClassName: org.h2.Driver
-    username: dummy-service-account
+    username: init-microservice
   flyway:
     clean-disabled: false

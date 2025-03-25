@@ -1,0 +1,6 @@
+# For running in an environment, but using runtime mocks and in-memory databases.
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:init-microservice
+    username: init-microservice
