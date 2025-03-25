@@ -12,14 +12,19 @@ management:
       enabled: true
     readinessstate:
       enabled: true
-  server:
-    port: 8081
-  tracing:
-    enabled: true
+  otlp:
+    tracing:
+      export:
+        enabled: true
+      endpoint: https://opentelemetry-collector:4318 # Send spans to an OpenTelemetry Collector
   prometheus:
     metrics:
       export:
         enabled: true
+  server:
+    port: 8081
+  tracing:
+    enabled: true
 spring:
   application:
     name: init-microservice

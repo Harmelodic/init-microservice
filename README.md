@@ -21,18 +21,29 @@ Application configuration:
 - [x] Dependency Injection and Application Mgmt (Spring Boot & Starters)
 - [x] Unit Testing (JUnit)
 - [x] Logging Config (Slf4j & Logback)
-- [ ] Tracing configuration (Micrometer + OpenTelemetry)
-- [ ] Metrics configuration (Micrometer + Prometheus Registry/Endpoint)
+- [x] Tracing configuration (Micrometer + OpenTelemetry)
+- [x] Metrics configuration (Micrometer + Prometheus Registry/Endpoint)
 
 Build / CI:
 
 - [x] Test & Build automation (Maven, GitHub Actions)
 - [x] Packaging and pushing a container image (Jib, Maven, GitHub Actions)
 - [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
+- [x] Lint/Scan Java code (PMD)
+- [ ] Validate API specifications
+- [ ] Lint API specifications
+- [ ] Validate Kubernetes / Kustomize resources
+- [ ] Lint Kubernetes / Kustomize resources
+- [x] Validate Terraform (terraform validate)
+- [ ] Lint Terraform (Checkov)
+- [x] Validate MkDocs (mkdocs build with strict mode)
 
 Deployment / CD:
 
 - [x] Kubernetes resources (Kustomize)
+- [ ] Spread pods (Pod Anti-affinity)
+- [ ] Auto-scaling (HPA)
+- [x] Pod security (SecurityContext)
 - Expected that an external CD system would deploy to Kubernetes (e.g. Argo CD)
 
 Infrastructure as Code:
@@ -48,10 +59,22 @@ Reference implementations (production):
 - [x] Service Layer pattern
 - [x] Repository pattern
 - [ ] Event Publisher
-- [ ] Event Subscriber
+- [ ] Event Subscriber with resubscribe
 - [x] HTTP Client
 - [ ] Tracing instrumentation (Micrometer)
 - [ ] Metrics instrumentation (Micrometer)
+- [ ] Outbox Pattern
+- [ ] Inbox Pattern
+- [ ] Offline API
+- [ ] HTTP POST idempotency
+- [ ] Message Bus idempotency
+- [ ] Pagination (Cursor & Offset)
+- [ ] Simple state machine
+- [ ] Transactions (Multiple DB calls)
+- [ ] HTTP retries
+- [ ] Application Structure (decoupled, domain-driven, not-overengineered)
+- [ ] Exception Handling
+- [ ] Authorization checks in HTTP calls
 
 Reference implementations (testing):
 
