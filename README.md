@@ -58,13 +58,11 @@ Reference implementations (production):
 - [x] Front Controller pattern
 - [x] Service Layer pattern
 - [x] Repository pattern
-- [ ] Event Publisher
-- [ ] Event Subscriber with resubscribe
+- [ ] Event Publisher (with & without Outbox pattern)
+- [ ] Event Subscriber with resubscribe (with & without Inbox pattern)
 - [x] HTTP Client
 - [ ] Tracing instrumentation (Micrometer)
 - [ ] Metrics instrumentation (Micrometer)
-- [ ] Outbox Pattern
-- [ ] Inbox Pattern
 - [ ] Offline API
 - [ ] HTTP POST idempotency
 - [ ] Message Bus idempotency
