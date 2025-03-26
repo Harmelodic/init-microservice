@@ -13,7 +13,7 @@ Project configuration:
 - [x] Docs + ADRs (MkDocs + Markdown)
 - [x] Auto-updates (Renovate)
 - [ ] HTTP API Specification (OpenAPI)
-- [ ] Async API Specification (AsyncAPI) 
+- [ ] Async API Specification (AsyncAPI)
 - [x] Dependency Management (Maven)
 
 Application configuration:
@@ -51,28 +51,42 @@ Infrastructure as Code:
 - [ ] Terraform Database (Google CloudSQL / Redis / BigTable / Firestore)
 - [ ] Terraform Message Bus Topics/Subscriptions (Google Pub/Sub)
 - [x] Rudimentary applying of Terraform (GitHub Actions)
-- Expected that an external CD system would apply Terraform (e.g. Atlantis) 
+- Expected that an external CD system would apply Terraform (e.g. Atlantis)
 
-Reference implementations (production):
+Reference implementation examples (production):
 
-- [x] Front Controller pattern
-- [x] Service Layer pattern
-- [x] Repository pattern
-- [ ] Event Publisher (with & without Outbox pattern)
-- [ ] Event Subscriber with resubscribe (with & without Inbox pattern)
-- [x] HTTP Client
-- [ ] Tracing instrumentation (Micrometer)
-- [ ] Metrics instrumentation (Micrometer)
-- [ ] Offline API
-- [ ] HTTP POST idempotency
-- [ ] Message Bus idempotency
-- [ ] Pagination (Cursor & Offset)
-- [ ] Simple state machine
-- [ ] Transactions (Multiple DB calls)
-- [ ] HTTP retries
-- [ ] Application Structure (decoupled, domain-driven, not-overengineered)
-- [ ] Exception Handling
-- [ ] Authorization checks in HTTP calls
+- [x] Application Structure Example (account)
+  - Reasonably decoupled layers/components
+  - Domain-driven
+  - Scoped explicit exception handling
+  - Simple reusable model, mapping done in layers (if needed)
+  - Dependency Injection used
+  - No implementation details (as implementations covered in other reference implementations)
+- HTTP Endpoint
+    - [ ] Front Controller
+    - [ ] Authorization checks
+    - [ ] Versioning
+    - [ ] HTTP POST Idempotency
+    - [ ] Offset Pagination
+    - [ ] Cursor Pagination
+    - [ ] Caching (where appropriate)
+- Business Logic / Service Layer pattern
+    - [ ] Modelling
+    - [ ] Transactions
+    - [ ] Caching
+- Repository pattern
+    - [ ] Jdbc
+    - [ ] Retries
+- External communication components
+    - [ ] Event Publisher (with & without Outbox pattern)
+    - [ ] Event Subscriber with resubscribe (with & without Inbox pattern)
+    - [ ] HTTP Client (with & with retries)
+    - [ ] Offline API
+    - [ ] Message Bus idempotency
+- Telemetry
+    - [ ] Tracing instrumentation (Micrometer)
+    - [ ] Metrics instrumentation (Micrometer)
+- [ ] State machine example
 
 Reference implementations (testing):
 
