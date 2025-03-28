@@ -10,7 +10,6 @@ jobs:
   maven-verify:
     permissions:
       contents: 'read'
-      id-token: 'write'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -19,6 +18,28 @@ jobs:
           distribution: temurin
           java-version: 24
       - run: mvn verify --no-transfer-progress
+
+  kustomize-build-base-and-overlays:
+    permissions:
+      contents: 'read'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+      - working-directory: kustomize
+        run: kustomize build base
+      - working-directory: kustomize
+        run: kustomize build prod
+
+  checkov:
+    permissions:
+      contents: 'read'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5
+      - run: pip install checkov
+      - run: checkov --directory infrastructure
 
   terraform-validate:
     permissions:
@@ -34,16 +55,6 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
       - run: terraform -chdir=infrastructure init -upgrade
       - run: terraform -chdir=infrastructure validate
-
-  checkov:
-    permissions:
-      contents: 'read'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5
-      - run: pip install checkov
-      - run: checkov --directory infrastructure
 
   mkdocs-build:
     permissions:

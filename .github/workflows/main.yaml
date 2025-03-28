@@ -38,6 +38,18 @@ jobs:
           PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
           PACTBROKER_AUTH_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results
 
+  kustomize-build-base-and-overlays:
+    permissions:
+      contents: 'read'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+      - working-directory: kustomize
+        run: kustomize build base
+      - working-directory: kustomize
+        run: kustomize build prod
+
   checkov:
     permissions:
       contents: 'read'
