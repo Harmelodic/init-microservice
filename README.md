@@ -32,9 +32,8 @@ Build / CI:
 - [x] Lint/Scan Java code (PMD)
 - [x] Validate API specifications (Spectral)
 - [x] Lint API specifications (Spectral)
-- [x] Validate Kustomize kustomization (kustomize build)
-- [ ] Validate Kubernetes resources
-- [ ] Lint Kubernetes resources
+- [x] Validate Kubernetes / Kustomize (kubectl --dry-run=client -k)
+- [ ] Lint Kubernetes resources (conftest)
 - [x] Validate Terraform (terraform validate)
 - [x] Lint Terraform (Checkov)
 - [x] Validate MkDocs (mkdocs build with strict mode)
