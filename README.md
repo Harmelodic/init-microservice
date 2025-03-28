@@ -35,7 +35,7 @@ Build / CI:
 - [ ] Validate Kubernetes / Kustomize resources
 - [ ] Lint Kubernetes / Kustomize resources
 - [x] Validate Terraform (terraform validate)
-- [ ] Lint Terraform (Checkov)
+- [x] Lint Terraform (Checkov)
 - [x] Validate MkDocs (mkdocs build with strict mode)
 
 Deployment / CD:
