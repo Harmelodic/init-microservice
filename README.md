@@ -30,8 +30,8 @@ Build / CI:
 - [x] Packaging and pushing a container image (Jib, Maven, GitHub Actions)
 - [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
 - [x] Lint/Scan Java code (PMD)
-- [ ] Validate API specifications
-- [ ] Lint API specifications
+- [x] Validate API specifications
+- [x] Lint API specifications
 - [ ] Validate Kubernetes / Kustomize resources
 - [ ] Lint Kubernetes / Kustomize resources
 - [x] Validate Terraform (terraform validate)
