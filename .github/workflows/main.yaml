@@ -66,5 +66,24 @@ jobs:
       - run: mkdocs build
       # - run: mkdocs gh-deploy # TODO: Configure to be able to deploy mkdocs
 
-  # TODO: Validate & Publish OpenAPI
-  # TODO: Validate & Publish AsyncAPI
+  spectral-lint-openapi:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-node@v4
+      - run: npm install -g @stoplight/spectral-cli
+      - working-directory: docs/api-specifications
+        run: spectral lint openapi.yaml
+
+  spectral-lint-asyncapi:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-node@v4
+      - run: npm install -g @stoplight/spectral-cli
+      - working-directory: docs/api-specifications
+        run: spectral lint asyncapi.yaml
