@@ -26,9 +26,9 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
-      - working-directory: kustomize
+      - working-directory: manifests
         run: kustomize build base
-      - working-directory: kustomize
+      - working-directory: manifests
         run: kustomize build prod
 
   checkov:
