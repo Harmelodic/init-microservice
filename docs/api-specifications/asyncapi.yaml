@@ -1,11 +1,24 @@
 # AsyncAPI specification for topics / subscriptions exposed by this service
 asyncapi: 3.0.0
+id: https://github.com/Harmelodic/init-microservice
 info:
   title: init-microservice Async / Event / PubSub API
   version: 1.0.0
-
-channels: {}
-
-components: {}
-
-operations: {}
+  description: This is the Async API for the init-microservice system.
+  contact:
+    name: Harmelodic
+  license:
+    name: Apache 2.0
+    url: https://github.com/Harmelodic/init-microservice/blob/main/LICENSE
+  externalDocs:
+    url: https://github.com/Harmelodic/init-microservice/blob/main/docs
+    description: Documentation for the init-microservice system.
+  tags: [] # Tags for use throughout the API specification - useful for forming groups of channels / operations.
+defaultContentType: application/json
+servers: {} # Production and public test hosts that fulfil his specification.
+components:
+  securitySchemes: {} # Access Tokens used to secure channels
+  schemas: {} # Reusable value and model objects for use in messages and replies.
+  messages: {} # Reusable messages types, likely made up of schema objects.
+channels: {} # A communication channel / pathway / topic for async communication.
+operations: {} # Send and/or receive operations available to be performed on channels

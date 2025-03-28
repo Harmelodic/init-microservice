@@ -13,13 +13,13 @@ info:
 externalDocs:
   url: https://github.com/Harmelodic/init-microservice/blob/main/docs
   description: Documentation for the init-microservice system.
-tags: [] # Tags for use throughout the API - useful for labelling endpoints into groups
+tags: [] # Tags for use throughout the API - useful for grouping endpoints
 servers: [] # Production and public test hosts that fulfil this specification.
 components:
   headers: {} # Common headers used by all endpoints.
   securitySchemes: {} # Access tokens used to secure endpoints.
-  schemas: {} # Reusable value objects and object model for use in request bodies and responses.
-  requestBodies: {} # Reusable request bodies, likely using schema objects.
-  responses: {} # Reusable responses, likely using schema objects.
+  schemas: {} # Reusable value and model objects for use in request bodies and responses.
+  requestBodies: {} # Reusable request bodies, likely made up of schema objects.
+  responses: {} # Reusable responses, likely made up of schema objects.
 paths: {} # Endpoints, likely REST APIs, that provide access to resources.
 webhooks: {} # Webhooks that consumers of the API may want to provide related to services offered by this API.
