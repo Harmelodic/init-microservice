@@ -7,6 +7,8 @@ info:
   description: This is the Async API for the init-microservice system.
   contact:
     name: Harmelodic
+    url: https://harmelodic.com
+    email: user@example.com
   license:
     name: Apache 2.0
     url: https://github.com/Harmelodic/init-microservice/blob/main/LICENSE
@@ -15,7 +17,16 @@ info:
     description: Documentation for the init-microservice system.
   tags: [] # Tags for use throughout the API specification - useful for forming groups of channels / operations.
 defaultContentType: application/json
-servers: {} # Production and public test hosts that fulfil his specification.
+
+# Production and public test servers that fulfil his specification.
+servers:
+  example:
+    host: init-microservice.api.harmelodic.com
+    protocol: http
+    title: Harmelodic init-microservice API (Production)
+    summary: Example production server.
+    description: This is the example production server, at harmelodic.com, that serves this API.
+
 components:
   securitySchemes: {} # Access Tokens used to secure channels
   schemas: {} # Reusable value and model objects for use in messages and replies.

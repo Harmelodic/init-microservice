@@ -13,8 +13,13 @@ info:
 externalDocs:
   url: https://github.com/Harmelodic/init-microservice/blob/main/docs
   description: Documentation for the init-microservice system.
+
+# Production and public test servers that fulfil this specification.
+servers:
+  - url: init-microservice.api.harmelodic.com
+    description: Example server for this API.
+
 tags: [] # Tags for use throughout the API - useful for grouping endpoints
-servers: [] # Production and public test hosts that fulfil this specification.
 components:
   headers: {} # Common headers used by all endpoints.
   securitySchemes: {} # Access tokens used to secure endpoints.
