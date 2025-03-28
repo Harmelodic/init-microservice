@@ -38,15 +38,15 @@ jobs:
           PACTBROKER_AUTH_USERNAME: pact-broker-user # For publishing Provider results
           PACTBROKER_AUTH_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }} # For publishing Provider results
 
-  kubectl-dry-run-kustomization:
+  kustomize-build-base-and-overlays:
     permissions:
       contents: 'read'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - run: sudo apt install kubectl
-      - run: kubectl apply --dry-run=client -k manifests/base
-      - run: kubectl apply --dry-run=client -k manifests/prod
+      - run: sudo snap install kustomize
+      - run: kustomize build manifests/base
+      - run: kustomize build manifests/prod
 
   checkov:
     permissions:

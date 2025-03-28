@@ -32,11 +32,11 @@ Build / CI:
 - [x] Lint/Scan Java code (PMD)
 - [x] Validate API specifications (Spectral)
 - [x] Lint API specifications (Spectral)
-- [x] Validate Kubernetes / Kustomize (kubectl --dry-run=client -k)
-- [ ] Lint Kubernetes resources (conftest)
-- [x] Validate Terraform (terraform validate)
+- [x] Validate Kubernetes / Kustomize (`kustomization build`, ideally `kubectl apply --dry-run=client -k` but it doesn't work)
+- [ ] Lint Kubernetes resources (Conftest)
+- [x] Validate Terraform (`terraform validate`)
 - [x] Lint Terraform (Checkov)
-- [x] Validate MkDocs (mkdocs build with strict mode)
+- [x] Validate MkDocs (`mkdocs build` with `strict` mode)
 
 Deployment / CD:
 
