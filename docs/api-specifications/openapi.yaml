@@ -1,9 +1,10 @@
 # OpenAPI Specification for endpoints exposed by this service
 openapi: 3.1.0
 info:
-  title: init-microservice HTTP API
+  title: init-microservice
   version: 1.0.0
-  description: This is the HTTP API for the init-microservice system.
+  summary: This is the HTTP API for the init-microservice system.
+  description: The init-microservice HTTP API provides a template for writing OpenAPI specifications.
   contact:
     name: Harmelodic
   license:
@@ -11,13 +12,14 @@ info:
     url: https://github.com/Harmelodic/init-microservice/blob/main/LICENSE
 externalDocs:
   url: https://github.com/Harmelodic/init-microservice/blob/main/docs
-  description: Documentation for the init-microservice system
-
+  description: Documentation for the init-microservice system.
+tags: [] # Tags for use throughout the API - useful for labelling endpoints into groups
+servers: [] # Production and public test hosts that fulfil this specification.
 components:
-  securitySchemes: {}
-  requestBodies: {}
-  schemas: {}
-
-paths: {}
-
-webhooks: {}
+  headers: {} # Common headers used by all endpoints.
+  securitySchemes: {} # Access tokens used to secure endpoints.
+  schemas: {} # Reusable value objects and object model for use in request bodies and responses.
+  requestBodies: {} # Reusable request bodies, likely using schema objects.
+  responses: {} # Reusable responses, likely using schema objects.
+paths: {} # Endpoints, likely REST APIs, that provide access to resources.
+webhooks: {} # Webhooks that consumers of the API may want to provide related to services offered by this API.
