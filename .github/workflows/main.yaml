@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - run: snap install kustomize
+      - run: sudo snap install kustomize
       - working-directory: manifests
         run: kustomize build base
       - working-directory: manifests
