@@ -12,8 +12,8 @@ Project configuration:
 - [x] .gitignore
 - [x] Docs + ADRs (MkDocs + Markdown)
 - [x] Auto-updates (Renovate)
-- [ ] HTTP API Specification (OpenAPI)
-- [ ] Async API Specification (AsyncAPI)
+- [x] HTTP API Specification (OpenAPI)
+- [x] Async API Specification (AsyncAPI)
 - [x] Dependency Management (Maven)
 
 Application configuration:
