@@ -26,8 +26,8 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - run: sudo snap install kustomize
-      - run: kustomize build manifests/base
-      - run: kustomize build manifests/prod
+      - run: kustomize build k8s-manifests/base
+      - run: kustomize build k8s-manifests/prod
 
 checkov:
     permissions:
