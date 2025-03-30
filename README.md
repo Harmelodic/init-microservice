@@ -33,7 +33,7 @@ Build / CI:
 - [x] Validate API specifications (Spectral)
 - [x] Lint API specifications (Spectral)
 - [x] Validate Kubernetes / Kustomize (`kustomization build`, ideally `kubectl apply --dry-run=client -k` but it doesn't work)
-- [ ] Lint Kubernetes resources (Conftest)
+- [x] Lint Kubernetes resources (Conftest)
 - [x] Validate Terraform (`terraform validate`)
 - [x] Lint Terraform (Checkov)
 - [x] Validate MkDocs (`mkdocs build` with `strict` mode)
