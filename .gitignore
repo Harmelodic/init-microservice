@@ -10,3 +10,6 @@ target/
 # Python / MkDocs
 venv/
 site/
+
+# Conftest policy (should be pulled in from remote)
+policy/

@@ -45,10 +45,9 @@ jobs:
           wget "https://github.com/open-policy-agent/conftest/releases/download/v${LATEST_VERSION}/conftest_${LATEST_VERSION}_${SYSTEM}_${ARCH}.tar.gz"
           tar xzf conftest_${LATEST_VERSION}_${SYSTEM}_${ARCH}.tar.gz
           sudo mv conftest /usr/local/bin
-      - working-directory: k8s-manifests
-        run: kustomize build base | conftest test --output github -
-      - working-directory: k8s-manifests
-        run: kustomize build prod | conftest test --output github -
+      - run: conftest pull git::https://github.com/Harmelodic/kubernetes-rego-policy.git//policy
+      - run: kustomize build k8s-manifests/base | conftest test --output github -
+      - run: kustomize build k8s-manifests/prod | conftest test --output github -
 
   checkov:
     permissions:
