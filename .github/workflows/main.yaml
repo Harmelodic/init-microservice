@@ -10,7 +10,7 @@ jobs:
   maven-deploy:
     permissions:
       contents: 'read'
-      id-token: 'write' # Fetch OIDC Token for GCP Auth 
+      id-token: 'write' # Fetch OIDC Token for GCP Auth
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -47,6 +47,19 @@ jobs:
       - run: sudo snap install kustomize
       - run: kustomize build k8s-manifests/base
       - run: kustomize build k8s-manifests/prod
+
+  conftest-test-base-and-overlays:
+    permissions:
+      contents: 'read'
+    runs-on: ubuntu-latest
+    container: openpolicyagent/conftest:latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - run: sudo snap install kustomize
+      - working-directory: k8s-manifests
+        run: kustomize build base | conftest test --output github -
+      - working-directory: k8s-manifests
+        run: kustomize build prod | conftest test --output github -
 
   checkov:
     permissions:

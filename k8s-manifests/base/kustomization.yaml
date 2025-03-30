@@ -9,6 +9,7 @@ labels:
   - includeSelectors: true
     pairs:
       app.kubernetes.io/created-by: harmelodic
+      app.kubernetes.io/instance: init-microservice-base
       app.kubernetes.io/managed-by: kustomize
       app.kubernetes.io/name: init-microservice
       app.kubernetes.io/part-of: init-microservice
