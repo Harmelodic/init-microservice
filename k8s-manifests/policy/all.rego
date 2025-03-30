@@ -1,7 +1,6 @@
 package main
 
 import rego.v1
-import data.kubernetes
 
 name := input.metadata.name
 
