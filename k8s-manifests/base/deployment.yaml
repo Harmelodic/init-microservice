@@ -34,11 +34,13 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-            - name: management-http
+            - name: http-management
               containerPort: 8081
           resources:
             requests:
               cpu: 500m
+              memory: 0.25Gi
+            limits:
               memory: 0.25Gi
           startupProbe:
             initialDelaySeconds: 20
