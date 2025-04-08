@@ -48,19 +48,19 @@ spec:
             failureThreshold: 10
             httpGet:
               path: /actuator/health/liveness
-              port: management-http
+              port: http-management
           readinessProbe:
             periodSeconds: 10
             failureThreshold: 10
             httpGet:
               path: /actuator/health/readiness
-              port: management-http
+              port: http-management
           livenessProbe:
             periodSeconds: 10
             failureThreshold: 10
             httpGet:
               path: /actuator/health/liveness
-              port: management-http
+              port: http-management
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
