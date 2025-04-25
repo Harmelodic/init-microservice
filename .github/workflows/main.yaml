@@ -18,7 +18,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 24
-      - uses: google-github-actions/auth@v2.1.8
+      - uses: google-github-actions/auth@v2.1.9
         with:
           workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/github/providers/github-oidc
           service_account: automation@automation-220928.iam.gserviceaccount.com
@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
       - run: pip install checkov
       - run: checkov --directory infrastructure
 
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: google-github-actions/auth@v2.1.8
+      - uses: google-github-actions/auth@v2.1.9
         with:
           workload_identity_provider: projects/401363556022/locations/global/workloadIdentityPools/github/providers/github-oidc
           service_account: automation@automation-220928.iam.gserviceaccount.com
@@ -100,7 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
       - run: pip install -r requirements.txt
       - run: mkdocs build
       # - run: mkdocs gh-deploy # TODO: Configure to be able to deploy mkdocs
