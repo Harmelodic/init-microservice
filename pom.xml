@@ -24,7 +24,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.4.5</version>
+                <version>3.5.0</version>
                 <type>pom</type>
                 <scope>import</scope>
                 <!-- Bill of Materials for managing Spring Boot Dependencies -->
@@ -226,7 +226,7 @@
                 <!-- Required for running Spring Boot app locally -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.4.5</version>
+                <version>3.4.6</version>
                 <configuration>
                     <profiles>
                         <profile>dev-local</profile>
