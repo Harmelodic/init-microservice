@@ -1,6 +1,7 @@
-site_name: init-microservice docs
-site_description: Docs for the init-microservice system.
+# $schema: https://squidfunk.github.io/mkdocs-material/schema.json
 site_author: Harmelodic
+site_description: Docs for the init-microservice system.
+site_name: init-microservice docs
 
 strict: true
 
