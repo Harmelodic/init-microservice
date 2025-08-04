@@ -29,7 +29,7 @@ spec:
         fsGroup: 2000
       containers:
         - name: init-microservice
-          image: init-microservice:v1.0.0
+          image: europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice:latest
           imagePullPolicy: Always
           ports:
             - name: http
