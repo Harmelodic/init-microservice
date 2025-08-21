@@ -35,7 +35,8 @@ Build / CI:
 - [x] Validate Kubernetes / Kustomize (`kustomization build`, ideally `kubectl apply --dry-run=client -k` but it doesn't work)
 - [x] Lint Kubernetes resources (Conftest)
 - [x] Validate Terraform (`terraform validate`)
-- [x] Lint Terraform (Checkov)
+- [x] Lint Terraform (`tflint`)
+- [x] Scan Terraform (Checkov)
 - [x] Validate MkDocs (`mkdocs build` with `strict` mode)
 
 Deployment / CD:

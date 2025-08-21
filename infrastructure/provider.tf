@@ -12,3 +12,7 @@ terraform {
 provider "google" {
   region = "europe-north1"
 }
+
+locals {
+  bad = ":"
+}
