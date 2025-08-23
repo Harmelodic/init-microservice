@@ -21,7 +21,8 @@ Application configuration:
 - [x] Dependency Injection and Application Mgmt (Spring Boot & Starters)
 - [x] Unit Testing (JUnit)
 - [x] Logging Config (Slf4j & Logback)
-- [x] Tracing configuration (Micrometer + OpenTelemetry)
+- [x] Tracing configuration (Micrometer + OpenTelemetry) // TODO: Replace!
+- [ ] Tracing configuration (OpenTelemetry Java agent for Zero code instrumentation + OpenTelemetry annotations)
 - [x] Metrics configuration (Micrometer + Prometheus Registry/Endpoint)
 
 Build / CI:
