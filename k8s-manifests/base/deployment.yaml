@@ -36,6 +36,15 @@ spec:
               containerPort: 8080
             - name: http-management
               containerPort: 8081
+          env:
+            # OpenTelemetry Java agent configuration.
+            # Change depending on environment's OpenTelemetry collector infrastructure
+            - name: OTEL_TRACES_EXPORTER
+              value: none
+            - name: OTEL_METRICS_EXPORTER
+              value: none
+            - name: OTEL_LOGS_EXPORTER
+              value: none
           resources:
             requests:
               cpu: 500m

@@ -19,6 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Empty argLine for reference in maven-surefire-plugin -->
         <argLine/>
+        <opentelemetry-javaagent.version>2.19.0</opentelemetry-javaagent.version>
     </properties>
 
     <dependencyManagement>
@@ -77,12 +78,10 @@
             <!-- Required for exposing Prometheus-compatible metrics -->
         </dependency>
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bridge-otel</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-exporter-otlp</artifactId>
+            <groupId>io.opentelemetry.javaagent</groupId>
+            <artifactId>opentelemetry-javaagent</artifactId>
+            <version>${opentelemetry-javaagent.version}</version>
+            <!-- Required for Zero-code instrumentation with OpenTelemetry, loaded into JIB -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -294,8 +293,28 @@
                             <tag>${image.tag}</tag>
                         </tags>
                     </to>
+                    <container>
+                        <environment>
+                            <!-- Default environment variables -->
+                            <OTEL_JAVAAGENT_LOGGING>application</OTEL_JAVAAGENT_LOGGING>
+                            <OTEL_TRACES_EXPORTER>none</OTEL_TRACES_EXPORTER>
+                            <OTEL_METRICS_EXPORTER>none</OTEL_METRICS_EXPORTER>
+                            <OTEL_LOGS_EXPORTER>none</OTEL_LOGS_EXPORTER>
+                        </environment>
+                        <jvmFlags>
+                            <jvmFlag>-javaagent:/app/libs/opentelemetry-javaagent-${opentelemetry-javaagent.version}.jar</jvmFlag>
+                            <jvmFlag>-Dotel.service.name=init-microservice</jvmFlag>
+                        </jvmFlags>
+                    </container>
                 </configuration>
                 <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>buildTar</goal>
+                        </goals>
+                    </execution>
                     <execution>
                         <id>install</id>
                         <phase>install</phase>
