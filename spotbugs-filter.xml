@@ -1,0 +1,7 @@
+<FindBugsFilter>
+    <Match>
+        <!-- Ignore exposing external mutable object in constructors. That's just Spring dependency injection -->
+        <Method name="&lt;init&gt;"/>
+        <Bug pattern="EI_EXPOSE_REP2" />
+    </Match>
+</FindBugsFilter>

@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AccountServiceTest {
+class AccountServiceImplTest {
 
     @Mock
     AccountRepository accountRepository;
@@ -32,7 +32,7 @@ class AccountServiceTest {
     AccountCreatedPublisher accountCreatedPublisher;
 
     @InjectMocks
-    AccountService accountService;
+    AccountServiceImpl accountService;
 
     @Test
     void openAccountSuccess() throws AccountRepository.AccountRepositoryException {
@@ -53,7 +53,7 @@ class AccountServiceTest {
         when(accountRepository.openAccount(isA(Account.class))).thenThrow(AccountRepository.AccountRepositoryException.class);
 
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
-        assertThrows(AccountService.FailedToOpenAccountException.class, () -> accountService.openAccount(account));
+        assertThrows(AccountServiceImpl.FailedToOpenAccountException.class, () -> accountService.openAccount(account));
         verify(accountCreatedPublisher, times(0)).publish(account);
     }
 
@@ -74,7 +74,7 @@ class AccountServiceTest {
     void fetchAllAccountsFail() throws AccountRepository.AccountRepositoryException {
         when(accountRepository.fetchAllAccounts()).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(AccountService.FailedToFetchAllAccountsException.class, accountService::fetchAllAccounts);
+        assertThrows(AccountServiceImpl.FailedToFetchAllAccountsException.class, accountService::fetchAllAccounts);
     }
 
     @Test
@@ -92,7 +92,7 @@ class AccountServiceTest {
         UUID uuid = UUID.randomUUID();
         when(accountRepository.fetchAccountById(uuid)).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(AccountService.FailedToFetchAccountException.class, () -> accountService.fetchAccountById(uuid));
+        assertThrows(AccountServiceImpl.FailedToFetchAccountException.class, () -> accountService.fetchAccountById(uuid));
     }
 
     @Test
@@ -108,7 +108,7 @@ class AccountServiceTest {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         doThrow(AccountRepository.AccountRepositoryException.class).when(accountRepository).updateAccount(account);
 
-        assertThrows(AccountService.FailedToUpdateAccountException.class, () -> accountService.updateAccount(account));
+        assertThrows(AccountServiceImpl.FailedToUpdateAccountException.class, () -> accountService.updateAccount(account));
     }
 
     @Test
@@ -126,6 +126,6 @@ class AccountServiceTest {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         doThrow(AccountRepository.AccountRepositoryException.class).when(accountRepository).deleteAccountById(account.id());
 
-        assertThrows(AccountService.FailedToDeleteAccountException.class, () -> accountService.deleteAccountById(account.id()));
+        assertThrows(AccountServiceImpl.FailedToDeleteAccountException.class, () -> accountService.deleteAccountById(account.id()));
     }
 }
