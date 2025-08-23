@@ -11,14 +11,14 @@ jobs:
   verify-github-workflows:
     uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@efebb915210e5e4fbb36910baab02fe951282e4c
 
-  # Application builds
+  # Application
   build-java-container-image:
     uses: harmelodic/workflows/.github/workflows/build-java-container-image.yaml@efebb915210e5e4fbb36910baab02fe951282e4c
     with:
       image: europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
     secrets: inherit
 
-  # Deployment builds
+  # Deployment
   verify-kustomization-base:
     uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@efebb915210e5e4fbb36910baab02fe951282e4c
     with:
@@ -28,7 +28,7 @@ jobs:
     with:
       directory: k8s-manifests/prod
 
-  # Infrastructure builds
+  # Infrastructure
   verify-terraform:
     uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@efebb915210e5e4fbb36910baab02fe951282e4c
     with:
@@ -40,19 +40,11 @@ jobs:
       directory: infrastructure
       workspace: prod
 
-  # Docs builds
-  mkdocs-deploy:
-    permissions:
-      contents: read
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
-      - run: pip install -r requirements.txt
-      - run: mkdocs build
-      # - run: mkdocs gh-deploy # TODO: Configure to be able to deploy mkdocs
+  # Documentation
+  release-mkdocs:
+    uses: harmelodic/workflows/.github/workflows/release-mkdocs.yaml@d8c3ce35546b8b035d333149dea72ab3fac2ab83
 
-  # Contract builds
+  # Contracts
   spectral-lint-openapi:
     permissions:
       contents: read
