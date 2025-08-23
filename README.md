@@ -29,7 +29,7 @@ Build / CI:
 - [x] Test & Build automation (Maven, GitHub Actions)
 - [x] Uses reusable [workflows](https://github.com/Harmelodic/workflows) for ease of CI maintenance.
 - [x] Java Project + Container image specific build process:
-    - [ ] Lint/Scan Java code (PMD, Modernizer, Spotbugs)
+    - [x] Lint/Scan Java code (PMD, Modernizer, Spotbugs)
     - [x] Testing (Maven Surefire plugin)
     - [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
     - [x] Packaging JAR (Maven Compiler plugin, Spring Boot Maven plugin)
