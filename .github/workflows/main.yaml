@@ -10,47 +10,50 @@ on:
 jobs:
   # GitHub workflows
   verify-github-workflows:
-    uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
 
   # Application
   build-java-container-image:
-    uses: harmelodic/workflows/.github/workflows/build-java-container-image.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/build-java-container-image.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
     with:
       image: europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
+      google-service-account: automation
     secrets: inherit
 
   # Deployment
   verify-kustomization-base:
-    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
     with:
       directory: k8s-manifests/base
   verify-kustomization-prod:
-    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
     with:
       directory: k8s-manifests/prod
 
   # Infrastructure
   verify-terraform:
-    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
     with:
       directory: infrastructure
+      google-service-account: automation
   release-terraform:
     needs: verify-terraform
-    uses: harmelodic/workflows/.github/workflows/release-terraform.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/release-terraform.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
     with:
       directory: infrastructure
       workspace: prod
+      google-service-account: automation
 
   # Documentation
   release-mkdocs:
-    uses: harmelodic/workflows/.github/workflows/release-mkdocs.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/release-mkdocs.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
 
   # Contracts
   verify-openapi:
-    uses: harmelodic/workflows/.github/workflows/verify-openapi.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/verify-openapi.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
     with:
       specification: api-specs/openapi.yaml
   verify-asyncapi:
-    uses: harmelodic/workflows/.github/workflows/verify-asyncapi.yaml@3aa835d592689040a23f582f9158a33d1402036c
+    uses: harmelodic/workflows/.github/workflows/verify-asyncapi.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
     with:
       specification: api-specs/asyncapi.yaml
