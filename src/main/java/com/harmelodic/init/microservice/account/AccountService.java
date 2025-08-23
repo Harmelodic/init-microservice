@@ -1,5 +1,6 @@
 package com.harmelodic.init.microservice.account;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class AccountService {
         this.accountCreatedPublisher = accountCreatedPublisher;
     }
 
+	@WithSpan
     public Account openAccount(Account account) throws FailedToOpenAccountException {
         try {
             Account accountToOpen = new Account(UUID.randomUUID(), account.name(), account.customerId());
@@ -27,6 +29,7 @@ public class AccountService {
         }
     }
 
+	@WithSpan
     public List<Account> fetchAllAccounts() throws FailedToFetchAllAccountsException {
         try {
             return accountRepository.fetchAllAccounts();
@@ -35,6 +38,7 @@ public class AccountService {
         }
     }
 
+	@WithSpan
     public Account fetchAccountById(UUID id) throws FailedToFetchAccountException {
         try {
             return accountRepository.fetchAccountById(id);
@@ -43,6 +47,7 @@ public class AccountService {
         }
     }
 
+	@WithSpan
     public void updateAccount(Account account) throws FailedToUpdateAccountException {
         try {
             accountRepository.updateAccount(account);
@@ -51,6 +56,7 @@ public class AccountService {
         }
     }
 
+	@WithSpan
     public void deleteAccountById(UUID id) throws FailedToDeleteAccountException {
         try {
             accountRepository.deleteAccountById(id);
