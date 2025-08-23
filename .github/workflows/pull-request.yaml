@@ -12,17 +12,8 @@ jobs:
     uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@efebb915210e5e4fbb36910baab02fe951282e4c
 
   # Application builds
-  maven-verify:
-    permissions:
-      contents: 'read'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-      - uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 24
-      - run: mvn verify --no-transfer-progress
+  verify-java-project:
+    uses: harmelodic/workflows/.github/workflows/verify-java-project.yaml@efebb915210e5e4fbb36910baab02fe951282e4c
 
   # Deployment builds
   kustomize-build-base-and-overlays:
