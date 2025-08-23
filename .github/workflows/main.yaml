@@ -45,21 +45,11 @@ jobs:
     uses: harmelodic/workflows/.github/workflows/release-mkdocs.yaml@d8c3ce35546b8b035d333149dea72ab3fac2ab83
 
   # Contracts
-  spectral-lint-openapi:
-    permissions:
-      contents: read
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-      - run: npm install -g @stoplight/spectral-cli
-      - run: spectral lint api-specs/openapi.yaml
-  spectral-lint-asyncapi:
-    permissions:
-      contents: read
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-      - run: npm install -g @stoplight/spectral-cli
-      - run: spectral lint api-specs/asyncapi.yaml
+  verify-openapi:
+    uses: harmelodic/workflows/.github/workflows/verify-openapi.yaml@d8c3ce35546b8b035d333149dea72ab3fac2ab83
+    with:
+      specification: api-specs/openapi.yaml
+  verify-asyncapi:
+    uses: harmelodic/workflows/.github/workflows/verify-asyncapi.yaml@d8c3ce35546b8b035d333149dea72ab3fac2ab83
+    with:
+      specification: api-specs/asyncapi.yaml
