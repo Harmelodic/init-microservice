@@ -223,10 +223,20 @@
             </plugin>
 
             <plugin>
-                <!-- Required for running Spring Boot app locally -->
+                <!-- Required for local usage (building a local fat JAR or using `mvn spring-boot:run` -->
+                <!-- The JIB Maven plugin does not require this, as it handles its own packaging -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.5.5</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <id>package</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <profiles>
                         <profile>dev-local</profile>
@@ -241,7 +251,7 @@
                 <version>3.4.6</version>
                 <configuration>
                     <from>
-                        <image>eclipse-temurin:22-jre-alpine@sha256:d8ac5f15b7dc0a91bdfb89422f900383469e5de12dcce3949f145d713f455b34</image>
+                        <image>eclipse-temurin:24-jre-alpine@sha256:4044b6c87cb088885bcd0220f7dc7a8a4aab76577605fa471945d2e98270741f</image>
                     </from>
                     <to>
                         <image>${image.repository}</image>
