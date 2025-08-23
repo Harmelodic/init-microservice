@@ -27,17 +27,13 @@ Application configuration:
 Build / CI:
 
 - [x] Test & Build automation (Maven, GitHub Actions)
-- [x] Packaging and pushing a container image (Jib, Maven, GitHub Actions)
-- [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
-- [x] Lint/Scan Java code (PMD)
-- [x] Validate API specifications (Spectral)
-- [x] Lint API specifications (Spectral)
-- [x] Validate Kubernetes / Kustomize (`kustomization build`, ideally `kubectl apply --dry-run=client -k` but it doesn't work)
-- [x] Lint Kubernetes resources (Conftest)
-- [x] Validate Terraform (`terraform validate`)
-- [x] Lint Terraform (`tflint`)
-- [x] Scan Terraform (Checkov)
-- [x] Validate MkDocs (`mkdocs build` with `strict` mode)
+- [x] Uses reusable [workflows](https://github.com/Harmelodic/workflows) for ease of CI maintenance.
+- [x] Java Project + Container image specific build process:
+    - [ ] Lint/Scan Java code (PMD, Modernizer, Spotbugs)
+    - [x] Testing (Maven Surefire plugin)
+    - [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
+    - [x] Packaging JAR (Maven Compiler plugin, Spring Boot Maven plugin)
+    - [x] Packaging and pushing a container image (Jib Maven plugin)
 
 Deployment / CD:
 
@@ -57,12 +53,12 @@ Infrastructure as Code:
 Reference implementation examples (production):
 
 - [x] Application Structure Example (account)
-  - Reasonably decoupled layers/components
-  - Domain-driven
-  - Scoped explicit exception handling
-  - Simple reusable model, mapping done in layers (if needed)
-  - Dependency Injection used
-  - No implementation details (as implementations covered in other reference implementations)
+    - Reasonably decoupled layers/components
+    - Domain-driven
+    - Scoped explicit exception handling
+    - Simple reusable model, mapping done in layers (if needed)
+    - Dependency Injection used
+    - No implementation details (as implementations covered in other reference implementations)
 - HTTP Endpoint
     - [ ] Front Controller
     - [ ] Authorization checks
