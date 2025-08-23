@@ -17,6 +17,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Empty argLine for reference in maven-surefire-plugin -->
+        <argLine/>
     </properties>
 
     <dependencyManagement>
@@ -112,6 +114,12 @@
             <!-- Required for Mockito -->
         </dependency>
         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+            <!-- Required explicitly for loading Mockito Java agent -->
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -202,11 +210,27 @@
             </plugin>
 
             <plugin>
+                <!-- Required for creating Maven properties of dependencies -->
+                <!-- Makes loading the Mockito Java agent in surefire a simple reference -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- By default, `properties` binds to `initialize` phase -->
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <!-- Required for running tests -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.3</version>
                 <configuration>
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
                     <systemPropertyVariables>
                         <pact_do_not_track>true</pact_do_not_track>
                     </systemPropertyVariables>
@@ -260,7 +284,9 @@
                 <version>3.4.6</version>
                 <configuration>
                     <from>
-                        <image>eclipse-temurin:24-jre-alpine@sha256:4044b6c87cb088885bcd0220f7dc7a8a4aab76577605fa471945d2e98270741f</image>
+                        <image>
+                            eclipse-temurin:24-jre-alpine@sha256:4044b6c87cb088885bcd0220f7dc7a8a4aab76577605fa471945d2e98270741f
+                        </image>
                     </from>
                     <to>
                         <image>${image.repository}</image>
