@@ -10,39 +10,38 @@ on:
 jobs:
   # GitHub workflows
   verify-github-workflows:
-    uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@541e2964bc269db532b73d02671363f55c63d2de
 
   # Application
   verify-java-project:
-    uses: harmelodic/workflows/.github/workflows/verify-java-project.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-java-project.yaml@541e2964bc269db532b73d02671363f55c63d2de
 
   # Deployment
   verify-kustomization-base:
-    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@541e2964bc269db532b73d02671363f55c63d2de
     with:
       directory: k8s-manifests/base
   verify-kustomization-prod:
-    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@541e2964bc269db532b73d02671363f55c63d2de
     with:
       directory: k8s-manifests/prod
 
   # Infrastructure
   verify-terraform:
-    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@541e2964bc269db532b73d02671363f55c63d2de
     with:
       directory: infrastructure
-      google-service-account: automation-for-pull-requests
 
   # Documentation
   verify-mkdocs:
-    uses: harmelodic/workflows/.github/workflows/verify-mkdocs.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-mkdocs.yaml@541e2964bc269db532b73d02671363f55c63d2de
 
   # Contracts
   verify-openapi:
-    uses: harmelodic/workflows/.github/workflows/verify-openapi.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-openapi.yaml@541e2964bc269db532b73d02671363f55c63d2de
     with:
       specification: api-specs/openapi.yaml
   verify-asyncapi:
-    uses: harmelodic/workflows/.github/workflows/verify-asyncapi.yaml@e7d794f82cb406ae0d464bc2fc4cb7b0fa2b5416
+    uses: harmelodic/workflows/.github/workflows/verify-asyncapi.yaml@541e2964bc269db532b73d02671363f55c63d2de
     with:
       specification: api-specs/asyncapi.yaml
