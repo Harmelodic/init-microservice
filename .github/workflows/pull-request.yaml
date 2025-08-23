@@ -8,6 +8,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  # GitHub workflows
   verify-github-workflows:
     uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@efebb915210e5e4fbb36910baab02fe951282e4c
 
