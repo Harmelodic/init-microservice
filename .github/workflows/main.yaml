@@ -74,7 +74,7 @@ jobs:
     uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@dd030062661cb2ee7c857959cb64a6e2807f86ce
     with:
       directory: infrastructure
-  release-terrafrom:
+  release-terraform:
     needs: verify-terraform
     uses: harmelodic/workflows/.github/workflows/release-terraform.yaml@dd030062661cb2ee7c857959cb64a6e2807f86ce
     with:
