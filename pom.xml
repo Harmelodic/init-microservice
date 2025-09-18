@@ -27,7 +27,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.5.5</version>
+                <version>3.5.6</version>
                 <type>pom</type>
                 <scope>import</scope>
                 <!-- Bill of Materials for managing Spring Boot Dependencies -->
@@ -272,7 +272,7 @@
                 <!-- The JIB Maven plugin does not require this, as it handles its own packaging -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.5.5</version>
+                <version>3.5.6</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
