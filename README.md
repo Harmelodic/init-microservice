@@ -53,7 +53,7 @@ Infrastructure as Code:
 
 Reference implementation examples (production):
 
-- [x] Application Structure Example (account)
+- [x] Application Structure Example (`app.structure.account`)
     - Reasonably decoupled layers/components
     - Domain-driven
     - Scoped explicit exception handling
