@@ -19,7 +19,7 @@ class AccountCreatorSubscriber {
         Account account = message.account();
         try {
             accountService.openAccount(account);
-        } catch (AccountService.FailedToOpenAccountException e) { // NOPMD
+        } catch (AccountService.AccountServiceException e) { // NOPMD
             // Nack message or save it somewhere to deal with
         }
     }

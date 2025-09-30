@@ -29,7 +29,7 @@ class AccountController {
     Account postAccount(@RequestBody Account account) {
         try {
             return accountService.openAccount(account);
-        } catch (AccountService.FailedToOpenAccountException e) {
+        } catch (AccountService.AccountServiceException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to open Account", e);
         }
     }
@@ -38,7 +38,7 @@ class AccountController {
     List<Account> getAllAccounts() {
         try {
             return accountService.fetchAllAccounts();
-        } catch (AccountService.FailedToFetchAllAccountsException e) {
+        } catch (AccountService.AccountServiceException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to fetch Accounts", e);
         }
     }
@@ -47,9 +47,9 @@ class AccountController {
     Account getAccountById(@PathVariable("id") UUID id) {
         try {
             return accountService.fetchAccountById(id);
-        } catch (AccountService.FailedToFetchAccountItDoesNotExistException e) {
+        } catch (AccountService.AccountDoesNotExistException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account does not exist", e);
-        } catch (AccountService.FailedToFetchAccountGeneralException e) {
+        } catch (AccountService.AccountServiceException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to get Account", e);
         }
     }
@@ -63,9 +63,9 @@ class AccountController {
         try {
             accountService.updateAccount(account);
             return ResponseEntity.ok().build();
-        } catch (AccountService.FailedToUpdateAccountItDoesNotExistException e) {
+        } catch (AccountService.AccountDoesNotExistException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Failed to update Account, as it does not exist", e);
-        } catch (AccountService.FailedToUpdateAccountException e) {
+        } catch (AccountService.AccountServiceException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to update Account", e);
         }
     }
@@ -74,7 +74,7 @@ class AccountController {
     void deleteAccountById(@PathVariable("id") UUID id) {
         try {
             accountService.deleteAccountById(id);
-        } catch (AccountService.FailedToDeleteAccountException e) {
+        } catch (AccountService.AccountServiceException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete account", e);
         }
     }

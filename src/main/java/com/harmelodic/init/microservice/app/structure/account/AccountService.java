@@ -12,102 +12,72 @@ class AccountService {
     private final AccountCreatedPublisher accountCreatedPublisher;
 
     AccountService(AccountRepository accountRepository,
-                          AccountCreatedPublisher accountCreatedPublisher) {
+                   AccountCreatedPublisher accountCreatedPublisher) {
         this.accountRepository = accountRepository;
         this.accountCreatedPublisher = accountCreatedPublisher;
     }
 
     @WithSpan
-    Account openAccount(Account account) throws FailedToOpenAccountException {
+    Account openAccount(Account account) throws AccountServiceException {
         try {
             Account accountToOpen = new Account(UUID.randomUUID(), account.name(), account.customerId());
             Account createdAccount = accountRepository.openAccount(accountToOpen);
             accountCreatedPublisher.publish(createdAccount);
             return createdAccount;
         } catch (AccountRepository.AccountRepositoryException e) {
-            throw new FailedToOpenAccountException(e);
+            throw new AccountServiceException(e);
         }
     }
 
     @WithSpan
-    List<Account> fetchAllAccounts() throws FailedToFetchAllAccountsException {
+    List<Account> fetchAllAccounts() throws AccountServiceException {
         try {
             return accountRepository.fetchAllAccounts();
         } catch (AccountRepository.AccountRepositoryException e) {
-            throw new FailedToFetchAllAccountsException(e);
+            throw new AccountServiceException(e);
         }
     }
 
     @WithSpan
-    Account fetchAccountById(UUID id) throws FailedToFetchAccountItDoesNotExistException, FailedToFetchAccountGeneralException {
+    Account fetchAccountById(UUID id) throws AccountDoesNotExistException, AccountServiceException {
         try {
             return accountRepository.fetchAccountById(id);
         } catch (AccountRepository.AccountDoesNotExistException e) {
-            throw new FailedToFetchAccountItDoesNotExistException(e);
+            throw new AccountDoesNotExistException(e);
         } catch (AccountRepository.AccountRepositoryException e) {
-            throw new FailedToFetchAccountGeneralException(e);
+            throw new AccountServiceException(e);
         }
     }
 
     @WithSpan
-    void updateAccount(Account account) throws FailedToUpdateAccountItDoesNotExistException, FailedToUpdateAccountException {
+    void updateAccount(Account account) throws AccountDoesNotExistException, AccountServiceException {
         try {
             accountRepository.updateAccount(account);
         } catch (AccountRepository.AccountDoesNotExistException e) {
-            throw new FailedToUpdateAccountItDoesNotExistException(e);
+            throw new AccountDoesNotExistException(e);
         } catch (AccountRepository.AccountRepositoryException e) {
-            throw new FailedToUpdateAccountException(e);
+            throw new AccountServiceException(e);
         }
     }
 
     @WithSpan
-    void deleteAccountById(UUID id) throws FailedToDeleteAccountException {
+    void deleteAccountById(UUID id) throws AccountServiceException {
         try {
             accountRepository.deleteAccountById(id);
         } catch (AccountRepository.AccountRepositoryException e) {
-            throw new FailedToDeleteAccountException(e);
+            throw new AccountServiceException(e);
         }
     }
 
-    static class FailedToOpenAccountException extends Exception {
-        private FailedToOpenAccountException(Throwable throwable) {
-            super("Failed to open Account", throwable);
-        }
-    }
-
-    static class FailedToFetchAllAccountsException extends Exception {
-        private FailedToFetchAllAccountsException(Throwable throwable) {
-            super("Failed to fetch all Accounts", throwable);
-        }
-    }
-
-    static class FailedToFetchAccountItDoesNotExistException extends Exception {
-        private FailedToFetchAccountItDoesNotExistException(Throwable throwable) {
+    static class AccountDoesNotExistException extends Exception {
+        private AccountDoesNotExistException(Throwable throwable) {
             super("Failed to fetch single Account, because it doesn't exist", throwable);
         }
     }
 
-    static class FailedToFetchAccountGeneralException extends Exception {
-        private FailedToFetchAccountGeneralException(Throwable throwable) {
-            super("Failed to fetch single Account", throwable);
-        }
-    }
-
-    static class FailedToUpdateAccountItDoesNotExistException extends Exception {
-        private FailedToUpdateAccountItDoesNotExistException(Throwable throwable) {
-            super("Failed to fetch single Account, because it doesn't exist", throwable);
-        }
-    }
-
-    static class FailedToUpdateAccountException extends Exception {
-        private FailedToUpdateAccountException(Throwable throwable) {
-            super("Failed to update Account", throwable);
-        }
-    }
-
-    static class FailedToDeleteAccountException extends Exception {
-        public FailedToDeleteAccountException(Throwable e) {
-            super("Failed to delete Account", e);
+    static class AccountServiceException extends Exception {
+        private AccountServiceException(Throwable throwable) {
+            super("Account operation failure", throwable);
         }
     }
 }

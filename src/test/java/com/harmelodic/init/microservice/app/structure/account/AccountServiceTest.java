@@ -53,7 +53,7 @@ class AccountServiceTest {
         when(accountRepository.openAccount(isA(Account.class))).thenThrow(AccountRepository.AccountRepositoryException.class);
 
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
-        assertThrows(AccountService.FailedToOpenAccountException.class, () -> accountService.openAccount(account));
+        assertThrows(AccountService.AccountServiceException.class, () -> accountService.openAccount(account));
         verify(accountCreatedPublisher, times(0)).publish(account);
     }
 
@@ -74,7 +74,7 @@ class AccountServiceTest {
     void fetchAllAccountsFail() throws AccountRepository.AccountRepositoryException {
         when(accountRepository.fetchAllAccounts()).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(AccountService.FailedToFetchAllAccountsException.class, accountService::fetchAllAccounts);
+        assertThrows(AccountService.AccountServiceException.class, accountService::fetchAllAccounts);
     }
 
     @Test
@@ -88,11 +88,19 @@ class AccountServiceTest {
     }
 
     @Test
+    void fetchAccountByIdDoesNotExistFail() throws AccountRepository.AccountRepositoryException, AccountRepository.AccountDoesNotExistException {
+        UUID uuid = UUID.randomUUID();
+        when(accountRepository.fetchAccountById(uuid)).thenThrow(AccountRepository.AccountDoesNotExistException.class);
+
+        assertThrows(AccountService.AccountDoesNotExistException.class, () -> accountService.fetchAccountById(uuid));
+    }
+
+    @Test
     void fetchAccountByIdFail() throws AccountRepository.AccountRepositoryException, AccountRepository.AccountDoesNotExistException {
         UUID uuid = UUID.randomUUID();
         when(accountRepository.fetchAccountById(uuid)).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(AccountService.FailedToFetchAccountGeneralException.class, () -> accountService.fetchAccountById(uuid));
+        assertThrows(AccountService.AccountServiceException.class, () -> accountService.fetchAccountById(uuid));
     }
 
     @Test
@@ -104,11 +112,19 @@ class AccountServiceTest {
     }
 
     @Test
+    void updateAccountDoesNotExistFail() throws AccountRepository.AccountRepositoryException, AccountRepository.AccountDoesNotExistException {
+        Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
+        doThrow(AccountRepository.AccountDoesNotExistException.class).when(accountRepository).updateAccount(account);
+
+        assertThrows(AccountService.AccountDoesNotExistException.class, () -> accountService.updateAccount(account));
+    }
+
+    @Test
     void updateAccountFail() throws AccountRepository.AccountRepositoryException, AccountRepository.AccountDoesNotExistException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         doThrow(AccountRepository.AccountRepositoryException.class).when(accountRepository).updateAccount(account);
 
-        assertThrows(AccountService.FailedToUpdateAccountException.class, () -> accountService.updateAccount(account));
+        assertThrows(AccountService.AccountServiceException.class, () -> accountService.updateAccount(account));
     }
 
     @Test
@@ -126,6 +142,6 @@ class AccountServiceTest {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         doThrow(AccountRepository.AccountRepositoryException.class).when(accountRepository).deleteAccountById(account.id());
 
-        assertThrows(AccountService.FailedToDeleteAccountException.class, () -> accountService.deleteAccountById(account.id()));
+        assertThrows(AccountService.AccountServiceException.class, () -> accountService.deleteAccountById(account.id()));
     }
 }
