@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.account;
+package com.harmelodic.init.microservice.app.structure.account;
 
 class TestConstants {
     public static final String EXAMPLE_ACCOUNT_SERVICE = "example-account-service";

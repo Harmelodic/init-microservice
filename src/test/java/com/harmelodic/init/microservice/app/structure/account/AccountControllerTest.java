@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.account;
+package com.harmelodic.init.microservice.app.structure.account;
 
 import au.com.dius.pact.provider.junit5.HttpTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.harmelodic.init.microservice.account.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
+import static com.harmelodic.init.microservice.app.structure.account.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles(value = "test")

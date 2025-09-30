@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.account;
+package com.harmelodic.init.microservice.app.structure.account;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

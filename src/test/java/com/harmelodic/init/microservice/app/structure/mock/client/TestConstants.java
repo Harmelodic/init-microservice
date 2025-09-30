@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.mock.client;
+package com.harmelodic.init.microservice.app.structure.mock.client;
 
 import java.util.UUID;
 import java.util.regex.Pattern;

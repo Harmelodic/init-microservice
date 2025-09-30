@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.account;
+package com.harmelodic.init.microservice.app.structure.account;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
-import java.net.URI;
 import java.util.UUID;
 
 @Component

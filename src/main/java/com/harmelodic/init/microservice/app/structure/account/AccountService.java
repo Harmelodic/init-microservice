@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.account;
+package com.harmelodic.init.microservice.app.structure.account;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.springframework.stereotype.Service;
