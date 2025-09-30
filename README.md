@@ -77,11 +77,17 @@ Reference implementation examples (production):
     - [ ] JDBC
     - [ ] Retries
 - External communication components
-    - [ ] Event Publisher (with & without Outbox pattern)
-    - [ ] Event Subscriber with resubscribe (with & without Inbox pattern)
+    - [ ] Event Publisher (with & without Outbox pattern, with CloudEvents (inc. idempotency))
+    - [ ] Event Subscriber with resubscribe (with & without Inbox pattern, with CloudEvents (inc. idempotency))
     - [ ] HTTP Client (with resiliency)
-    - [ ] Offline API
-    - [ ] Message Bus idempotency
+- Resiliency patterns (with Resilience4J and/or alternatives)
+    - [ ] Bulkhead
+    - [ ] Cache (Simple)
+    - [ ] Cache (Offline API)
+    - [ ] Circuit Breaker
+    - [ ] Rate Limiting
+    - [ ] Retry
+    - [ ] Timeouts / Time Limiting
 - Telemetry
     - [ ] Tracing instrumentation (OpenTelemetry Annotations)
     - [ ] Metrics instrumentation (Micrometer or OpenTelemetry)
