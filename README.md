@@ -91,7 +91,6 @@ Reference implementation examples (production):
     - [ ] Tracing instrumentation (OpenTelemetry Annotations)
     - [ ] Metrics instrumentation (Micrometer or OpenTelemetry)
     - [ ] Logging instrumentation (SLF4J and Logback)
-- [ ] State machine example
 
 Reference implementations (testing):
 
