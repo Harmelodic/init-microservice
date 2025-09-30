@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class AccountRepository {
+class AccountRepository {
 
     /**
      * <p>
@@ -32,11 +32,11 @@ public class AccountRepository {
      */
     private final JdbcClient jdbcClient;
 
-    public AccountRepository(JdbcClient jdbcClient) {
+    AccountRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
 
-    public Account openAccount(Account account) throws AccountRepositoryException {
+    Account openAccount(Account account) throws AccountRepositoryException {
         try {
             jdbcClient.sql("INSERT INTO account(id, name, customer_id) VALUES (:id, :name, :customer_id)")
                     .param("id", account.id())
@@ -49,7 +49,7 @@ public class AccountRepository {
         }
     }
 
-    public List<Account> fetchAllAccounts() throws AccountRepositoryException {
+    List<Account> fetchAllAccounts() throws AccountRepositoryException {
         try {
             return jdbcClient.sql("SELECT id, name, customer_id FROM account")
                     .query(Account.class)
@@ -59,7 +59,7 @@ public class AccountRepository {
         }
     }
 
-    public Account fetchAccountById(UUID id) throws AccountDoesNotExistException, AccountRepositoryException {
+    Account fetchAccountById(UUID id) throws AccountDoesNotExistException, AccountRepositoryException {
         try {
             return jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
                     .param("id", id)
@@ -72,13 +72,7 @@ public class AccountRepository {
         }
     }
 
-    public static class AccountDoesNotExistException extends Exception {
-        private AccountDoesNotExistException(String message, Throwable e) {
-            super(message, e);
-        }
-    }
-
-    public void updateAccount(Account account) throws AccountDoesNotExistException, AccountRepositoryException {
+    void updateAccount(Account account) throws AccountDoesNotExistException, AccountRepositoryException {
         try {
             jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
                     .param("id", account.id())
@@ -96,7 +90,7 @@ public class AccountRepository {
         }
     }
 
-    public void deleteAccountById(UUID id) throws AccountRepositoryException {
+    void deleteAccountById(UUID id) throws AccountRepositoryException {
         try {
             jdbcClient.sql("DELETE FROM account WHERE id = :id")
                     .param("id", id)
@@ -106,7 +100,13 @@ public class AccountRepository {
         }
     }
 
-    public static class AccountRepositoryException extends Exception {
+    static class AccountDoesNotExistException extends Exception {
+        private AccountDoesNotExistException(String message, Throwable e) {
+            super(message, e);
+        }
+    }
+
+    static class AccountRepositoryException extends Exception {
         private AccountRepositoryException(String message, Throwable e) {
             super(message, e);
         }

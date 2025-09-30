@@ -1,6 +1,5 @@
 package com.harmelodic.init.microservice.only.used.in.init;
 
-import com.harmelodic.init.microservice.account.Account;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.RestClient;
@@ -14,7 +13,7 @@ import java.util.UUID;
  * In the real world, you should not create this in your tests.
  * This is only here to provide a client to the ExampleAccountClient... tests.
  */
-public class ExampleAccountClient {
+class ExampleAccountClient {
 
     final RestClient restClient;
 
@@ -24,7 +23,7 @@ public class ExampleAccountClient {
                 .build();
     }
 
-    public Account createAccount(Account account) {
+    Account createAccount(Account account) {
         return restClient.post()
                 .uri("/accounts")
                 .body(account)
@@ -32,7 +31,7 @@ public class ExampleAccountClient {
                 .body(Account.class);
     }
 
-    public List<Account> fetchAllAccounts() {
+    List<Account> fetchAllAccounts() {
         return restClient.get()
                 .uri("/accounts")
                 .retrieve()
@@ -40,7 +39,7 @@ public class ExampleAccountClient {
                 });
     }
 
-    public Account fetchAccount(UUID id) {
+    Account fetchAccount(UUID id) {
         return restClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/accounts/{id}")
@@ -49,7 +48,7 @@ public class ExampleAccountClient {
                 .body(Account.class);
     }
 
-    public HttpStatusCode updateAccount(Account account) {
+    HttpStatusCode updateAccount(Account account) {
         return restClient.patch()
                 .uri(uriBuilder -> uriBuilder
                         .path("/accounts/{id}")
@@ -60,7 +59,7 @@ public class ExampleAccountClient {
                 .getStatusCode();
     }
 
-    public void deleteAccount(UUID accountId) {
+    void deleteAccount(UUID accountId) {
         restClient.delete()
                 .uri(uriBuilder -> uriBuilder
                         .path("/accounts/{id}")

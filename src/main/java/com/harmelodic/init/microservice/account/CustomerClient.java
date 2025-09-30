@@ -6,21 +6,21 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
+import java.net.URI;
 import java.util.UUID;
 
 @Component
-public class CustomerClient {
+class CustomerClient {
 
     private final RestClient restClient;
 
-    CustomerClient(RestClient.Builder builder,
-                   @Value("${app.customer.client.baseUrl") String baseUrl) {
+    CustomerClient(RestClient.Builder builder, @Value("${app.customer.client.baseUrl") String baseUrl) {
         this.restClient = builder
                 .baseUrl(baseUrl)
                 .build();
     }
 
-    public Customer fetchCustomer(UUID id) throws FailedToFetchCustomerException {
+    Customer fetchCustomer(UUID id) throws FailedToFetchCustomerException {
         try {
             return restClient.get()
                     .uri(uriBuilder -> uriBuilder
@@ -33,7 +33,7 @@ public class CustomerClient {
         }
     }
 
-    public static class FailedToFetchCustomerException extends Exception {
+    static class FailedToFetchCustomerException extends Exception {
         public FailedToFetchCustomerException(Throwable e) {
             super("Failed to fetch Customer from customer API", e);
         }

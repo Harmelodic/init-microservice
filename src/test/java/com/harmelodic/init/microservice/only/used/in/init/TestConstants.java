@@ -1,11 +1,10 @@
 package com.harmelodic.init.microservice.only.used.in.init;
 
-import com.harmelodic.init.microservice.account.Account;
-
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class TestConstants {
+class TestConstants {
+    public static final String EXAMPLE_ACCOUNT_SERVICE = "example-account-service";
     public static final String EXAMPLE_ACCOUNT_CLIENT = "example-account-client";
 
     public static final String ACCOUNT_DOES_NOT_EXIST = "account_does_not_exist";

@@ -15,8 +15,8 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonBody;
-import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
-import static com.harmelodic.init.microservice.TestConstants.EXAMPLE_CUSTOMER_SERVICE;
+import static com.harmelodic.init.microservice.account.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
+import static com.harmelodic.init.microservice.account.TestConstants.EXAMPLE_CUSTOMER_SERVICE;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

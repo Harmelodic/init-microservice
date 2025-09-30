@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/accounts")
-public class AccountController {
+class AccountController {
 
     final AccountService accountService;
 
@@ -26,7 +26,7 @@ public class AccountController {
     }
 
     @PostMapping()
-    public Account postAccount(@RequestBody Account account) {
+    Account postAccount(@RequestBody Account account) {
         try {
             return accountService.openAccount(account);
         } catch (AccountService.FailedToOpenAccountException e) {
@@ -35,7 +35,7 @@ public class AccountController {
     }
 
     @GetMapping
-    public List<Account> getAllAccounts() {
+    List<Account> getAllAccounts() {
         try {
             return accountService.fetchAllAccounts();
         } catch (AccountService.FailedToFetchAllAccountsException e) {
@@ -44,7 +44,7 @@ public class AccountController {
     }
 
     @GetMapping(path = "/{id}")
-    public Account getAccountById(@PathVariable("id") UUID id) {
+    Account getAccountById(@PathVariable("id") UUID id) {
         try {
             return accountService.fetchAccountById(id);
         } catch (AccountService.FailedToFetchAccountItDoesNotExistException e) {
@@ -55,7 +55,7 @@ public class AccountController {
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<Void> updateAccount(@PathVariable("id") UUID id, @RequestBody Account account) {
+    ResponseEntity<Void> updateAccount(@PathVariable("id") UUID id, @RequestBody Account account) {
         if (!id.equals(account.id())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID submitted and ID in account is not matching.");
         }
@@ -71,7 +71,7 @@ public class AccountController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteAccountById(@PathVariable("id") UUID id) {
+    void deleteAccountById(@PathVariable("id") UUID id) {
         try {
             accountService.deleteAccountById(id);
         } catch (AccountService.FailedToDeleteAccountException e) {
