@@ -14,14 +14,14 @@ Project configuration:
 - [x] Auto-updates (Renovate)
 - [x] HTTP API Specification (OpenAPI)
 - [x] Async API Specification (AsyncAPI)
-- [x] Dependency Management (Maven)
+- [x] Dependency Management (Maven + BOMs)
 
 Application configuration:
 
 - [x] Dependency Injection and Application Mgmt (Spring Boot & Starters)
 - [x] Unit Testing (JUnit)
 - [x] Logging Config (Slf4j & Logback)
-- [x] Tracing configuration (OpenTelemetry Java agent for zero-code instrumentation, OpenTelemetry annotations for
+- [x] Tracing configuration (OpenTelemetry Java Agent for zero-code instrumentation, OpenTelemetry annotations for
   custom instrumentation)
 - [x] Metrics configuration (Micrometer + Prometheus Registry/Endpoint)
 
@@ -72,18 +72,19 @@ Reference implementation examples (production):
     - [ ] Modelling
     - [ ] Transactions
     - [ ] Caching
+    - [ ] Concurrency / Parallelisation of doing work / collecting data (Virtual Threads)
 - Repository pattern
-    - [ ] Jdbc
+    - [ ] JDBC
     - [ ] Retries
 - External communication components
     - [ ] Event Publisher (with & without Outbox pattern)
     - [ ] Event Subscriber with resubscribe (with & without Inbox pattern)
-    - [ ] HTTP Client (with & with retries)
+    - [ ] HTTP Client (with resiliency)
     - [ ] Offline API
     - [ ] Message Bus idempotency
 - Telemetry
-    - [ ] Tracing instrumentation (Micrometer)
-    - [ ] Metrics instrumentation (Micrometer)
+    - [ ] Tracing instrumentation (OpenTelemetry Annotations)
+    - [ ] Metrics instrumentation (Micrometer or OpenTelemetry)
 - [ ] State machine example
 
 Reference implementations (testing):
