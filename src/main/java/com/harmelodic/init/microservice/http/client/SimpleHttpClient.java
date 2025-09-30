@@ -3,6 +3,6 @@ package com.harmelodic.init.microservice.http.client;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SimpleHttpClient {
+class SimpleHttpClient {
     // TODO: Simple HTTP client, using RestClient
 }

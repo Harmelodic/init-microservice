@@ -6,9 +6,10 @@ import org.slf4j.MarkerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExampleLogging {
+class ExampleLogging {
     public static final Logger LOGGER = LoggerFactory.getLogger(ExampleLogging.class);
 
+    // TODO: Tests
     void createLogs(String data) {
         LOGGER.info("Simple log");
 

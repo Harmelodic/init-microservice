@@ -5,7 +5,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExampleMetrics {
+class ExampleMetrics {
 
     private final Counter counter;
     // TODO: Gauge
@@ -18,6 +18,7 @@ public class ExampleMetrics {
                 .register(meterRegistry);
     }
 
+    // TODO: Tests
     void incrementCounter() {
         counter.increment();
     }

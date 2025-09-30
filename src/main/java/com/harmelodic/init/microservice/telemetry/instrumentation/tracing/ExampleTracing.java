@@ -5,8 +5,9 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExampleTracing {
+class ExampleTracing {
 
+    // TODO: Tests
     @WithSpan
     void processSomething(@SpanAttribute String data) {
         // Do some processing, e.g.
