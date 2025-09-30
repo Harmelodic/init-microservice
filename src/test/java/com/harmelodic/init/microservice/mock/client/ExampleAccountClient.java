@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.only.used.in.init;
+package com.harmelodic.init.microservice.mock.client;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;

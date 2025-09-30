@@ -1,4 +1,4 @@
-package com.harmelodic.init.microservice.only.used.in.init;
+package com.harmelodic.init.microservice.mock.client;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
@@ -13,10 +13,10 @@ import org.springframework.web.client.RestClient;
 import java.util.List;
 
 import static au.com.dius.pact.consumer.dsl.LambdaDsl.newJsonArray;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.EXAMPLE_ACCOUNT_CLIENT;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.SERVER_ERROR_WILL_OCCUR;
-import static com.harmelodic.init.microservice.only.used.in.init.TestConstants.THREE_ACCOUNTS_EXIST;
+import static com.harmelodic.init.microservice.mock.client.TestConstants.EXAMPLE_ACCOUNT_CLIENT;
+import static com.harmelodic.init.microservice.mock.client.TestConstants.EXAMPLE_ACCOUNT_SERVICE;
+import static com.harmelodic.init.microservice.mock.client.TestConstants.SERVER_ERROR_WILL_OCCUR;
+import static com.harmelodic.init.microservice.mock.client.TestConstants.THREE_ACCOUNTS_EXIST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
