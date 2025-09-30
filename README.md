@@ -68,29 +68,29 @@ Reference implementation examples (production):
     - [ ] Offset Pagination
     - [ ] Cursor Pagination
     - [ ] Caching (where appropriate)
-- Business Logic / Service Layer pattern
+- Business Logic
     - [ ] Modelling
+    - [ ] Service Layer pattern
     - [ ] Transactions
-    - [ ] Caching
     - [ ] Concurrency / Parallelisation of doing work / collecting data (Virtual Threads)
 - Repository pattern
     - [ ] JDBC
-    - [ ] Retries
 - External communication components
-    - [ ] Event Publisher (with & without Outbox pattern, with CloudEvents (inc. idempotency))
-    - [ ] Event Subscriber with resubscribe (with & without Inbox pattern, with CloudEvents (inc. idempotency))
-    - [ ] HTTP Client (with resiliency)
+    - [ ] Event Publisher (simple & with Outbox pattern, with CloudEvents (inc. idempotency))
+    - [ ] Event Subscriber with resubscribe (simple & with Inbox pattern, with CloudEvents (inc. idempotency))
+    - [ ] HTTP Client (simple & resilient)
 - Resiliency patterns (with Resilience4J and/or alternatives)
     - [ ] Bulkhead
     - [ ] Cache (Simple)
     - [ ] Cache (Offline API)
     - [ ] Circuit Breaker
-    - [ ] Rate Limiting
+    - [ ] Rate Limiter
     - [ ] Retry
-    - [ ] Timeouts / Time Limiting
+    - [ ] Timeout / Time Limiter
 - Telemetry
     - [ ] Tracing instrumentation (OpenTelemetry Annotations)
     - [ ] Metrics instrumentation (Micrometer or OpenTelemetry)
+    - [ ] Logging instrumentation (SLF4J and Logback)
 - [ ] State machine example
 
 Reference implementations (testing):
