@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @Service
 class AccountService {
+
     private final AccountRepository accountRepository;
     private final AccountCreatedPublisher accountCreatedPublisher;
 

@@ -19,7 +19,7 @@ import java.util.UUID;
 @RequestMapping(path = "/accounts")
 class AccountController {
 
-    final AccountService accountService;
+    private final AccountService accountService;
 
     AccountController(AccountService accountService) {
         this.accountService = accountService;

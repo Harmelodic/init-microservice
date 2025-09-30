@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 class AccountCreatorSubscriber {
+
     private final AccountService accountService;
 
     AccountCreatorSubscriber(AccountService accountService) {

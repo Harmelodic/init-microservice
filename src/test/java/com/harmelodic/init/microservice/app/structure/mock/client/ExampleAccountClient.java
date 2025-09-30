@@ -7,12 +7,10 @@ import org.springframework.web.client.RestClient;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * An example client for this Account Service.
- * <p>
- * In the real world, you should not create this in your tests.
- * This is only here to provide a client to the ExampleAccountClient... tests.
- */
+/// An example client for this Account Service.
+///
+/// In the real world, you should not create this in your tests.
+/// This is only here to provide a client to the ExampleAccountClient... tests.
 class ExampleAccountClient {
 
     final RestClient restClient;

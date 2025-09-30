@@ -11,25 +11,15 @@ import java.util.UUID;
 @Repository
 class AccountRepository {
 
-    /**
-     * <p>
-     * Why JDBC? Why not use Jakarta Persistence?
-     * </p
-     * <ol>
-     *     <li>
-     *     I find Jakarta Persistence just makes the application more complicated,
-     *     when you could just learn and use SQL, with JDBC.
-     *     </li>
-     *     <li>
-     *     It means we can keep all the Database logic in the Repository,
-     *     as intended by the Repository pattern, rather than putting Database logic throughout the application.
-     *     </li>
-     *     <li>
-     *     If the Repository needs refactoring to a NoSQL database, or a different type of SQL database,
-     *     we have just one place to edit the Database logic. Which is, again, an intention of the Repository pattern.
-     *     </li>
-     * </ol>
-     */
+    /// Why JDBC? Why not use Jakarta Persistence?
+    ///
+    /// - I find Jakarta Persistence just makes the application more complicated, when you could just use SQL with JDBC.
+    ///
+    /// - It means we can keep all the Database logic in the Repository, as intended by the Repository pattern, rather
+    ///   than putting Database logic throughout the application.
+    ///
+    /// - If the Repository needs refactoring to a NoSQL database, or a different type of SQL database, we have just one
+    ///   place to edit the database logic. Which is, again, an intention of the Repository pattern.
     private final JdbcClient jdbcClient;
 
     AccountRepository(JdbcClient jdbcClient) {
