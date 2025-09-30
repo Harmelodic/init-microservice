@@ -78,7 +78,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void fetchAccountByIdSuccess() throws AccountRepository.AccountRepositoryException {
+    void fetchAccountByIdSuccess() throws AccountRepository.AccountRepositoryException, AccountRepository.AccountDoesNotExistException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         when(accountRepository.fetchAccountById(account.id())).thenReturn(account);
 
@@ -88,15 +88,15 @@ class AccountServiceTest {
     }
 
     @Test
-    void fetchAccountByIdFail() throws AccountRepository.AccountRepositoryException {
+    void fetchAccountByIdFail() throws AccountRepository.AccountRepositoryException, AccountRepository.AccountDoesNotExistException {
         UUID uuid = UUID.randomUUID();
         when(accountRepository.fetchAccountById(uuid)).thenThrow(AccountRepository.AccountRepositoryException.class);
 
-        assertThrows(AccountService.FailedToFetchAccountException.class, () -> accountService.fetchAccountById(uuid));
+        assertThrows(AccountService.FailedToFetchAccountGeneralException.class, () -> accountService.fetchAccountById(uuid));
     }
 
     @Test
-    void updateAccountSuccess() throws AccountRepository.AccountRepositoryException {
+    void updateAccountSuccess() throws AccountRepository.AccountRepositoryException, AccountRepository.AccountDoesNotExistException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         doNothing().when(accountRepository).updateAccount(account);
 
@@ -104,7 +104,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void updateAccountFail() throws AccountRepository.AccountRepositoryException {
+    void updateAccountFail() throws AccountRepository.AccountRepositoryException, AccountRepository.AccountDoesNotExistException {
         Account account = new Account(UUID.randomUUID(), "Some name", UUID.randomUUID());
         doThrow(AccountRepository.AccountRepositoryException.class).when(accountRepository).updateAccount(account);
 

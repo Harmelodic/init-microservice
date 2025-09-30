@@ -1,10 +1,8 @@
 package com.harmelodic.init.microservice.account;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,22 +47,26 @@ public class AccountController {
     public Account getAccountById(@PathVariable("id") UUID id) {
         try {
             return accountService.fetchAccountById(id);
-        } catch (AccountService.FailedToFetchAccountException e) {
+        } catch (AccountService.FailedToFetchAccountItDoesNotExistException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account does not exist", e);
+        } catch (AccountService.FailedToFetchAccountGeneralException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to get Account", e);
         }
     }
 
     @PatchMapping(path = "/{id}")
     public ResponseEntity<Void> updateAccount(@PathVariable("id") UUID id, @RequestBody Account account) {
-        if (id.equals(account.id())) {
-            try {
-                accountService.updateAccount(account);
-            } catch (AccountService.FailedToUpdateAccountException e) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to update Account", e);
-            }
-            return ResponseEntity.ok().build();
-        } else {
+        if (!id.equals(account.id())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID submitted and ID in account is not matching.");
+        }
+
+        try {
+            accountService.updateAccount(account);
+            return ResponseEntity.ok().build();
+        } catch (AccountService.FailedToUpdateAccountItDoesNotExistException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Failed to update Account, as it does not exist", e);
+        } catch (AccountService.FailedToUpdateAccountException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to update Account", e);
         }
     }
 
@@ -75,10 +77,5 @@ public class AccountController {
         } catch (AccountService.FailedToDeleteAccountException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete account", e);
         }
-    }
-
-    @ExceptionHandler({EmptyResultDataAccessException.class})
-    public ResponseEntity<Object> handleException() {
-        return ResponseEntity.notFound().build();
     }
 }

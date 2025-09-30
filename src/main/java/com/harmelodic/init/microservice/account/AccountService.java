@@ -17,7 +17,7 @@ public class AccountService {
         this.accountCreatedPublisher = accountCreatedPublisher;
     }
 
-	@WithSpan
+    @WithSpan
     public Account openAccount(Account account) throws FailedToOpenAccountException {
         try {
             Account accountToOpen = new Account(UUID.randomUUID(), account.name(), account.customerId());
@@ -29,7 +29,7 @@ public class AccountService {
         }
     }
 
-	@WithSpan
+    @WithSpan
     public List<Account> fetchAllAccounts() throws FailedToFetchAllAccountsException {
         try {
             return accountRepository.fetchAllAccounts();
@@ -38,25 +38,29 @@ public class AccountService {
         }
     }
 
-	@WithSpan
-    public Account fetchAccountById(UUID id) throws FailedToFetchAccountException {
+    @WithSpan
+    public Account fetchAccountById(UUID id) throws FailedToFetchAccountItDoesNotExistException, FailedToFetchAccountGeneralException {
         try {
             return accountRepository.fetchAccountById(id);
+        } catch (AccountRepository.AccountDoesNotExistException e) {
+            throw new FailedToFetchAccountItDoesNotExistException(e);
         } catch (AccountRepository.AccountRepositoryException e) {
-            throw new FailedToFetchAccountException(e);
+            throw new FailedToFetchAccountGeneralException(e);
         }
     }
 
-	@WithSpan
-    public void updateAccount(Account account) throws FailedToUpdateAccountException {
+    @WithSpan
+    public void updateAccount(Account account) throws FailedToUpdateAccountItDoesNotExistException, FailedToUpdateAccountException {
         try {
             accountRepository.updateAccount(account);
+        } catch (AccountRepository.AccountDoesNotExistException e) {
+            throw new FailedToUpdateAccountItDoesNotExistException(e);
         } catch (AccountRepository.AccountRepositoryException e) {
             throw new FailedToUpdateAccountException(e);
         }
     }
 
-	@WithSpan
+    @WithSpan
     public void deleteAccountById(UUID id) throws FailedToDeleteAccountException {
         try {
             accountRepository.deleteAccountById(id);
@@ -77,9 +81,21 @@ public class AccountService {
         }
     }
 
-    public static class FailedToFetchAccountException extends Exception {
-        private FailedToFetchAccountException(Throwable throwable) {
+    public static class FailedToFetchAccountItDoesNotExistException extends Exception {
+        private FailedToFetchAccountItDoesNotExistException(Throwable throwable) {
+            super("Failed to fetch single Account, because it doesn't exist", throwable);
+        }
+    }
+
+    public static class FailedToFetchAccountGeneralException extends Exception {
+        private FailedToFetchAccountGeneralException(Throwable throwable) {
             super("Failed to fetch single Account", throwable);
+        }
+    }
+
+    public static class FailedToUpdateAccountItDoesNotExistException extends Exception {
+        private FailedToUpdateAccountItDoesNotExistException(Throwable throwable) {
+            super("Failed to fetch single Account, because it doesn't exist", throwable);
         }
     }
 

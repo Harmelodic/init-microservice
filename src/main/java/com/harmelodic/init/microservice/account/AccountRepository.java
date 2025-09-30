@@ -1,6 +1,7 @@
 package com.harmelodic.init.microservice.account;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -58,18 +59,26 @@ public class AccountRepository {
         }
     }
 
-    public Account fetchAccountById(UUID id) throws AccountRepositoryException {
+    public Account fetchAccountById(UUID id) throws AccountDoesNotExistException, AccountRepositoryException {
         try {
             return jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
                     .param("id", id)
                     .query(Account.class)
                     .single();
+        } catch (EmptyResultDataAccessException e) {
+            throw new AccountDoesNotExistException("No account exists for this ID", e);
         } catch (DataAccessException e) {
             throw new AccountRepositoryException("Failed to fetch account", e);
         }
     }
 
-    public void updateAccount(Account account) throws AccountRepositoryException {
+    public static class AccountDoesNotExistException extends Exception {
+        private AccountDoesNotExistException(String message, Throwable e) {
+            super(message, e);
+        }
+    }
+
+    public void updateAccount(Account account) throws AccountDoesNotExistException, AccountRepositoryException {
         try {
             jdbcClient.sql("SELECT id, name, customer_id FROM account WHERE id = :id")
                     .param("id", account.id())
@@ -80,6 +89,8 @@ public class AccountRepository {
                     .param("customer_id", account.customerId())
                     .param("id", account.id())
                     .update();
+        } catch (EmptyResultDataAccessException e) {
+            throw new AccountDoesNotExistException("Account does not exist", e);
         } catch (DataAccessException e) {
             throw new AccountRepositoryException("Failed to update account", e);
         }
