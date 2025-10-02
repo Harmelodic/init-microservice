@@ -68,6 +68,7 @@ Reference implementation examples (production):
     - [ ] Offset Pagination
     - [ ] Cursor Pagination
     - [ ] Caching (where appropriate)
+    - [ ] Server Sent Events
 - Business Logic
     - [ ] Modelling
     - [ ] Service Layer pattern
@@ -78,7 +79,7 @@ Reference implementation examples (production):
 - External communication components
     - [ ] Event Publisher (simple & with Outbox pattern, with CloudEvents (inc. idempotency))
     - [ ] Event Subscriber with resubscribe (simple & with Inbox pattern, with CloudEvents (inc. idempotency))
-    - [ ] HTTP Client (simple & resilient)
+    - [ ] HTTP Client (simple & resilient & streamed-response)
 - Resiliency patterns (with Resilience4J and/or alternatives)
     - [ ] Bulkhead
     - [ ] Cache (Simple)
