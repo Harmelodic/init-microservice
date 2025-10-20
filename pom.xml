@@ -19,7 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Empty argLine for reference in maven-surefire-plugin -->
         <argLine/>
-        <opentelemetry-javaagent.version>2.20.1</opentelemetry-javaagent.version>
+        <opentelemetry-javaagent.version>2.21.0</opentelemetry-javaagent.version>
     </properties>
 
     <dependencyManagement>
