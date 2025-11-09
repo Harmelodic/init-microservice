@@ -103,13 +103,14 @@ Reference implementations (testing):
 
 ## Documentation
 
+Docs are found in `/docs`.
+
 Uses `mkdocs` to handle documentation, which requires Python (hence the `requirements.txt`).
 
 Run docs locally by doing:
 
 ```bash
-python -m venv venv
-source venv/bin/activate
+# Before running the following, I recommend being in a Python Virtual Environment.
 pip install -r requirements.txt
 mkdocs serve
 ```
