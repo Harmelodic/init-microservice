@@ -107,8 +107,8 @@
             <!-- Required for JdbcClient -->
         </dependency>
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
             <!-- Required for DB initialisation & migrations -->
         </dependency>
 
@@ -133,7 +133,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <artifactId>spring-boot-starter-jdbc-test</artifactId>
             <scope>test</scope>
             <!-- Required for Spring Boot Testing -->
         </dependency>
