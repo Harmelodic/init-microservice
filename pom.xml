@@ -133,9 +133,15 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <!-- Required for generic SpringBootTests -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc-test</artifactId>
             <scope>test</scope>
-            <!-- Required for Spring Boot Testing -->
+            <!-- Required for JDBC-specific Spring Boot Testing -->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

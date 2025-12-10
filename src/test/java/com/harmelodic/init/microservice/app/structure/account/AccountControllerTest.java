@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.jdbc.JdbcTestUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -57,7 +58,7 @@ class AccountControllerTest {
     }
 
     void wipeAccountTable() {
-        jdbcClient.sql("TRUNCATE TABLE account").update();
+        JdbcTestUtils.deleteFromTables(jdbcClient, "account");
     }
 
     @State(value = ACCOUNT_DOES_NOT_EXIST, action = StateChangeAction.SETUP)
@@ -72,7 +73,7 @@ class AccountControllerTest {
 
     @State(value = SERVER_ERROR_WILL_OCCUR, action = StateChangeAction.SETUP)
     void serverErrorWillOccurSetup() {
-        jdbcClient.sql("DROP TABLE account").update();
+        JdbcTestUtils.dropTables(jdbcClient, "account");
     }
 
     @State(value = SERVER_ERROR_WILL_OCCUR, action = StateChangeAction.TEARDOWN)
