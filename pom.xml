@@ -27,7 +27,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.5.7</version>
+                <version>4.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
                 <!-- Bill of Materials for managing Spring Boot Dependencies -->
@@ -98,8 +98,13 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <!-- Required for Controllers and RestClient -->
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+            <!-- Required for Controllers -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-restclient</artifactId>
+            <!-- Required for RestClient -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -107,8 +112,8 @@
             <!-- Required for JdbcClient -->
         </dependency>
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
             <!-- Required for DB initialisation & migrations -->
         </dependency>
 
@@ -135,7 +140,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <!-- Required for Spring Boot Testing -->
+            <!-- Required for generic SpringBootTests -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc-test</artifactId>
+            <scope>test</scope>
+            <!-- Required for JDBC-specific Spring Boot Testing -->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -189,7 +200,7 @@
                 <!-- Required for detecting bugs -->
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.9.8.1</version>
+                <version>4.9.8.2</version>
                 <configuration>
                     <excludeFilterFile>spotbugs-filter.xml</excludeFilterFile>
                 </configuration>
@@ -272,7 +283,7 @@
                 <!-- The JIB Maven plugin does not require this, as it handles its own packaging -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.5.7</version>
+                <version>4.0.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
