@@ -98,8 +98,13 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <!-- Required for Controllers and RestClient -->
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+            <!-- Required for Controllers -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-restclient</artifactId>
+            <!-- Required for RestClient -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
