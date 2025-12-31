@@ -80,6 +80,8 @@ Reference implementation examples (production):
 	- [ ] Event Publisher (simple & with Outbox pattern, with CloudEvents (inc. idempotency))
 	- [ ] Event Subscriber with resubscribe (simple & with Inbox pattern, with CloudEvents (inc. idempotency))
 	- [ ] HTTP Client (simple & resilient & streamed-response)
+	- [ ] TCP Socket Send / Receive
+	- [ ] Blob Storage Client (Google Storage / SFTP Connection)
 - Resiliency patterns (with Resilience4J and/or alternatives)
 	- [ ] Bulkhead
 	- [ ] Cache (Simple)
