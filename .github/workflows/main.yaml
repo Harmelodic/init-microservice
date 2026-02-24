@@ -10,47 +10,47 @@ on:
 jobs:
   # GitHub workflows
   verify-github-workflows:
-    uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/verify-github-workflows.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
 
   # Application
   build-java-container-image:
-    uses: harmelodic/workflows/.github/workflows/build-java-container-image.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/build-java-container-image.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
     with:
       image: europe-north1-docker.pkg.dev/personal-artifacts-353012/harmelodic/init-microservice
     secrets: inherit
 
   # Deployment
   verify-kustomization-base:
-    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
     with:
       directory: k8s-manifests/base
   verify-kustomization-prod:
-    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/verify-kustomization.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
     with:
       directory: k8s-manifests/prod
 
   # Infrastructure
   verify-terraform:
-    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/verify-terraform.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
     with:
       directory: infrastructure
   release-terraform:
     needs: verify-terraform
-    uses: harmelodic/workflows/.github/workflows/release-terraform.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/release-terraform.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
     with:
       directory: infrastructure
       workspace: prod
 
   # Documentation
   release-mkdocs:
-    uses: harmelodic/workflows/.github/workflows/release-mkdocs.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/release-mkdocs.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
 
   # Contracts
   verify-openapi:
-    uses: harmelodic/workflows/.github/workflows/verify-openapi.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/verify-openapi.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
     with:
       specification: api-specs/openapi.yaml
   verify-asyncapi:
-    uses: harmelodic/workflows/.github/workflows/verify-asyncapi.yaml@c44182353bc2aeb71553d51fd348063ac314d576
+    uses: harmelodic/workflows/.github/workflows/verify-asyncapi.yaml@613ac589c4da38cc96bf4a5341e972c9e08809db
     with:
       specification: api-specs/asyncapi.yaml
