@@ -117,7 +117,7 @@ pip install -r requirements.txt
 mkdocs serve
 ```
 
-Then open at http://localhost:8000
+Then open at [localhost:8000](http://localhost:8000).
 
 ## Running the app locally
 
@@ -125,8 +125,8 @@ Then open at http://localhost:8000
 mvn spring-boot:run
 ```
 
-- Endpoints accessible on http://localhost:8080
-- Management endpoints on: https://localhost:8081
+- Endpoints accessible on [localhost:8080](http://localhost:8080).
+- Management endpoints on: [localhost:8081](http://localhost:8081).
 
 ## Template Usage
 

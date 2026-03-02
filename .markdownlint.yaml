@@ -1,0 +1,20 @@
+emphasis-style:
+  style: underscore
+hard_tab: true
+line-length:
+  line_length: 120
+  tables: false
+no-hard-tabs:
+  enabled: false
+no-inline-html:
+  allowed_elements:
+    - iframe
+    - kbd
+    - sup
+    - sub
+strong-style:
+  style: asterisk
+ul-indent:
+  indent: 1
+ul-style:
+  style: dash
