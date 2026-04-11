@@ -77,3 +77,12 @@ spec:
             capabilities:
               drop:
                 - ALL
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm: # Prefer scheduling this Deployment's Pods on different Nodes.
+                topologyKey: "kubernetes.io/hostname"
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: init-microservice
+              weight: 1
