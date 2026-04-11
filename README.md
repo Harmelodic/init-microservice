@@ -30,7 +30,7 @@ Build / CI:
 - [x] Test & Build automation (Maven, GitHub Actions)
 - [x] Uses reusable [workflows](https://github.com/Harmelodic/workflows) for ease of CI maintenance.
 - [x] Java Project + Container image specific build process:
-	- [x] Lint/Scan Java code (PMD, Modernizer, Spotbugs)
+	- [x] Lint/Scan Java code (PMD, Modernizer, SpotBugs)
 	- [x] Testing (Maven Surefire plugin)
 	- [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
 	- [x] Packaging JAR (Maven Compiler plugin, Spring Boot Maven plugin)
@@ -43,13 +43,15 @@ Deployment / CD:
 - [ ] Auto-scaling (HPA)
 - [x] Pod security (SecurityContext)
 - Expected that an external CD system would deploy to Kubernetes (e.g. Argo CD)
+- Expected that this configuration would actually be in a deployment repository.
 
 Infrastructure as Code:
 
 - [ ] Terraform Database (Google CloudSQL / Redis / BigTable / Firestore)
 - [ ] Terraform Message Bus Topics/Subscriptions (Google Pub/Sub)
 - [x] Rudimentary applying of Terraform (GitHub Actions)
-- Expected that an external CD system would apply Terraform (e.g. Atlantis)
+- Expected that an external CD system would apply Terraform (e.g. Atlantis).
+- Expected that this configuration would actually be in a deployment repository.
 
 Reference implementation examples (production):
 
