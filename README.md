@@ -40,7 +40,7 @@ Deployment / CD:
 
 - [x] Kubernetes resources (Kustomize)
 - [x] Spread pods (Pod Anti-affinity)
-- [ ] Auto-scaling (HPA)
+- [x] Auto-scaling (HPA)
 - [x] Pod security (SecurityContext)
 - Expected that an external CD system would deploy to Kubernetes (e.g. Argo CD)
 - Expected that this configuration would actually be in a deployment repository.

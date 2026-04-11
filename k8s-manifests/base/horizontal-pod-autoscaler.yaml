@@ -1,0 +1,31 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: init-microservice
+  labels:
+    app.kubernetes.io/component: horizontal-pod-autoscaler
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: init-microservice
+  maxReplicas: 10
+  minReplicas: 3
+  behavior:
+    # No scaleUp, to allow free scaling up.
+    scaleDown:
+      policies:
+        - periodSeconds: 60 # Precaution: Slowly scale down in case of further bursts / prevent flapping.
+          type: Percent
+          value: 20
+      stabilizationWindowSeconds: 300
+  metrics:
+    - type: ContainerResource
+      containerResource:
+        container: init-microservice
+        name: cpu
+        target:
+          # 70% because:
+          # - Allow headroom for handling bursts during scale up.
+          # - Still high in order to not be wasteful.
+          averageUtilization: 70
+          type: Utilization

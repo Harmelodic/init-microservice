@@ -84,5 +84,6 @@ spec:
                 topologyKey: "kubernetes.io/hostname"
                 labelSelector:
                   matchLabels:
+                    app.kubernetes.io/component: deployment
                     app.kubernetes.io/name: init-microservice
               weight: 1
