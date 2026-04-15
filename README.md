@@ -47,10 +47,32 @@ Deployment / CD:
 
 Infrastructure as Code:
 
-- [ ] Terraform Database (Google CloudSQL / Redis / BigTable / Firestore)
-- [ ] Terraform Message Bus Topics/Subscriptions (Google Pub/Sub)
+- [ ] Databases - Terraform, or Self-hosted Kubernetes-operated:
+	- SQL = PostgreSQL / CloudNativePG / MySQL / GCP CloudSQL / AWS RDS / AWS Aurora / Azure Database for PostgreSQL
+	- Key-Value Memory Store (Caching) = Redis / Memcache / Valkey / GCP Memorystore / AWS ElasticCache / Azure Cache
+	- High-available Key-Value (key-value / document / analytical) = GCP BigTable / AWS DynamoDB / Azure Cosmos DB
+	- Document-oriented = DocumentDB / MongoDB / GCP Datastore / GCP Firestore / AWS DocumentDB / Azure DocumentDB
+- [ ] Message Bus, Queue, PubSub, Topics & Subscriptions - Terraform, or Self-hosted Kubernetes-operated:
+	- RabbitMQ
+	- Google Pub/Sub
+	- AWS Simple Queue Service (SQS)
+	- Azure Service Bus
+- [ ] Blob Storage (also for Data Lakes) - Terraform, or Self-hosted Kubernetes-operated:
+	- PersistentVolumes / Disks
+	- Network Attached Storage (NAS) cluster, accessed via SFTP / Samba
+	- GCP Storage (buckets)
+	- AWS Simple Storage Service (S3)
+	- Azure Storage
+- [ ] Search Engines (offloading from microservice) - Terraform, or Self-hosted Kubernetes-operated:
+	- ElasticSearch
+	- Apache Solr
+	- PostgreSQL (Full Text Search)
+	- GCP Vertex AI Search
+    - AWS CloudSearch
+    - Azure Cognitive Search
 - [x] Rudimentary applying of Terraform (GitHub Actions)
 - Expected that an external CD system would apply Terraform (e.g. Atlantis).
+- Expected that an external CD system would apply Kubernetes installations (e.g. ArgoCD + Operators / Helm Charts).
 - Expected that this configuration would actually be in a deployment repository.
 
 Reference implementation examples (production):
