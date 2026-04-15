@@ -11,7 +11,8 @@ Project configuration:
 - [x] README
 - [x] .gitignore
 - [x] Docs + ADRs (MkDocs + Markdown)
-- [x] Auto-updates (Renovate)
+- [x] Automated Dependency Updates (Renovate)
+- [ ] Automated Code Refactoring (OpenRewrite)
 - [x] HTTP API Specification (OpenAPI)
 - [x] Async API Specification (AsyncAPI)
 - [x] Dependency Management (Maven + BOMs)
@@ -31,6 +32,7 @@ Build / CI:
 - [x] Uses reusable [workflows](https://github.com/Harmelodic/workflows) for ease of CI maintenance.
 - [x] Java Project + Container image specific build process:
 	- [x] Lint/Scan Java code (PMD, Modernizer, SpotBugs)
+	- [ ] Reformat Java code
 	- [x] Testing (Maven Surefire plugin)
 	- [x] Automated publishing of Contract Testing Contracts and Results (PACT Broker, GitHub Actions)
 	- [x] Packaging JAR (Maven Compiler plugin, Spring Boot Maven plugin)
@@ -68,8 +70,8 @@ Infrastructure as Code:
 	- Apache Solr
 	- PostgreSQL (Full Text Search)
 	- GCP Vertex AI Search
-    - AWS CloudSearch
-    - Azure Cognitive Search
+	- AWS CloudSearch
+	- Azure Cognitive Search
 - [x] Rudimentary applying of Terraform (GitHub Actions)
 - Expected that an external CD system would apply Terraform (e.g. Atlantis).
 - Expected that an external CD system would apply Kubernetes installations (e.g. ArgoCD + Operators / Helm Charts).
@@ -85,7 +87,7 @@ Reference implementation examples (production):
 	- Dependency Injection used
 	- No implementation details (as implementations covered in other reference implementations)
 - HTTP Endpoint
-	- [ ] Front Controller
+	- [ ] Front Controller pattern
 	- [ ] Authorization checks
 	- [ ] Versioning
 	- [ ] HTTP POST Idempotency
@@ -93,6 +95,7 @@ Reference implementation examples (production):
 	- [ ] Cursor Pagination
 	- [ ] Caching (where appropriate)
 	- [ ] Server Sent Events
+	- [ ] Feature flag for toggling / releasing endpoints
 - Business Logic
 	- [ ] Modelling
 	- [ ] Service Layer pattern
@@ -100,9 +103,11 @@ Reference implementation examples (production):
 	- [ ] Concurrency / Parallelisation of doing work / collecting data (Virtual Threads)
 - Repository pattern
 	- [ ] JDBC
+	- [ ] Not Jakarta Persistence API (JPA) / ORMs
 - External communication components
 	- [ ] Event Publisher (simple & with Outbox pattern, with CloudEvents (inc. idempotency))
-	- [ ] Event Subscriber with resubscribe (simple & with Inbox pattern, with CloudEvents (inc. idempotency))
+	- [ ] Event Subscriber with resubscribe (simple & with Inbox pattern, with CloudEvents (inc. idempotency & feature
+	  flag for pausing / totally blocking / releasing processing functionality))
 	- [ ] HTTP Client (simple & resilient & streamed-response)
 	- [ ] TCP Socket Send / Receive
 	- [ ] Blob Storage Client (Google Storage / SFTP Connection)
@@ -118,6 +123,7 @@ Reference implementation examples (production):
 	- [ ] Tracing instrumentation (OpenTelemetry Annotations)
 	- [ ] Metrics instrumentation (Micrometer or OpenTelemetry)
 	- [ ] Logging instrumentation (SLF4J and Logback)
+	- [ ] Profiling instrumentation (Built-in, accessible via JMX for usage with VisualVM, eventually OpenTelemetry)
 
 Reference implementations (testing):
 
