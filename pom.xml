@@ -218,7 +218,7 @@
                 <!-- Required for ensuring modern code -->
                 <groupId>org.gaul</groupId>
                 <artifactId>modernizer-maven-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.4.0</version>
                 <configuration>
                     <javaVersion>${java.version}</javaVersion>
                 </configuration>
